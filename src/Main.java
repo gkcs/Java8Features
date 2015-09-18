@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 
@@ -90,48 +91,35 @@ class InputReader {
 
 public class Main {
 
-    public static void main(String args[]) throws IOException, InterruptedException {
+    public static void main(String args[]) throws IOException {
         final InputReader reader = new InputReader(System.in);
         final Solver solver = new Solver();
         final StringBuilder stringBuilder = new StringBuilder();
-        for (int testcases = reader.readInt(); testcases > 0; testcases--) {
-            stringBuilder.append(solver.solve(reader.readString(), reader.readString())).append('\n');
+        final int n = reader.readInt(), a[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = reader.readInt();
         }
+        stringBuilder.append(Arrays.toString(solver.solve(a))).append('\n');
         System.out.println(stringBuilder);
     }
 }
 
 class Solver {
 
-    private int[] failure;
-
-    public int solve(String text, String pattern) {
-        failure = new int[pattern.length()];
-        failure[0] = -1;
-        for (int j = 1; j < pattern.length(); j++) {
-            int i = failure[j - 1];
-            while ((pattern.charAt(j) != pattern.charAt(i + 1)) && i >= 0)
-                i = failure[i];
-            if (pattern.charAt(j) == pattern.charAt(i + 1))
-                failure[j] = i + 1;
-            else
-                failure[j] = -1;
-        }
-        return posMatch(text, pattern);
-    }
-
-    private int posMatch(String text, String pat) {
-        int i = 0, j = 0;
-        while (i < text.length() && j < pat.length()) {
-            if (text.charAt(i) == pat.charAt(j)) {
-                i++;
-                j++;
-            } else if (j == 0) {
-                i++;
-            } else {
-                j = failure[j - 1] + 1;
+    public int[] solve(final int a[]) {
+        final int b[] = new int[a.length];
+        for (int i = 0; i < a.length; i++) {
+            int max = Integer.MIN_VALUE, index = -1;
+            for (int j = 0; j < a.length; j++) {
+                if (max < a[j]) {
+                    max = a[j];
+                    index = j;
+                }
             }
+            b[b.length - 1 - i] = max;
+            a[index] = Integer.MIN_VALUE;
         }
-        return ((j == pat.length()) ? (i - pat.length()) : -1);
+        return b;
     }
+
 }
