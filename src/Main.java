@@ -107,9 +107,8 @@ class Solver {
 
     public int solve(String text, String pattern) {
         failure = new int[pattern.length()];
-        int n = pattern.length();
         failure[0] = -1;
-        for (int j = 1; j < n; j++) {
+        for (int j = 1; j < pattern.length(); j++) {
             int i = failure[j - 1];
             while ((pattern.charAt(j) != pattern.charAt(i + 1)) && i >= 0)
                 i = failure[i];
@@ -133,6 +132,6 @@ class Solver {
                 j = failure[j - 1] + 1;
             }
         }
-        return ((j == pat.length()) ? (i - pat.length()) : 0);
+        return ((j == pat.length()) ? (i - pat.length()) : -1);
     }
 }
