@@ -98,6 +98,7 @@ public class Main {
         final InputReader reader = new InputReader(System.in);
         final StringBuilder stringBuilder = new StringBuilder();
         final Solver solver = new Solver();
+        System.out.println("CHANGE");
         final int n = reader.readInt(), a[] = new int[n];
         for (int i = 0; i < a.length; i++) {
             a[i] = reader.readInt();
