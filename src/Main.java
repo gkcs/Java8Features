@@ -1,8 +1,6 @@
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.InputMismatchException;
-
 
 class InputReader {
     private InputStream stream;
@@ -89,37 +87,23 @@ class InputReader {
     }
 }
 
-public class Main {
-
-    public static void main(String args[]) throws IOException {
-        final InputReader reader = new InputReader(System.in);
-        final Solver solver = new Solver();
-        final StringBuilder stringBuilder = new StringBuilder();
-        final int n = reader.readInt(), a[] = new int[n];
-        for (int i = 0; i < n; i++) {
-            a[i] = reader.readInt();
-        }
-        stringBuilder.append(Arrays.toString(solver.solve(a))).append('\n');
-        System.out.println(stringBuilder);
+class Solver {
+    public int solve(final int a[]) {
+        return 0;
     }
 }
 
-class Solver {
-
-    public int[] solve(final int a[]) {
-        final int b[] = new int[a.length];
+public class Main {
+    public static void main(String args[]) throws IOException {
+        final InputReader reader = new InputReader(System.in);
+        final StringBuilder stringBuilder = new StringBuilder();
+        final Solver solver = new Solver();
+        final int n = reader.readInt(), a[] = new int[n];
         for (int i = 0; i < a.length; i++) {
-            int max = Integer.MIN_VALUE, index = -1;
-            for (int j = 0; j < a.length; j++) {
-                if (max < a[j]) {
-                    max = a[j];
-                    index = j;
-                }
-            }
-            b[b.length - 1 - i] = max;
-            a[index] = Integer.MIN_VALUE;
+            a[i] = reader.readInt();
         }
-        return b;
+        stringBuilder.append(solver.solve(a));
+        System.out.println(stringBuilder);
     }
 
 }
