@@ -87,24 +87,42 @@ class InputReader {
     }
 }
 
-class Solver {
-    public int solve(final int a[]) {
-        return 0;
-    }
-}
-
 public class Main {
     public static void main(String args[]) throws IOException {
         final InputReader reader = new InputReader(System.in);
-        final StringBuilder stringBuilder = new StringBuilder();
-        final Solver solver = new Solver();
-        System.out.println("CHANGE");
-        final int n = reader.readInt(), a[] = new int[n];
-        for (int i = 0; i < a.length; i++) {
-            a[i] = reader.readInt();
+        final int n = reader.readInt(), m = reader.readInt(), k = reader.readInt();
+        boolean board[][] = new boolean[n + 1][m + 1];
+        for (int i = 0; i < k; i++) {
+            board[reader.readInt()][reader.readInt()] = true;
         }
-        stringBuilder.append(solver.solve(a));
-        System.out.println(stringBuilder);
+        final StringBuilder stringBuilder = new StringBuilder();
+        long sums[][][] = new long[n + 1][m + 1][k + 1];
+        sums[1][0][0] = 1;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                for (int l = 0; l <= k; l++) {
+                    sums[i][j][l] = sums[i][j - 1][l] + sums[i - 1][j][l];
+                }
+                if (board[i][j]) {
+                    for (int l = k; l > 0; l--) {
+                        sums[i][j][l] = sums[i][j][l - 1];
+                    }
+                    sums[i][j][0] = 0;
+                }
+            }
+        }
+
+        long totals[] = new long[k];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                for (int l = 0; l < k; l++)
+                    totals[l] = totals[l] + sums[i][j][l];
+            }
+        }
+        for (int i = 0; i <= k; i++) {
+            stringBuilder.append(totals[i]).append(' ');
+        }
+        System.out.println(stringBuilder.toString());
     }
 
 }
