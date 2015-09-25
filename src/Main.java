@@ -1,11 +1,16 @@
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 class InputReader {
     private InputStream stream;
     private byte[] buf = new byte[1024];
     private int curChar;
+
     private int numChars;
 
     public InputReader(InputStream stream) {
@@ -85,44 +90,89 @@ class InputReader {
         while (!isSpaceChar(c));
         return res * sgn;
     }
+
+}
+
+class TaskManager {
+    private List<Thread> threads = new ArrayList<>();
+
+    public void addTask(Runnable task) {
+        threads.add(new Thread(task));
+    }
+
+    private void startAllTasks() {
+        threads.stream().forEach(Thread::start);
+    }
+
+    private void waitForAllToComplete() {
+        threads.stream().forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void removeAllTasks() {
+        threads = new ArrayList<>();
+    }
+
+    public void completeAllTasks() {
+        startAllTasks();
+        waitForAllToComplete();
+        removeAllTasks();
+    }
 }
 
 public class Main {
     public static void main(String args[]) throws IOException {
         final InputReader reader = new InputReader(System.in);
-        final int n = reader.readInt(), m = reader.readInt(), k = reader.readInt();
-        boolean board[][] = new boolean[n + 1][m + 1];
-        for (int i = 0; i < k; i++) {
-            board[reader.readInt()][reader.readInt()] = true;
-        }
-        final StringBuilder stringBuilder = new StringBuilder();
-        long sums[][][] = new long[n + 1][m + 1][k + 1];
-        sums[1][0][0] = 1;
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= m; j++) {
-                for (int l = 0; l <= k; l++) {
-                    sums[i][j][l] = sums[i][j - 1][l] + sums[i - 1][j][l];
-                }
-                if (board[i][j]) {
-                    for (int l = k; l > 0; l--) {
-                        sums[i][j][l] = sums[i][j][l - 1];
-                    }
-                    sums[i][j][0] = 0;
-                }
+        final int testCases = reader.readInt();
+        final int[] n = new int[testCases];
+        final String[] results = new String[testCases];
+        final Solver solver = new Solver();
+        final TaskManager taskManager = new TaskManager();
+        taskManager.addTask(new Thread(solver::setUp));
+        taskManager.addTask(new Thread(() -> {
+            for (int i = 0; i < testCases; i++) {
+                n[i] = reader.readInt();
             }
+        }));
+        taskManager.completeAllTasks();
+        for (int thread = 0; thread < 4; thread++) {
+            final int threadIndex = thread;
+            taskManager.addTask(new Thread(() -> {
+                for (int i = threadIndex; i < testCases; i = i + 4) {
+                    results[i] = solver.solve(n[i]);
+                }
+            }));
         }
-
-        long totals[] = new long[k];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                for (int l = 0; l < k; l++)
-                    totals[l] = totals[l] + sums[i][j][l];
-            }
-        }
-        for (int i = 0; i <= k; i++) {
-            stringBuilder.append(totals[i]).append(' ');
-        }
-        System.out.println(stringBuilder.toString());
+        taskManager.completeAllTasks();
+        System.out.println(Arrays.stream(results).collect(Collectors.joining("\n")));
     }
 
+}
+
+class Solver {
+    private static final int NUMBER_RANGE = 1000000;
+    private int primes[] = new int[78497];
+
+    public void setUp() {
+        final boolean sieve[] = new boolean[NUMBER_RANGE];
+        int count = 0;
+        for (int i = 3; i < NUMBER_RANGE; i = i + 2) {
+            if (!sieve[i]) {
+                primes[count++] = i;
+                for (int j = i * 3; j < NUMBER_RANGE; j = j + (i << 1)) {
+                    sieve[j] = true;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(primes));
+    }
+
+    public String solve(final int val) {
+        return String.valueOf(val);
+    }
 }
