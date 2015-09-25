@@ -132,26 +132,26 @@ public class Main {
         final int[] n = new int[testCases];
         final Solver solver = new Solver();
         final TaskManager taskManager = new TaskManager();
-        taskManager.addTask(new Thread(solver::setUp));
-        taskManager.addTask(new Thread(() -> {
+        taskManager.addTask(solver::setUp);
+        taskManager.addTask(() -> {
             for (int i = 0; i < testCases; i++) {
                 n[i] = reader.readInt();
                 System.out.println(n[i]);
             }
-        }));
+        });
         taskManager.completeAllTasks();
-        final String[] results = new String[testCases];
+        final Boolean[] results = new Boolean[testCases];
         final int noOfThreads = Runtime.getRuntime().availableProcessors();
         for (int thread = 0; thread < noOfThreads; thread++) {
             final int threadIndex = thread;
-            taskManager.addTask(new Thread(() -> {
+            taskManager.addTask(() -> {
                 for (int i = threadIndex; i < testCases; i = i + noOfThreads) {
                     results[i] = solver.solve(n[i]);
                 }
-            }));
+            });
         }
         taskManager.completeAllTasks();
-        System.out.println(Arrays.stream(results).collect(Collectors.joining("\n")));
+        System.out.println(Arrays.stream(results).map(isPrime -> isPrime ? "YES" : "NO").collect(Collectors.joining("\n")));
     }
 
 }
@@ -174,7 +174,7 @@ class Solver {
         System.out.println(Arrays.toString(primes));
     }
 
-    public String solve(final int val) {
-        return String.valueOf(val + 500);
+    public boolean solve(final int val) {
+        return Arrays.binarySearch(primes, val) >= 0;
     }
 }
