@@ -130,20 +130,22 @@ public class Main {
         final InputReader reader = new InputReader(System.in);
         final int testCases = reader.readInt();
         final int[] n = new int[testCases];
-        final String[] results = new String[testCases];
         final Solver solver = new Solver();
         final TaskManager taskManager = new TaskManager();
         taskManager.addTask(new Thread(solver::setUp));
         taskManager.addTask(new Thread(() -> {
             for (int i = 0; i < testCases; i++) {
                 n[i] = reader.readInt();
+                System.out.println(n[i]);
             }
         }));
         taskManager.completeAllTasks();
-        for (int thread = 0; thread < 4; thread++) {
+        final String[] results = new String[testCases];
+        final int noOfThreads = Runtime.getRuntime().availableProcessors();
+        for (int thread = 0; thread < noOfThreads; thread++) {
             final int threadIndex = thread;
             taskManager.addTask(new Thread(() -> {
-                for (int i = threadIndex; i < testCases; i = i + 4) {
+                for (int i = threadIndex; i < testCases; i = i + noOfThreads) {
                     results[i] = solver.solve(n[i]);
                 }
             }));
@@ -173,6 +175,6 @@ class Solver {
     }
 
     public String solve(final int val) {
-        return String.valueOf(val);
+        return String.valueOf(val + 500);
     }
 }
