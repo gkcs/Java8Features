@@ -129,14 +129,13 @@ public class Main {
     public static void main(String args[]) throws IOException {
         final InputReader reader = new InputReader(System.in);
         final int testCases = reader.readInt();
-        final int[] n = new int[testCases];
+        final int[] value = new int[testCases];
         final Solver solver = new Solver();
         final TaskManager taskManager = new TaskManager();
-        taskManager.addTask(solver::setUp);
+        taskManager.addTask(solver::findPrimes);
         taskManager.addTask(() -> {
             for (int i = 0; i < testCases; i++) {
-                n[i] = reader.readInt();
-                System.out.println(n[i]);
+                value[i] = reader.readInt();
             }
         });
         taskManager.completeAllTasks();
@@ -146,7 +145,7 @@ public class Main {
             final int threadIndex = thread;
             taskManager.addTask(() -> {
                 for (int i = threadIndex; i < testCases; i = i + noOfThreads) {
-                    results[i] = solver.solve(n[i]);
+                    results[i] = solver.solve(value[i]);
                 }
             });
         }
@@ -160,7 +159,7 @@ class Solver {
     private static final int NUMBER_RANGE = 1000000;
     private int primes[] = new int[78497];
 
-    public void setUp() {
+    public void findPrimes() {
         final boolean sieve[] = new boolean[NUMBER_RANGE];
         int count = 0;
         for (int i = 3; i < NUMBER_RANGE; i = i + 2) {
