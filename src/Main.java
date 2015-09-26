@@ -94,18 +94,18 @@ class InputReader {
 }
 
 class TaskManager {
-    private List<Thread> threads = new ArrayList<>();
+    private List<Thread> tasks = new ArrayList<>();
 
     public void acceptTask(Runnable task) {
-        threads.add(new Thread(task));
+        tasks.add(new Thread(task));
     }
 
     private void startAllTasks() {
-        threads.stream().forEach(Thread::start);
+        tasks.stream().forEach(Thread::start);
     }
 
     private void waitForAllToComplete() {
-        threads.stream().forEach(thread -> {
+        tasks.stream().forEach(thread -> {
             try {
                 thread.join();
             } catch (InterruptedException e) {
@@ -115,7 +115,7 @@ class TaskManager {
     }
 
     private void removeAllTasks() {
-        threads = new ArrayList<>();
+        tasks = new ArrayList<>();
     }
 
     public void completeAllTasks() {
