@@ -144,18 +144,18 @@ public class Main {
     public static void main(String args[]) throws IOException {
         final InputReader reader = new InputReader(System.in);
         final int testCases = reader.readInt();
-        final int[] inputNumber = new int[testCases];
+        final int[] inputNumbers = new int[testCases];
         final Solver solver = new Solver();
         final TaskManager taskManager = new TaskManager();
         taskManager.acceptTask(solver::findPrimes);
         taskManager.acceptTask(() -> {
             for (int i = 0; i < testCases; i++) {
-                inputNumber[i] = reader.readInt();
+                inputNumbers[i] = reader.readInt();
             }
         });
         taskManager.completeAllTasks();
         final Boolean[] results = new Boolean[testCases];
-        taskManager.cyclicAssignment(testCases, Runtime.getRuntime().availableProcessors(), inputNumber, solver, results);
+        taskManager.cyclicAssignment(testCases, Runtime.getRuntime().availableProcessors(), inputNumbers, solver, results);
         taskManager.completeAllTasks();
         System.out.println(Arrays.stream(results).map(isPrime -> isPrime ? "YES" : "NO").collect(Collectors.joining("\n")));
     }
