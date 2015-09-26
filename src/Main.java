@@ -96,7 +96,7 @@ class InputReader {
 class TaskManager {
     private List<Thread> threads = new ArrayList<>();
 
-    public void addTask(Runnable task) {
+    public void acceptTask(Runnable task) {
         threads.add(new Thread(task));
     }
 
@@ -132,8 +132,8 @@ public class Main {
         final int[] value = new int[testCases];
         final Solver solver = new Solver();
         final TaskManager taskManager = new TaskManager();
-        taskManager.addTask(solver::findPrimes);
-        taskManager.addTask(() -> {
+        taskManager.acceptTask(solver::findPrimes);
+        taskManager.acceptTask(() -> {
             for (int i = 0; i < testCases; i++) {
                 value[i] = reader.readInt();
             }
@@ -143,7 +143,7 @@ public class Main {
         final int noOfThreads = Runtime.getRuntime().availableProcessors();
         for (int thread = 0; thread < noOfThreads; thread++) {
             final int threadIndex = thread;
-            taskManager.addTask(() -> {
+            taskManager.acceptTask(() -> {
                 for (int i = threadIndex; i < testCases; i = i + noOfThreads) {
                     results[i] = solver.solve(value[i]);
                 }
