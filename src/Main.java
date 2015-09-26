@@ -123,6 +123,21 @@ class TaskManager {
         waitForAllToComplete();
         removeAllTasks();
     }
+
+    public void cyclicAssignment(final int testCases,
+                                 final int noOfThreads,
+                                 final int[] inputNumber,
+                                 Solver solver,
+                                 Boolean[] results) {
+        for (int thread = 0; thread < noOfThreads; thread++) {
+            final int threadIndex = thread;
+            acceptTask(() -> {
+                for (int i = threadIndex; i < testCases; i = i + noOfThreads) {
+                    results[i] = solver.solve(inputNumber[i]);
+                }
+            });
+        }
+    }
 }
 
 public class Main {
@@ -140,15 +155,7 @@ public class Main {
         });
         taskManager.completeAllTasks();
         final Boolean[] results = new Boolean[testCases];
-        final int noOfThreads = Runtime.getRuntime().availableProcessors();
-        for (int thread = 0; thread < noOfThreads; thread++) {
-            final int threadIndex = thread;
-            taskManager.acceptTask(() -> {
-                for (int i = threadIndex; i < testCases; i = i + noOfThreads) {
-                    results[i] = solver.solve(inputNumber[i]);
-                }
-            });
-        }
+        taskManager.cyclicAssignment(testCases, Runtime.getRuntime().availableProcessors(), inputNumber, solver, results);
         taskManager.completeAllTasks();
         System.out.println(Arrays.stream(results).map(isPrime -> isPrime ? "YES" : "NO").collect(Collectors.joining("\n")));
     }
@@ -157,11 +164,12 @@ public class Main {
 
 class Solver {
     private static final int NUMBER_RANGE = 1000000;
-    private int primes[] = new int[78497];
+    private int primes[] = new int[78498];
 
     public void findPrimes() {
         final boolean sieve[] = new boolean[NUMBER_RANGE];
-        int count = 0;
+        primes[0] = 2;
+        int count = 1;
         for (int i = 3; i < NUMBER_RANGE; i = i + 2) {
             if (!sieve[i]) {
                 primes[count++] = i;
@@ -173,7 +181,7 @@ class Solver {
         System.out.println(Arrays.toString(primes));
     }
 
-    public boolean solve(final int val) {
+    public Boolean solve(final int val) {
         return Arrays.binarySearch(primes, val) >= 0;
     }
 }
