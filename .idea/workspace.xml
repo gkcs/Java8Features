@@ -4,21 +4,8 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4f402781-6da9-457a-99c5-8716facadc4c" name="Default" comment="*method refactored">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ml/LCMFinder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ml/PrimeNumberGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/BruteForceSolver.class" afterPath="$PROJECT_DIR$/target/classes/BruteForceSolver.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/work/FileMaker$Record.class" afterPath="$PROJECT_DIR$/target/classes/work/FileMaker$Record.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/work/FileMaker.class" afterPath="$PROJECT_DIR$/target/classes/work/FileMaker.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="$PROJECT_DIR$/target/classes/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/MainTest.class" afterPath="$PROJECT_DIR$/target/classes/MainTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/SegmentTree.class" afterPath="$PROJECT_DIR$/target/classes/SegmentTree.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Solver.class" afterPath="$PROJECT_DIR$/target/classes/Solver.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BruteForceSolver.java" afterPath="$PROJECT_DIR$/src/BruteForceSolver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/work/FileMaker.java" afterPath="$PROJECT_DIR$/src/work/FileMaker.java" />
+    <list default="true" id="4f402781-6da9-457a-99c5-8716facadc4c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MainTest.java" afterPath="$PROJECT_DIR$/src/MainTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SegmentTree.java" afterPath="$PROJECT_DIR$/src/SegmentTree.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Java8Features.iws" />
@@ -55,8 +42,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.31722054">
-              <caret line="215" column="21" selection-start-line="215" selection-start-column="21" selection-end-line="215" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.44444445">
+              <caret line="249" column="13" selection-start-line="249" selection-start-column="13" selection-end-line="249" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="class#InputReader#0" expanded="false" />
@@ -64,14 +51,14 @@
                 <element signature="e#349#350#0" expanded="true" />
                 <element signature="e#1295#1296#0" expanded="true" />
                 <element signature="e#1376#1377#0" expanded="true" />
-                <element signature="e#8887#8888#0" expanded="true" />
-                <element signature="e#8938#8939#0" expanded="true" />
-                <element signature="e#8992#8993#0" expanded="true" />
-                <element signature="e#9026#9027#0" expanded="true" />
-                <element signature="e#10404#10405#0" expanded="true" />
-                <element signature="e#10453#10454#0" expanded="true" />
-                <element signature="e#10740#10741#0" expanded="true" />
-                <element signature="e#10785#10786#0" expanded="true" />
+                <element signature="e#9759#9760#0" expanded="true" />
+                <element signature="e#9810#9811#0" expanded="true" />
+                <element signature="e#9864#9865#0" expanded="true" />
+                <element signature="e#9898#9899#0" expanded="true" />
+                <element signature="e#11336#11337#0" expanded="true" />
+                <element signature="e#11385#11386#0" expanded="true" />
+                <element signature="e#11672#11673#0" expanded="true" />
+                <element signature="e#11717#11718#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -790,7 +777,13 @@
       <option name="project" value="LOCAL" />
       <updated>1443246612637</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="*Ant Colony Optimization">
+      <created>1444588005628</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1444588005628</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -828,7 +821,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3993232" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36795774" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36795774" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32931036" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -896,7 +889,8 @@
     <MESSAGE value="*renamed queue in taskmanager" />
     <MESSAGE value="*renamed input number&#10;" />
     <MESSAGE value="*method refactored" />
-    <option name="LAST_COMMIT_MESSAGE" value="*method refactored" />
+    <MESSAGE value="*Ant Colony Optimization" />
+    <option name="LAST_COMMIT_MESSAGE" value="*Ant Colony Optimization" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1334,8 +1328,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31722054">
-          <caret line="215" column="21" selection-start-line="215" selection-start-column="21" selection-end-line="215" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.44444445">
+          <caret line="249" column="13" selection-start-line="249" selection-start-column="13" selection-end-line="249" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="class#InputReader#0" expanded="false" />
@@ -1343,14 +1337,14 @@
             <element signature="e#349#350#0" expanded="true" />
             <element signature="e#1295#1296#0" expanded="true" />
             <element signature="e#1376#1377#0" expanded="true" />
-            <element signature="e#8887#8888#0" expanded="true" />
-            <element signature="e#8938#8939#0" expanded="true" />
-            <element signature="e#8992#8993#0" expanded="true" />
-            <element signature="e#9026#9027#0" expanded="true" />
-            <element signature="e#10404#10405#0" expanded="true" />
-            <element signature="e#10453#10454#0" expanded="true" />
-            <element signature="e#10740#10741#0" expanded="true" />
-            <element signature="e#10785#10786#0" expanded="true" />
+            <element signature="e#9759#9760#0" expanded="true" />
+            <element signature="e#9810#9811#0" expanded="true" />
+            <element signature="e#9864#9865#0" expanded="true" />
+            <element signature="e#9898#9899#0" expanded="true" />
+            <element signature="e#11336#11337#0" expanded="true" />
+            <element signature="e#11385#11386#0" expanded="true" />
+            <element signature="e#11672#11673#0" expanded="true" />
+            <element signature="e#11717#11718#0" expanded="true" />
           </folding>
         </state>
       </provider>

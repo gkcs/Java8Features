@@ -120,7 +120,8 @@ public class Main {
 
 class Solver {
 
-    private final int maxPath[][] = new int[2][];
+    private int maxPath[][] = new int[2][];
+    private int maxPathLength;
     private final int maxIncome;
     private final int largestWeight;
     private final AntColony antColony;
@@ -142,7 +143,7 @@ class Solver {
         orders = new Order[numberOfOrders];
         int max = 0, mweight = 0;
         for (int i = 0; i < numberOfOrders; i++) {
-            orders[i] = new Order(source[i], destination[i], weight[i], income[i]);
+            orders[i] = new Order(source[i], destination[i], weight[i], income[i], i + 1);
             if (income[i] > max) {
                 max = income[i];
             }
@@ -167,12 +168,15 @@ class Solver {
 
     public String solve(final int STARTING_POINT, final int FUEL, final int CAPACITY) {
         //send some ants
+        long largestIncome = 0;
         int currentCity = STARTING_POINT;
         int currentFuel = FUEL;
         int currentCapacity = CAPACITY;
+        long currentIncome = 0;
+        int pathLength = 0;
         final Order inventory[] = new Order[orders.length];
         int itemCount = 0;
-        double profit = 0;
+        int path[][] = new int[2][antColony.cityRoutes.length - 1];
         //each ant has a lifespan
         for (int life = 100; life > 0; life++) {
             double probability[] = new double[antColony.optionCount[currentCity]];
@@ -184,13 +188,16 @@ class Solver {
                     if (Math.random() <= pickUpProbability(currentFuel, order.weight, order.income, FUEL)) {
                         inventory[itemCount++] = order;
                         currentCapacity = currentCapacity - order.weight;
+                        path[0][pathLength] = 1;
+                        path[1][pathLength] = order.index;
+                        pathLength++;
                     }
                 }
             }
             //search for the next destination
             for (int destination = 0; destination < antColony.optionCount[currentCity]; destination++) {
                 Route route = antColony.routes[antColony.cityRoutes[currentCity] + destination];
-                int income = 0;
+                long income = 0;
                 if (route.distance <= currentFuel) {
                     for (int item = 0; item < itemCount; item++) {
                         if (inventory[item] != null && inventory[item].destination == destination) {
@@ -209,7 +216,10 @@ class Solver {
                     probability[destination] = probability[destination] / probSum;
                     if (probability[destination] >= roulette) {
                         trip = antColony.routes[antColony.cityRoutes[currentCity] + destination];
-                        currentCity = destination;
+                        path[0][pathLength] = 0;
+                        path[1][pathLength] = trip.to;
+                        pathLength++;
+                        currentCity = trip.to;
                         break;
                     } else {
                         roulette = roulette - probability[destination];
@@ -222,21 +232,30 @@ class Solver {
             //drop all items with this destination
             for (int parcel = 0; parcel < itemCount; parcel++) {
                 if (inventory[parcel] != null && inventory[parcel].destination == currentCity) {
-                    profit = profit + inventory[parcel].income;
+                    currentIncome = currentIncome + inventory[parcel].income;
+                    path[0][pathLength] = 2;
+                    path[1][pathLength] = inventory[parcel].index;
+                    pathLength++;
                     inventory[parcel] = null;
                 }
             }
             currentFuel = currentFuel - trip.distance;
             //set the maxPath if maximum and update pheromone if valid path
-
+            if (true) {
+                if (largestIncome < currentIncome) {
+                    largestIncome = currentIncome;
+                    maxPath = path;
+                    maxPathLength = pathLength;
+                }
+            }
             //found the next city
         }
-        return printPath(maxPath);
+        return printPath(maxPath, maxPathLength);
     }
 
-    private String printPath(int path[][]) {
+    private String printPath(int path[][], int length) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < path[0].length; i++) {
+        for (int i = 0; i < length; i++) {
             stringBuilder.append(path[0][i]).append(' ').append(path[1][i]).append('\n');
         }
         return stringBuilder.toString();
@@ -296,12 +315,14 @@ class Order implements Comparable<Order> {
     final int destination;
     final int weight;
     final int income;
+    final int index;
 
-    Order(int source, int destination, int weight, int income) {
+    Order(int source, int destination, int weight, int income, int index) {
         this.source = source;
         this.destination = destination;
         this.weight = weight;
         this.income = income;
+        this.index = index;
     }
 
     @Override
