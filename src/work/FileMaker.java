@@ -4,33 +4,22 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Arrays;
-import java.util.Hashtable;
 
 public class FileMaker {
 
     public static void main(String args[]) throws IOException, ParseException {
-        final BufferedReader bufferedReader = new BufferedReader(new FileReader("/Users/gaurav.se/Documents/GuidList-KE-NZ-AU-BI.txt"));
+        final BufferedReader bufferedReader = new BufferedReader(new FileReader("/Users/gaurav.se/Documents/Guids.txt"));
         final StringBuilder sb = new StringBuilder();
-        Hashtable<String, Integer> guids = new Hashtable<>();
         for (String s = bufferedReader.readLine(); s != null; s = bufferedReader.readLine()) {
-            if (s.length() > 0) {
-                guids.put(s, guids.getOrDefault(s, 0) + 1);
+            if (s.length() > 0 && s.charAt(0) == '|') {
+                String s1 = s.split("@a")[0];
+                sb.append(s1.split(" ")[1]).append('\n');
+            } else {
+                sb.append(s).append('\n');
             }
         }
         bufferedReader.close();
-        int counts[] = new int[5];
-        final BufferedReader br = new BufferedReader(new FileReader("/Users/gaurav.se/Documents/GuidList-KE-NZ-AU-BI.txt"));
-        for (String s = br.readLine(); s != null; s = br.readLine()) {
-            if (s.length() > 0) {
-                counts[guids.getOrDefault(s, 0)]++;
-                if (guids.getOrDefault(s, 0) == 1) {
-                    sb.append(s).append('\n');
-                }
-            }
-        }
         System.out.println(sb);
-        System.out.println(Arrays.toString(counts));
     }
 
     public static class Record {

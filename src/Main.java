@@ -1,14 +1,12 @@
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 class InputReader {
     private InputStream stream;
     private byte[] buf = new byte[1024];
+
     private int curChar;
 
     private int numChars;
@@ -91,97 +89,239 @@ class InputReader {
         return res * sgn;
     }
 
-}
 
-class TaskManager {
-    private List<Thread> tasks = new ArrayList<>();
-
-    public void acceptTask(Runnable task) {
-        tasks.add(new Thread(task));
-    }
-
-    private void startAllTasks() {
-        tasks.stream().forEach(Thread::start);
-    }
-
-    private void waitForAllToComplete() {
-        tasks.stream().forEach(thread -> {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    private void removeAllTasks() {
-        tasks = new ArrayList<>();
-    }
-
-    public void completeAllTasks() {
-        startAllTasks();
-        waitForAllToComplete();
-        removeAllTasks();
-    }
-
-    public void cyclicAssignment(final int testCases,
-                                 final int noOfThreads,
-                                 final int[] inputNumber,
-                                 Solver solver,
-                                 Boolean[] results) {
-        for (int thread = 0; thread < noOfThreads; thread++) {
-            final int threadIndex = thread;
-            acceptTask(() -> {
-                for (int i = threadIndex; i < testCases; i = i + noOfThreads) {
-                    results[i] = solver.solve(inputNumber[i]);
-                }
-            });
-        }
-    }
 }
 
 public class Main {
+
     public static void main(String args[]) throws IOException {
-        final InputReader reader = new InputReader(System.in);
-        final int testCases = reader.readInt();
-        final int[] inputNumbers = new int[testCases];
-        final Solver solver = new Solver();
-        final TaskManager taskManager = new TaskManager();
-        taskManager.acceptTask(solver::findPrimes);
-        taskManager.acceptTask(() -> {
-            for (int i = 0; i < testCases; i++) {
-                inputNumbers[i] = reader.readInt();
-            }
-        });
-        taskManager.completeAllTasks();
-        final Boolean[] results = new Boolean[testCases];
-        taskManager.cyclicAssignment(testCases, Runtime.getRuntime().availableProcessors(), inputNumbers, solver, results);
-        taskManager.completeAllTasks();
-        System.out.println(Arrays.stream(results).map(isPrime -> isPrime ? "YES" : "NO").collect(Collectors.joining("\n")));
+        final InputReader br = new InputReader(System.in);
+        final int cities = br.readInt(), roads = br.readInt();
+        final int[] from = new int[roads], to = new int[roads], distance = new int[roads];
+        for (int i = 0; i < roads; i++) {
+            from[i] = br.readInt();
+            to[i] = br.readInt();
+            distance[i] = br.readInt();
+        }
+        final int orders = br.readInt();
+        final int[] source = new int[orders], destination = new int[orders], weight = new int[orders], income = new int[orders];
+        for (int i = 0; i < orders; i++) {
+            source[i] = br.readInt();
+            destination[i] = br.readInt();
+            weight[i] = br.readInt();
+            income[i] = br.readInt();
+        }
+        final int STARTING_POINT = br.readInt(), FUEL = br.readInt(), CAPACITY = br.readInt();
+        final Solver solver = new Solver(cities, roads, from, to, distance, orders, source, destination, weight, income);
+        System.out.println(solver.solve(STARTING_POINT, FUEL, CAPACITY));
     }
 
 }
 
 class Solver {
-    private static final int NUMBER_RANGE = 1000000;
-    private int primes[] = new int[78498];
 
-    public void findPrimes() {
-        final boolean sieve[] = new boolean[NUMBER_RANGE];
-        primes[0] = 2;
-        int count = 1;
-        for (int i = 3; i < NUMBER_RANGE; i = i + 2) {
-            if (!sieve[i]) {
-                primes[count++] = i;
-                for (int j = i * 3; j < NUMBER_RANGE; j = j + (i << 1)) {
-                    sieve[j] = true;
-                }
+    private final int maxPath[][] = new int[2][];
+    private final int maxIncome;
+    private final int largestWeight;
+    private final AntColony antColony;
+    private final Order orders[];
+    final int deliveries[];
+    final int customers[];
+
+    public Solver(final int cities,
+                  final int roads,
+                  final int[] from,
+                  final int[] to,
+                  final int[] distance,
+                  final int numberOfOrders,
+                  final int[] source,
+                  final int[] destination,
+                  final int[] weight,
+                  final int[] income) {
+        antColony = new AntColony(cities, roads, from, to, distance);
+        orders = new Order[numberOfOrders];
+        int max = 0, mweight = 0;
+        for (int i = 0; i < numberOfOrders; i++) {
+            orders[i] = new Order(source[i], destination[i], weight[i], income[i]);
+            if (income[i] > max) {
+                max = income[i];
+            }
+            if (weight[i] > mweight) {
+                mweight = weight[i];
             }
         }
-        System.out.println(Arrays.toString(primes));
+        Arrays.sort(orders);
+        deliveries = new int[orders.length];
+        customers = new int[orders.length];
+        for (int i = 1; i < orders.length; i++) {
+            if (orders[i].source != orders[i - 1].source) {
+                deliveries[orders[i].source] = i;
+                customers[orders[i].source] = 1;
+            } else {
+                customers[orders[i].source]++;
+            }
+        }
+        maxIncome = max;
+        largestWeight = mweight;
     }
 
-    public Boolean solve(final int val) {
-        return Arrays.binarySearch(primes, val) >= 0;
+    public String solve(final int STARTING_POINT, final int FUEL, final int CAPACITY) {
+        //send some ants
+        int currentCity = STARTING_POINT;
+        int currentFuel = FUEL;
+        int currentCapacity = CAPACITY;
+        final Order inventory[] = new Order[orders.length];
+        int itemCount = 0;
+        double profit = 0;
+        //each ant has a lifespan
+        for (int life = 100; life > 0; life++) {
+            double probability[] = new double[antColony.optionCount[currentCity]];
+            double probSum = 0;
+            //add items to inventory
+            for (int item = 0; item < customers[currentCity]; item++) {
+                Order order = orders[deliveries[currentCity] + item];
+                if (order.weight <= currentCapacity) {
+                    if (Math.random() <= pickUpProbability(currentFuel, order.weight, order.income, FUEL)) {
+                        inventory[itemCount++] = order;
+                        currentCapacity = currentCapacity - order.weight;
+                    }
+                }
+            }
+            //search for the next destination
+            for (int destination = 0; destination < antColony.optionCount[currentCity]; destination++) {
+                Route route = antColony.routes[antColony.cityRoutes[currentCity] + destination];
+                int income = 0;
+                if (route.distance <= currentFuel) {
+                    for (int item = 0; item < itemCount; item++) {
+                        if (inventory[item] != null && inventory[item].destination == destination) {
+                            income += inventory[item].income;
+                        }
+                    }
+                    probability[destination] = tripProbability(route.pheromone, route.distance, income);
+                    probSum = probSum + probability[destination];
+                }
+            }
+            //find next destination
+            Route trip = null;
+            double roulette = Math.random();
+            for (int destination = 0; destination < probability.length; destination++) {
+                if (probability[destination] > 0) {
+                    probability[destination] = probability[destination] / probSum;
+                    if (probability[destination] >= roulette) {
+                        trip = antColony.routes[antColony.cityRoutes[currentCity] + destination];
+                        currentCity = destination;
+                        break;
+                    } else {
+                        roulette = roulette - probability[destination];
+                    }
+                }
+            }
+            if (trip == null) {
+                break;
+            }
+            //drop all items with this destination
+            for (int parcel = 0; parcel < itemCount; parcel++) {
+                if (inventory[parcel] != null && inventory[parcel].destination == currentCity) {
+                    profit = profit + inventory[parcel].income;
+                    inventory[parcel] = null;
+                }
+            }
+            currentFuel = currentFuel - trip.distance;
+            //set the maxPath if maximum and update pheromone if valid path
+
+            //found the next city
+        }
+        return printPath(maxPath);
+    }
+
+    private String printPath(int path[][]) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < path[0].length; i++) {
+            stringBuilder.append(path[0][i]).append(' ').append(path[1][i]).append('\n');
+        }
+        return stringBuilder.toString();
+    }
+
+    private double pickUpProbability(int fuel, int weight, double income, double startFuel) {
+        return fuel * income * largestWeight / (weight * startFuel * maxIncome);
+    }
+
+    private double tripProbability(double deposition, int distance, double income) {
+        return (income / maxIncome + deposition) / distance;
+    }
+
+    private double pheromoneUpdate(double deposition, double pheromone) {
+        return 0.6 * deposition + pheromone;
+    }
+
+    private double pheromoneDeposit(double length) {
+        return 15 / length;
+    }
+
+}
+
+class AntColony {
+
+    final Route routes[];
+    final int cityRoutes[];
+    final int optionCount[];
+
+    public AntColony(final int cities,
+                     final int roads,
+                     final int[] from,
+                     final int[] to,
+                     final int[] distance) {
+        this.routes = new Route[roads << 1];
+        this.cityRoutes = new int[cities + 1];
+        this.optionCount = new int[cities + 1];
+        for (int i = 0; i < routes.length; i = i + 2) {
+            routes[i] = new Route(to[i], from[i], distance[i]);
+            routes[i + 1] = new Route(from[i], to[i], distance[i]);
+        }
+        Arrays.parallelSort(routes);
+        for (int i = 1; i < routes.length; i++) {
+            if (routes[i].from != routes[i - 1].from) {
+                cityRoutes[routes[i].from] = i;
+                optionCount[routes[i].from] = 1;
+            } else {
+                optionCount[routes[i].from]++;
+            }
+        }
+    }
+
+}
+
+class Order implements Comparable<Order> {
+    final int source;
+    final int destination;
+    final int weight;
+    final int income;
+
+    Order(int source, int destination, int weight, int income) {
+        this.source = source;
+        this.destination = destination;
+        this.weight = weight;
+        this.income = income;
+    }
+
+    @Override
+    public int compareTo(Order other) {
+        return this.source - other.source;
+    }
+}
+
+class Route implements Comparable<Route> {
+    final int to, from, distance;
+    int pheromone;
+
+    Route(int to, int from, int distance) {
+        this.to = to;
+        this.from = from;
+        this.distance = distance;
+    }
+
+    @Override
+    public int compareTo(Route other) {
+        return this.from - other.from;
     }
 }
