@@ -1,4 +1,41 @@
-//import org.junit.Test;
+import org.junit.Test;
+
+import java.util.Random;
+
+public class MainTest {
+
+    public static final int MAX = 100000;
+
+    @Test
+    public void test() {
+        //final int cities = 100000, routes = 100000, weights = 100000, costs = 100000, distances = 100000;
+        final int cities = 100, routes = 100, weights = 100, costs = 100, distances = 100;
+        final int from[] = new int[routes];
+        final int to[] = new int[routes];
+        final int distance[] = new int[routes];
+        final Random random = new Random();
+        for (int i = 0; i < routes; i++) {
+            from[i] = random.nextInt(cities) + 1;
+            to[i] = random.nextInt(cities) + 1;
+            distance[i] = random.nextInt(distances) + 1;
+        }
+        final int numberOfOrders = 100;
+        final int source[] = new int[routes];
+        final int destination[] = new int[routes];
+        final int weight[] = new int[routes];
+        final int income[] = new int[routes];
+        for (int i = 0; i < numberOfOrders; i++) {
+            source[i] = random.nextInt(cities) + 1;
+            destination[i] = random.nextInt(cities) + 1;
+            weight[i] = random.nextInt(weights) + 1;
+            income[i] = random.nextInt(costs) + 1;
+        }
+        final Solver solver = new Solver(cities, routes, from, to, distance, numberOfOrders, source, destination, weight, income);
+        System.out.println(solver.solve(random.nextInt(cities) + 1, MAX, MAX));
+    }
+}
+
+// import org.junit.Test;
 //
 //import java.util.Arrays;
 //import java.util.Random;

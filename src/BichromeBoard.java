@@ -1,50 +1,25 @@
-import java.util.Arrays;
+import java.io.IOException;
 
 public class BichromeBoard {
-    private final int a[];
-    private final long frequencies[];
-
-    public BichromeBoard(int[] a) {
-        frequencies = new long[a.length];
-        int b[] = new int[a.length];
-        System.arraycopy(a, 0, b, 0, a.length);
-        Arrays.sort(b);
-        this.a = b;
-        for (int i = 0; i < a.length; i++) {
-            for (int j = i; j < a.length; j++) {
-                int max = -1;
-                for (int k = i; k <= j; k++) {
-                    if (a[k] > max) {
-                        max = a[k];
-                    }
-                }
-                frequencies[Arrays.binarySearch(b, max)]++;
-            }
+    public static void main(String args[]) throws IOException {
+        final InputReader br = new InputReader(System.in);
+        final int cities = br.readInt(), roads = br.readInt();
+        final int[] from = new int[roads], to = new int[roads], distance = new int[roads];
+        for (int i = 0; i < roads; i++) {
+            from[i] = br.readInt();
+            to[i] = br.readInt();
+            distance[i] = br.readInt();
         }
-    }
-
-    public long solve(int filter, int val) {
-        long sum = 0;
-        if (filter == '>') {
-            for (int i = 0; i < a.length; i++) {
-                if (a[i] > val) {
-                    sum += frequencies[i];
-                }
-            }
-        } else if (filter == '<') {
-            for (int i = 0; i < a.length; i++) {
-                if (a[i] < val) {
-                    sum += frequencies[i];
-                }
-            }
-        } else {
-            for (int i = 0; i < a.length; i++) {
-                if (a[i] == val) {
-                    sum += frequencies[i];
-                }
-            }
+        final int orders = br.readInt();
+        final int[] source = new int[orders], destination = new int[orders], weight = new int[orders], income = new int[orders];
+        for (int i = 0; i < orders; i++) {
+            source[i] = br.readInt();
+            destination[i] = br.readInt();
+            weight[i] = br.readInt();
+            income[i] = br.readInt();
         }
-        return sum;
+        final int STARTING_POINT = br.readInt(), FUEL = br.readInt(), CAPACITY = br.readInt();
+        System.out.println(0);
     }
 
 }
