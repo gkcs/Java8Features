@@ -4,22 +4,28 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.HashSet;
 
 public class FileMaker {
 
     public static void main(String args[]) throws IOException, ParseException {
-        final BufferedReader bufferedReader = new BufferedReader(new FileReader("/Users/gaurav.se/Documents/Guids.txt"));
-        final StringBuilder sb = new StringBuilder();
+        final BufferedReader bufferedReader = new BufferedReader(new FileReader("/Users/gaurav.se/Documents/DrainFailCalls.txt"));
+        BufferedReader bufferedReader1 = new BufferedReader(new FileReader("/Users/gaurav.se/Documents/Node103.txt"));
+        HashSet<String> strings = new HashSet<>();
         for (String s = bufferedReader.readLine(); s != null; s = bufferedReader.readLine()) {
             if (s.length() > 0 && s.charAt(0) == '|') {
-                String s1 = s.split("@a")[0];
-                sb.append(s1.split(" ")[1]).append('\n');
-            } else {
-                sb.append(s).append('\n');
+                strings.add(s.substring(2, s.length() - 2));
             }
         }
         bufferedReader.close();
-        System.out.println(sb);
+        HashSet<String> other = new HashSet<>();
+        String p = "string";
+        while (p != null && !p.equals("")) {
+            other.add(p = bufferedReader1.readLine());
+        }
+
+        strings.stream().filter(s -> !other.contains(s)).forEach(System.out::println);
+        //System.out.println(sb);
     }
 
     public static class Record {
