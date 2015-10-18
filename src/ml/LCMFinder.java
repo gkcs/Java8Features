@@ -74,10 +74,6 @@ public class LCMFinder {
                 }
             }
         }
-        System.out.println("INSIDE");
-        int j=0;j=3;
-        j++;
-        System.out.println(j);
         return (int) rangers;
     }
 
