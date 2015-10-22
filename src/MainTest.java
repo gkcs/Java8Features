@@ -30,8 +30,8 @@ public class MainTest {
             weight[i] = random.nextInt(weights) + 1;
             income[i] = random.nextInt(costs) + 1;
         }
-        final Solver solver = new Solver(cities, routes, from, to, distance, numberOfOrders, source, destination, weight, income);
-        System.out.println(solver.solve(random.nextInt(cities) + 1, MAX, MAX));
+        final AntColonyOptimization antColonyOptimization = new AntColonyOptimization(cities, routes, from, to, distance, numberOfOrders, source, destination, weight, income);
+        System.out.println(antColonyOptimization.solve(random.nextInt(cities) + 1, MAX, MAX));
     }
 }
 
@@ -49,7 +49,7 @@ public class MainTest {
 //
 //    @Test
 //    public void test() {
-//        final Solver solver = new Solver(N);
+//        final AntColonyOptimization solver = new AntColonyOptimization(N);
 //        final BruteForceSolver bruteForceSolver = new BruteForceSolver(N);
 //        final int n = 2000, k = 1000;
 //        assertEquals(bruteForceSolver.lcm(n, k), solver.lcm(n, k));
@@ -57,7 +57,7 @@ public class MainTest {
 //
 //    @Test
 //    public void test1() {
-//        final Solver solver = new Solver(N);
+//        final AntColonyOptimization solver = new AntColonyOptimization(N);
 //        final BruteForceSolver bruteForceSolver = new BruteForceSolver(N);
 //        final int n = 7, k = 1;
 //        System.out.println(n + " " + k);
@@ -66,7 +66,7 @@ public class MainTest {
 //
 //    @Test
 //    public void test3() {
-//        final Solver solver = new Solver(N);
+//        final AntColonyOptimization solver = new AntColonyOptimization(N);
 //        final BruteForceSolver bruteForceSolver = new BruteForceSolver(N);
 //        final int n = 97, k = 47;
 //        System.out.println(n + " " + k);
@@ -75,7 +75,7 @@ public class MainTest {
 //
 //    @Test
 //    public void test2() {
-//        final Solver solver = new Solver(N);
+//        final AntColonyOptimization solver = new AntColonyOptimization(N);
 //        final BruteForceSolver bruteForceSolver = new BruteForceSolver(N);
 //        final int n = N, k = N;
 //        assertEquals(bruteForceSolver.lcm(n, k), solver.lcm(n, k));
@@ -83,7 +83,7 @@ public class MainTest {
 //
 //    @Test
 //    public void testRandom() {
-//        final Solver solver = new Solver(N);
+//        final AntColonyOptimization solver = new AntColonyOptimization(N);
 //        final BruteForceSolver bruteForceSolver = new BruteForceSolver(N);
 //        for (int i = 0; i < 100; i++) {
 //            final Random random = new Random();
@@ -95,7 +95,7 @@ public class MainTest {
 //
 //    @Test
 //    public void speed() {
-//        final Solver solver = new Solver(N);
+//        final AntColonyOptimization solver = new AntColonyOptimization(N);
 //        final StringBuilder stringBuilder = new StringBuilder();
 //        for (int i = 0; i < 1000000; i++) {
 //            final Random random = new Random();
@@ -107,7 +107,7 @@ public class MainTest {
 //
 //    @Test
 //    public void check() {
-//        final Solver solver = new Solver(N);
+//        final AntColonyOptimization solver = new AntColonyOptimization(N);
 //        final BruteForceSolver bruteForceSolver = new BruteForceSolver(N);
 //        final Random random = new Random();
 //        final int t = 1000, N1 = 50, K1 = 7, M = 10000, A = 0, B = 0;
@@ -123,7 +123,7 @@ public class MainTest {
 //    @Test
 //    public void speedCheck() {
 //        final int M=10000;
-//        final Solver solver = new Solver(M);
+//        final AntColonyOptimization solver = new AntColonyOptimization(M);
 //        final Random random = new Random();
 //        final int t = 1000, N1 = random.nextInt(M)+1, K1 = random.nextInt(N1)+1, A = 0, B = 0;
 //        final int C[] = new int[t - 1];
@@ -144,7 +144,7 @@ public class MainTest {
 //    public static void main(String args[]) throws IOException {
 //        final InputReader br = new InputReader(System.in);
 //        final StringBuilder stringBuilder = new StringBuilder();
-//        final Solver solver = new Solver();
+//        final AntColonyOptimization solver = new AntColonyOptimization();
 //        final int n = br.readInt(), m = br.readInt();
 //        final int[] x = new int[m], y = new int[m], l = new int[m];
 //        for (int i = 0; i < m; i++) {
@@ -167,7 +167,7 @@ public class MainTest {
 //
 //}
 //
-//class Solver {
+//class AntColonyOptimization {
 //    public int solve(final int n,
 //                     final int m,
 //                     final int[] x,

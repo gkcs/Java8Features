@@ -112,13 +112,13 @@ public class Main {
             income[i] = br.readInt();
         }
         final int STARTING_POINT = br.readInt(), FUEL = br.readInt(), CAPACITY = br.readInt();
-        final Solver solver = new Solver(cities, roads, from, to, distance, orders, source, destination, weight, income);
-        System.out.println(solver.solve(STARTING_POINT, FUEL, CAPACITY));
+        final AntColonyOptimization antColonyOptimization = new AntColonyOptimization(cities, roads, from, to, distance, orders, source, destination, weight, income);
+        System.out.println(antColonyOptimization.solve(STARTING_POINT, FUEL, CAPACITY));
     }
 
 }
 
-class Solver {
+class AntColonyOptimization {
 
     public static final int LIFE_SPAN = 3500;
     public static final int POPULATION = 400;
@@ -131,16 +131,16 @@ class Solver {
     private final int deliveries[];
     private final int customers[];
 
-    public Solver(final int cities,
-                  final int roads,
-                  final int[] from,
-                  final int[] to,
-                  final int[] distance,
-                  final int numberOfOrders,
-                  final int[] source,
-                  final int[] destination,
-                  final int[] weight,
-                  final int[] income) {
+    public AntColonyOptimization(final int cities,
+                                 final int roads,
+                                 final int[] from,
+                                 final int[] to,
+                                 final int[] distance,
+                                 final int numberOfOrders,
+                                 final int[] source,
+                                 final int[] destination,
+                                 final int[] weight,
+                                 final int[] income) {
         antColony = new AntColony(cities, roads, from, to, distance);
         orders = new Order[numberOfOrders];
         int max = 0, mweight = 0;
