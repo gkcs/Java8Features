@@ -1,11 +1,9 @@
 package ml;
 
-import java.util.Arrays;
-
 /**
- * 1) Brute Force Approach - Back tracking
- * 2) Greedy Approach - Fast, suboptimal
- * 3) Evolutionary Algorithm
+ * 1) Brute force Approach
+ * 2) Greedy Approach
+ * 3) Evolutionary Algorithm Approach
  */
 
 public class TheImpossibleProblem {
@@ -16,15 +14,26 @@ public class TheImpossibleProblem {
         for (int i = 0; i < n; i++) {
             a[i] = reader.readInt();
         }
-        System.out.println(Arrays.deepToString(bruteForce(a)));
+        System.out.println();
     }
 
     private static int[][] bruteForce(int a[]) {
-        //generate all possible binary numbers between 1 and 2^20
-        //if the ith bit in the binary number is 1: add element to group 2
-        //if the ith bit in the binary number is 0: add element to group 1
-        //find the difference in sums
-        //print the best possible combination
+        //generate all binary numbers between 1 and 2^n --> zeros and ones
+        //if the ith bit in the binary number is one-> the ith element belongs to group 2
+        //if the ith bit in the binary number is zero-> the ith element belongs to group 1
+        //find the difference in the group sums
+        //take the result such that difference is minimum
+        return new int[a.length][2];
+    }
+
+    //Partition problem
+
+    //difference the two groups
+    //individual --> random binary
+    private static int[][] geneticAlgorithm(int a[]){
+        //Higher fitness --> Higher probabilty to mate--> Higher chance of offspring
+        //Some common attributes from both parents
+        //replace the parents with the children
         return null;
     }
 }
