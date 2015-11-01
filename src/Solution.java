@@ -1,52 +1,9 @@
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
-public class Main {
-
-    public static void main(String args[]) throws IOException, InterruptedException {
-        final InputReader br = new InputReader(System.in);
-        final BigInteger t = BigInteger.valueOf(br.readLong()), w = BigInteger.valueOf(br.readLong()), b = BigInteger.valueOf(br.readLong());
-        System.out.println(new Solver().solve(t, w, b));
-    }
-}
-
-class Solver {
-
-    private BigInteger gcd(BigInteger a, BigInteger b) {
-        if (a.compareTo(b) < 0) {
-            BigInteger temp = a;
-            a = b;
-            b = temp;
-        }
-        while (!b.equals(BigInteger.ZERO)) {
-            BigInteger temp = a.mod(b);
-            a = b;
-            b = temp;
-        }
-        return a;
-    }
-
-    public String solve(BigInteger t, BigInteger w, BigInteger b) {
-        BigInteger smaller = w.compareTo(b) > 0 ? (b.subtract(BigInteger.ONE)) : (w.subtract(BigInteger.ONE));
-        BigInteger tot = smaller;
-        BigInteger lcm = w.divide(gcd(w, b)).multiply(b);
-        BigInteger added = t.divide(lcm);
-        added = added.multiply(smaller.add(BigInteger.ONE));
-        BigInteger remainder = t.mod(lcm);
-        if (remainder.compareTo(smaller) < 0) {
-            added = added.subtract(smaller.subtract(remainder));
-        }
-        tot = tot.add(added);
-        BigInteger gcd = gcd(t, tot);
-        tot = tot.divide(gcd);
-        t = t.divide(gcd);
-        return tot + "/" + t;
-    }
-}
-
-class InputReader {
+class InputReaders {
     private InputStream stream;
     private byte[] buf = new byte[1024];
 
@@ -54,7 +11,7 @@ class InputReader {
 
     private int numChars;
 
-    public InputReader(InputStream stream) {
+    public InputReaders(InputStream stream) {
         this.stream = stream;
     }
 
@@ -133,4 +90,46 @@ class InputReader {
     }
 
 
+}
+
+public class Solution {
+
+    public static void main(String[] args) throws IOException {
+        InputReaders br = new InputReaders(System.in);
+        final int n = br.readInt();
+        final int[] sides = new int[n], frequencies = new int[10001];
+        for (int i = 0; i < n; i++) {
+            sides[i] = br.readInt();
+            frequencies[sides[i]]++;
+        }
+        int acute = 0, right = 0, obtuse = 0;
+        for (int i = 0; i < n; i++) {
+            int largest = sides[n - 1 - i];
+            for (int j = 0; j < n; j++) {
+                int smallest = sides[j];
+                int lowerRange = largest - smallest + 1;
+                int start = Arrays.binarySearch(sides, j, n - i, lowerRange);
+                if (start < 0) {
+                    start = -start - 1;
+                } else {
+                    while (start > 0 && sides[start - 1] == lowerRange) {
+                        start--;
+                    }
+                }
+                int rightAngleSide = (int) Math.sqrt(largest * largest - smallest * smallest);
+                if (rightAngleSide * rightAngleSide + smallest * smallest == largest * largest) {
+                    int mid = Arrays.binarySearch(sides, start, n - i, rightAngleSide);
+                    if(mid<0){
+                        right=n-i-mid;
+                    }
+                    else{
+
+                    }
+                } else {
+                    int mid = Arrays.binarySearch(sides, start, n - i, rightAngleSide);
+                }
+            }
+        }
+        System.out.println(acute + " " + right + " " + obtuse);
+    }
 }
