@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class CSVReader {
     private final List<Passenger> passengerList = new ArrayList<>();
@@ -12,9 +14,8 @@ public class CSVReader {
     //PassengerId,Survived,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked
     public CSVReader() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader("/Users/gaurav.se/Downloads/Titanic Kaggle/train.csv"));
-        System.out.println(bufferedReader.readLine());
+        bufferedReader.readLine();
         for (String s = bufferedReader.readLine(); s != null && !s.equals(""); s = bufferedReader.readLine()) {
-            System.out.println(s);
             String attributes[] = s.split(",");
             passengerList.add(new Passenger(Integer.parseInt(attributes[0]),
                     Integer.parseInt(attributes[1]),
@@ -32,16 +33,28 @@ public class CSVReader {
         }
     }
 
-    public double findNameCorrelation() {
+    public double findCorrelation(Function<Passenger, Number> function) {
         final CorrelationFinder correlationFinder = new CorrelationFinder();
         //final int attribute[] = new int[passengerList.size()];
-        final double attribute[] = new double[passengerList.size()];
-        final int survived[] = new int[passengerList.size()];
+        Number[] attribute = passengerList.stream().map(function::apply).collect(Collectors.toList()).toArray(new Number[passengerList.size()]);
+        final Number survived[] = new Number[passengerList.size()];
         for (int i = 0; i < passengerList.size(); i++) {
-            attribute[i] = passengerList.get(i).getName().indexOf('(') > 0 ? 1 : 0;
             survived[i] = passengerList.get(i).getSurvived();
         }
         return correlationFinder.findCorrelation(attribute, survived);
+    }
+
+    public double findCorrelation(Function<Passenger, Number> function, Function<Passenger, Number> other) {
+        final CorrelationFinder correlationFinder = new CorrelationFinder();
+        //final int attribute[] = new int[passengerList.size()];
+        return correlationFinder.findCorrelation(passengerList.stream()
+                        .map(function::apply)
+                        .collect(Collectors.toList())
+                        .toArray(new Number[passengerList.size()]),
+                passengerList.stream()
+                        .map(other::apply)
+                        .collect(Collectors.toList())
+                        .toArray(new Number[passengerList.size()]));
     }
 }
 

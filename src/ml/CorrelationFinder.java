@@ -17,10 +17,21 @@ public class CorrelationFinder {
         return 1 - (6d * sumOfSquareDistances) / (attribute.length * (square(attribute.length) - 1));
     }
 
+    public double findCorrelation(Number attribute[], Number result[]) {
+        double attri[] = new double[attribute.length];
+        for (int i = 0; i < attribute.length; i++) {
+            attri[i] = attribute[i].doubleValue();
+        }
+        int results[] = new int[result.length];
+        for (int i = 0; i < attribute.length; i++) {
+            results[i] = result[i].intValue();
+        }
+        return findCorrelation(attri, results);
+    }
+
     public double findCorrelation(double attribute[], int result[]) {
         double[] sortedAttributes = getSortedCopy(attribute);
         double[] attRanks = getRanks(sortedAttributes);
-        System.out.println(Arrays.toString(attRanks));
         int[] sortedResults = getSortedCopy(result);
         double[] resultRanks = getRanks(sortedResults);
         long sumOfSquareDistances = 0;
