@@ -3,9 +3,18 @@ package ml;
 public class LCMFinder {
     public static void main(String args[]) {
         final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 6284; i < 12504; i++) {
-            stringBuilder.append(i).append(',').append('A').append('\n');
+        final CorrelationFinder correlationFinder = new CorrelationFinder();
+        final InputReader br = new InputReader(System.in);
+        final int n = br.readInt();
+        final int[] a = new int[n], b = new int[n];
+        System.out.println("ENTER ATTRIBUTES:");
+        for (int i = 0; i < n; i++) {
+            a[i] = br.readInt();
         }
-        System.out.println(stringBuilder);
+        System.out.println("ENTER RESULTS:");
+        for (int i = 0; i < n; i++) {
+            b[i] = br.readInt();
+        }
+        System.out.println(correlationFinder.findCorrelation(a, b));
     }
 }
