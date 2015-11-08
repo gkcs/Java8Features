@@ -1,48 +1,68 @@
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigInteger;
 import java.util.InputMismatchException;
 
 public class Main {
 
     public static void main(String args[]) throws IOException, InterruptedException {
         final InputReader br = new InputReader(System.in);
-        final BigInteger t = BigInteger.valueOf(br.readLong()), w = BigInteger.valueOf(br.readLong()), b = BigInteger.valueOf(br.readLong());
-        System.out.println(new Solver().solve(t, w, b));
+        final StringBuilder stringBuilder = new StringBuilder();
+        final Solver solver = new Solver();
+        for (int tests = br.readInt(); tests > 0; tests--) {
+            final int n = br.readInt(), m = br.readInt();
+            final int counts[] = new int[n + 1];
+            for (int i = 1; i <= n; i++) {
+                counts[i] = br.readInt();
+            }
+            final int[] t = new int[m], a = new int[m], b = new int[m];
+            for (int i = 0; i < m; i++) {
+                t[i] = br.readInt();
+                a[i] = br.readInt();
+                b[i] = br.readInt();
+            }
+            stringBuilder.append(solver.solve(n, counts, m, t, a, b)).append('\n');
+        }
+        System.out.println(stringBuilder);
     }
 }
 
 class Solver {
 
-    private BigInteger gcd(BigInteger a, BigInteger b) {
-        if (a.compareTo(b) < 0) {
-            BigInteger temp = a;
-            a = b;
-            b = temp;
+    public long solve(final int n, int[] counts, final int m, final int[] t, final int[] a, final int[] b) {
+        final Offer[] offers = new Offer[m << 1];
+        for (int i = 0; i < m; i = i + 2) {
+            offers[i] = new Offer(t[i], a[i], b[i]);
+            offers[i + 1] = new Offer(t[i], b[i], a[i]);
         }
-        while (!b.equals(BigInteger.ZERO)) {
-            BigInteger temp = a.mod(b);
-            a = b;
-            b = temp;
+        long total = counts[n] * n;
+        final boolean visited[] = new boolean[counts.length];
+        visited[n] = true;
+        for (int i = n; i > 0; i--) {
+            //try to convert each element to 'i'. Find the path and subtract all those in the path
+
         }
-        return a;
+        return 0;
+    }
+}
+
+class Offer implements Comparable<Offer> {
+    final int time;
+    final int give;
+    final int take;
+
+    public Offer(int time, int give, int take) {
+        this.time = time;
+        this.give = give;
+        this.take = take;
     }
 
-    public String solve(BigInteger t, BigInteger w, BigInteger b) {
-        BigInteger smaller = w.compareTo(b) > 0 ? (b.subtract(BigInteger.ONE)) : (w.subtract(BigInteger.ONE));
-        BigInteger tot = smaller;
-        BigInteger lcm = w.divide(gcd(w, b)).multiply(b);
-        BigInteger added = t.divide(lcm);
-        added = added.multiply(smaller.add(BigInteger.ONE));
-        BigInteger remainder = t.mod(lcm);
-        if (remainder.compareTo(smaller) < 0) {
-            added = added.subtract(smaller.subtract(remainder));
+    @Override
+    public int compareTo(Offer other) {
+        if (this.take != other.take) {
+            return this.take - other.take;
+        } else {
+            return this.time - other.time;
         }
-        tot = tot.add(added);
-        BigInteger gcd = gcd(t, tot);
-        tot = tot.divide(gcd);
-        t = t.divide(gcd);
-        return tot + "/" + t;
     }
 }
 
