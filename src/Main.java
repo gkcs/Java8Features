@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class Main {
@@ -9,18 +10,20 @@ public class Main {
         final StringBuilder stringBuilder = new StringBuilder();
         final Solver solver = new Solver();
         for (int tests = br.readInt(); tests > 0; tests--) {
-            final int n = br.readInt(), m = br.readInt();
-            final int counts[] = new int[n + 1];
-            for (int i = 1; i <= n; i++) {
-                counts[i] = br.readInt();
+            final int n = br.readInt();
+            final int price[] = new int[n];
+            for (int i = 0; i < n; i++) {
+                price[i] = br.readInt();
             }
-            final int[] t = new int[m], a = new int[m], b = new int[m];
+            final int m = br.readInt();
+            final int[][] offers = new int[m][];
             for (int i = 0; i < m; i++) {
-                t[i] = br.readInt();
-                a[i] = br.readInt();
-                b[i] = br.readInt();
+                offers[i] = new int[br.readInt()];
+                for (int j = 0; j < offers[i].length; j++) {
+                    offers[i][j] = br.readInt();
+                }
             }
-            stringBuilder.append(solver.solve(n, counts, m, t, a, b)).append('\n');
+            stringBuilder.append(solver.solve(n, price, m, offers)).append('\n');
         }
         System.out.println(stringBuilder);
     }
@@ -28,41 +31,21 @@ public class Main {
 
 class Solver {
 
-    public long solve(final int n, int[] counts, final int m, final int[] t, final int[] a, final int[] b) {
-        final Offer[] offers = new Offer[m << 1];
-        for (int i = 0; i < m; i = i + 2) {
-            offers[i] = new Offer(t[i], a[i], b[i]);
-            offers[i + 1] = new Offer(t[i], b[i], a[i]);
+    public long solve(final int n, final int[] price, final int m, final int[][] offers) {
+        final int offer[] = new int[m];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < offers[i].length; j++) {
+                offer[i] = offer[i] | (1 << (offers[i][j] - 1));
+            }
         }
-        long total = counts[n] * n;
-        final boolean visited[] = new boolean[counts.length];
-        visited[n] = true;
-        for (int i = n; i > 0; i--) {
-            //try to convert each element to 'i'. Find the path and subtract all those in the path
-
+        Arrays.sort(offer);
+        int length = 1;
+        for (int i = 1; i < m; i++) {
+            if (offer[i] != offer[i - 1]) {
+                offer[length++] = offer[i];
+            }
         }
         return 0;
-    }
-}
-
-class Offer implements Comparable<Offer> {
-    final int time;
-    final int give;
-    final int take;
-
-    public Offer(int time, int give, int take) {
-        this.time = time;
-        this.give = give;
-        this.take = take;
-    }
-
-    @Override
-    public int compareTo(Offer other) {
-        if (this.take != other.take) {
-            return this.take - other.take;
-        } else {
-            return this.time - other.time;
-        }
     }
 }
 
