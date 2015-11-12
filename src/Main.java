@@ -28,10 +28,12 @@ public class Main {
 }
 
 class Solver {
-    private final int queue[] = new int[100000];
+    public static final int MAX = 50001;
+    private final int queue[] = new int[MAX];
+    private final int time[] = new int[queue.length];
 
     public long solve(final int[] cards, final int m, final int[] t, final int[] a, final int[] b) {
-        final int counts[] = new int[50001];
+        final int counts[] = new int[MAX];
         for (int card : cards) {
             counts[card]++;
         }
@@ -43,8 +45,9 @@ class Solver {
             counts[i] = 0;
             visited[i] = true;
             for (int reachableCity : getReachableCities(i, visited, exchanges)) {
-                total += reachableCity * counts[reachableCity];
+                total += i * counts[reachableCity];
                 visited[reachableCity] = true;
+                counts[reachableCity] = 0;
             }
         }
         return total;
@@ -53,18 +56,25 @@ class Solver {
     private int[] getReachableCities(final int destination, final boolean[] visited, final Offer[][] offers) {
         int front = 0, rear = 1;
         queue[0] = destination;
+        time[0] = MAX;
         while (front < rear) {
-            int current = queue[front++];
+            int current = queue[front];
             visited[current] = true;
             for (int i = 0; i < offers[current].length; i++) {
-                //todo: put time constraint here
-                if (!visited[offers[current][i].second]) {
-                    queue[rear++] = offers[current][i].second;
+                if (!visited[offers[current][i].second] && time[front] >= offers[current][i].time) {
+                    queue[rear] = offers[current][i].second;
+                    time[rear] = offers[current][i].time;
+                    rear++;
                 }
             }
+            front++;
         }
         final int reachableCities[] = new int[rear];
         System.arraycopy(queue, 0, reachableCities, 0, reachableCities.length);
+        if (reachableCities.length > 1) {
+            System.out.println("DESTINATION: " + destination);
+            System.out.println(Arrays.toString(reachableCities));
+        }
         return reachableCities;
     }
 

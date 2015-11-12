@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f402781-6da9-457a-99c5-8716facadc4c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="$PROJECT_DIR$/target/classes/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Solver.class" afterPath="$PROJECT_DIR$/target/classes/Solver.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MainTest.java" afterPath="$PROJECT_DIR$/src/MainTest.java" />
     </list>
     <ignored path="Java8Features.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,8 +42,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5120482">
-              <caret line="41" column="35" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.68373495">
+              <caret line="74" column="9" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
               <folding>
                 <element signature="class#InputReader#0" expanded="false" />
               </folding>
@@ -1045,25 +1042,16 @@
       <option name="project" value="LOCAL" />
       <updated>1447349364640</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="*update">
+      <created>1447352759700</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1447352759700</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="MainTest - 2015.11.12 at 23h 46m 53s.xml">
-      <configuration name="MainTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainTest_test - 2015.11.12 at 23h 46m 57s.xml">
-      <configuration name="MainTest.test" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainTest_test - 2015.11.12 at 23h 48m 54s.xml">
-      <configuration name="MainTest.test" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainTest_test - 2015.11.12 at 23h 49m 46s.xml">
-      <configuration name="MainTest.test" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainTest_test - 2015.11.12 at 23h 50m 15s.xml">
-      <configuration name="MainTest.test" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="MainTest_test - 2015.11.12 at 23h 51m 15s.xml">
       <configuration name="MainTest.test" configurationId="JUnit" />
     </history-entry>
@@ -1077,6 +1065,21 @@
       <configuration name="MainTest.test" configurationId="JUnit" />
     </history-entry>
     <history-entry file="MainTest_test - 2015.11.12 at 23h 55m 16s.xml">
+      <configuration name="MainTest.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest_test - 2015.11.13 at 00h 25m 34s.xml">
+      <configuration name="MainTest.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest_test - 2015.11.13 at 00h 27m 03s.xml">
+      <configuration name="MainTest.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest_test - 2015.11.13 at 00h 27m 50s.xml">
+      <configuration name="MainTest.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest_test - 2015.11.13 at 00h 30m 46s.xml">
+      <configuration name="MainTest.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest_test - 2015.11.13 at 00h 32m 32s.xml">
       <configuration name="MainTest.test" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -1170,7 +1173,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="*Implemented DP" />
     <MESSAGE value="ThreadManager Added" />
     <MESSAGE value="*updated class" />
     <MESSAGE value="*update to use Runnable" />
@@ -1195,20 +1197,21 @@
     <MESSAGE value="*Ingredients" />
     <MESSAGE value="*simpleSum" />
     <MESSAGE value="*CHSTAMP" />
-    <option name="LAST_COMMIT_MESSAGE" value="*CHSTAMP" />
+    <MESSAGE value="*update" />
+    <option name="LAST_COMMIT_MESSAGE" value="*update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>71</line>
+          <line>81</line>
           <properties />
           <option name="timeStamp" value="69" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>37</line>
+          <line>39</line>
           <properties />
           <option name="timeStamp" value="70" />
         </line-breakpoint>
@@ -1672,8 +1675,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5120482">
-          <caret line="41" column="35" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.68373495">
+          <caret line="74" column="9" selection-start-line="74" selection-start-column="9" selection-end-line="74" selection-end-column="9" />
           <folding>
             <element signature="class#InputReader#0" expanded="false" />
           </folding>
