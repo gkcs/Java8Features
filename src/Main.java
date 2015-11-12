@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class Main {
@@ -8,46 +9,98 @@ public class Main {
         final InputReader br = new InputReader(System.in);
         final StringBuilder stringBuilder = new StringBuilder();
         final Solver solver = new Solver();
-        solver.preprocessing();
         for (int tests = br.readInt(); tests > 0; tests--) {
-            stringBuilder.append(solver.solve(br.readInt())).append('\n');
+            final int n = br.readInt(), m = br.readInt();
+            final int counts[] = new int[n + 1];
+            for (int i = 1; i <= n; i++) {
+                counts[i] = br.readInt();
+            }
+            final int[] t = new int[m], a = new int[m], b = new int[m];
+            for (int i = 0; i < m; i++) {
+                t[i] = br.readInt();
+                a[i] = br.readInt();
+                b[i] = br.readInt();
+            }
+            stringBuilder.append(solver.solve(n, counts, m, t, a, b)).append('\n');
         }
         System.out.println(stringBuilder);
     }
 }
 
 class Solver {
-    private final int size = 10000001;
-    private final int factors[][] = new int[size][7];
-    private final int count[] = new int[size];
+    private final int queue[] = new int[100000];
 
-    public void preprocessing() {
-        final int sqrt = (int) Math.sqrt(size + 1);
-        for (int i = 4; i < size; i = i + 2) {
-            factors[i][count[i]++] = 2;
-        }
-        for (int i = 3; i <= sqrt; i = i + 2) {
-            if (count[i] == 0) {
-                for (int j = i + i; j < size; j = j + i) {
-                    factors[j][count[j]++] = i;
-                }
+    public long solve(final int n, int[] counts, final int m, final int[] t, final int[] a, final int[] b) {
+        final Offer[][] exchanges = getOffers(n, m, t, a, b);
+        long total = 0;
+        final boolean visited[] = new boolean[counts.length];
+        for (int i = n; i > 0; i--) {
+            total += counts[i];
+            counts[i] = 0;
+            visited[i] = true;
+            for (int reachableCity : getReachableCities(i, visited, exchanges)) {
+                total += reachableCity * counts[reachableCity];
+                visited[reachableCity] = true;
             }
         }
+        return total;
     }
 
-    public long solve(final int n) {
-        if (count[n] == 0) {
-            return n * (long) n;
-        } else {
-            final int occurences[] = new int[count[n]];
-            for (int i = 0; i < occurences.length; i++) {
-                int temp = n;
-                while (temp > 1) {
-                    temp = temp / factors[n][i];
-                    occurences[i]++;
+    private int[] getReachableCities(final int destination, final boolean[] visited, final Offer[][] offers) {
+        int front = 0, rear = 1;
+        queue[0] = destination;
+        while (front < rear) {
+            int current = queue[front++];
+            visited[current] = true;
+            for (int i = 0; i < offers[current].length; i++) {
+                if (!visited[offers[current][i].second]) {
+                    queue[rear++] = offers[current][i].second;
                 }
             }
+        }
+        final int reachableCities[] = new int[rear];
+        System.arraycopy(queue, 0, reachableCities, 0, reachableCities.length);
+        return reachableCities;
+    }
 
+    private Offer[][] getOffers(int n, int m, int[] t, int[] a, int[] b) {
+        final Offer[][] exchanges = new Offer[n][];
+        final int offerCount[] = new int[n + 1];
+        final Offer[] offers = new Offer[m << 1];
+        for (int i = 0; i < m; i = i + 2) {
+            offers[i] = new Offer(t[i], a[i], b[i]);
+            offers[i + 1] = new Offer(t[i], b[i], a[i]);
+            offerCount[a[i]]++;
+            offerCount[b[i]]++;
+        }
+        Arrays.parallelSort(offers);
+        int start = 0;
+        for (int i = 0; i < offers.length; i++) {
+            exchanges[i] = new Offer[offerCount[i]];
+            System.arraycopy(offers, start, exchanges[i], 0, exchanges.length);
+            start = start + offerCount[i];
+        }
+        return exchanges;
+    }
+}
+
+class Offer implements Comparable<Offer> {
+    final int time;
+    final int first;
+    final int second;
+
+    public Offer(int time, int first, int second) {
+        this.time = time;
+        this.first = first;
+        this.second = second;
+    }
+
+    @Override
+    public int compareTo(Offer other) {
+        if (this.second != other.second) {
+            return this.first - other.first;
+        } else {
+            return this.time - other.time;
         }
     }
 }
