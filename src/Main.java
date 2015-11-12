@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class Main {
@@ -9,43 +8,47 @@ public class Main {
         final InputReader br = new InputReader(System.in);
         final StringBuilder stringBuilder = new StringBuilder();
         final Solver solver = new Solver();
+        solver.preprocessing();
         for (int tests = br.readInt(); tests > 0; tests--) {
-            final int n = br.readInt();
-            final int price[] = new int[n];
-            for (int i = 0; i < n; i++) {
-                price[i] = br.readInt();
-            }
-            final int m = br.readInt();
-            final int[][] offers = new int[m][];
-            for (int i = 0; i < m; i++) {
-                offers[i] = new int[br.readInt()];
-                for (int j = 0; j < offers[i].length; j++) {
-                    offers[i][j] = br.readInt();
-                }
-            }
-            stringBuilder.append(solver.solve(n, price, m, offers)).append('\n');
+            stringBuilder.append(solver.solve(br.readInt())).append('\n');
         }
         System.out.println(stringBuilder);
     }
 }
 
 class Solver {
+    private final int size = 10000001;
+    private final int factors[][] = new int[size][7];
+    private final int count[] = new int[size];
 
-    public long solve(final int n, final int[] price, final int m, final int[][] offers) {
-        final int offer[] = new int[m];
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < offers[i].length; j++) {
-                offer[i] = offer[i] | (1 << (offers[i][j] - 1));
+    public void preprocessing() {
+        final int sqrt = (int) Math.sqrt(size + 1);
+        for (int i = 4; i < size; i = i + 2) {
+            factors[i][count[i]++] = 2;
+        }
+        for (int i = 3; i <= sqrt; i = i + 2) {
+            if (count[i] == 0) {
+                for (int j = i + i; j < size; j = j + i) {
+                    factors[j][count[j]++] = i;
+                }
             }
         }
-        Arrays.sort(offer);
-        int length = 1;
-        for (int i = 1; i < m; i++) {
-            if (offer[i] != offer[i - 1]) {
-                offer[length++] = offer[i];
+    }
+
+    public long solve(final int n) {
+        if (count[n] == 0) {
+            return n * (long) n;
+        } else {
+            final int occurences[] = new int[count[n]];
+            for (int i = 0; i < occurences.length; i++) {
+                int temp = n;
+                while (temp > 1) {
+                    temp = temp / factors[n][i];
+                    occurences[i]++;
+                }
             }
+
         }
-        return 0;
     }
 }
 
