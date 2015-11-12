@@ -11,9 +11,9 @@ public class Main {
         final Solver solver = new Solver();
         for (int tests = br.readInt(); tests > 0; tests--) {
             final int n = br.readInt(), m = br.readInt();
-            final int counts[] = new int[n + 1];
-            for (int i = 1; i <= n; i++) {
-                counts[i] = br.readInt();
+            final int cards[] = new int[n];
+            for (int i = 0; i < n; i++) {
+                cards[i] = br.readInt();
             }
             final int[] t = new int[m], a = new int[m], b = new int[m];
             for (int i = 0; i < m; i++) {
@@ -21,7 +21,7 @@ public class Main {
                 a[i] = br.readInt();
                 b[i] = br.readInt();
             }
-            stringBuilder.append(solver.solve(n, counts, m, t, a, b)).append('\n');
+            stringBuilder.append(solver.solve(cards, m, t, a, b)).append('\n');
         }
         System.out.println(stringBuilder);
     }
@@ -30,12 +30,16 @@ public class Main {
 class Solver {
     private final int queue[] = new int[100000];
 
-    public long solve(final int n, int[] counts, final int m, final int[] t, final int[] a, final int[] b) {
-        final Offer[][] exchanges = getOffers(n, m, t, a, b);
+    public long solve(final int[] cards, final int m, final int[] t, final int[] a, final int[] b) {
+        final int counts[] = new int[50001];
+        for (int card : cards) {
+            counts[card]++;
+        }
+        final Offer[][] exchanges = getOffers(counts.length, m, t, a, b);
         long total = 0;
         final boolean visited[] = new boolean[counts.length];
-        for (int i = n; i > 0; i--) {
-            total += counts[i];
+        for (int i = counts.length - 1; i > 0; i--) {
+            total += i * counts[i];
             counts[i] = 0;
             visited[i] = true;
             for (int reachableCity : getReachableCities(i, visited, exchanges)) {
@@ -53,6 +57,7 @@ class Solver {
             int current = queue[front++];
             visited[current] = true;
             for (int i = 0; i < offers[current].length; i++) {
+                //todo: put time constraint here
                 if (!visited[offers[current][i].second]) {
                     queue[rear++] = offers[current][i].second;
                 }
@@ -65,21 +70,22 @@ class Solver {
 
     private Offer[][] getOffers(int n, int m, int[] t, int[] a, int[] b) {
         final Offer[][] exchanges = new Offer[n][];
-        final int offerCount[] = new int[n + 1];
+        final int offerCount[] = new int[n];
         final Offer[] offers = new Offer[m << 1];
-        for (int i = 0; i < m; i = i + 2) {
-            offers[i] = new Offer(t[i], a[i], b[i]);
-            offers[i + 1] = new Offer(t[i], b[i], a[i]);
+        for (int i = 0; i < m; i++) {
+            offers[i << 1] = new Offer(t[i], a[i], b[i]);
+            offers[(i << 1) + 1] = new Offer(t[i], b[i], a[i]);
             offerCount[a[i]]++;
             offerCount[b[i]]++;
         }
         Arrays.parallelSort(offers);
         int start = 0;
-        for (int i = 0; i < offers.length; i++) {
+        for (int i = 0; i < n; i++) {
             exchanges[i] = new Offer[offerCount[i]];
-            System.arraycopy(offers, start, exchanges[i], 0, exchanges.length);
+            System.arraycopy(offers, start, exchanges[i], 0, exchanges[i].length);
             start = start + offerCount[i];
         }
+        System.out.println(Arrays.deepToString(exchanges));
         return exchanges;
     }
 }
@@ -99,9 +105,20 @@ class Offer implements Comparable<Offer> {
     public int compareTo(Offer other) {
         if (this.second != other.second) {
             return this.first - other.first;
-        } else {
+        } else if (this.time != other.time) {
             return this.time - other.time;
+        } else {
+            return this.second - other.second;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Offer{" +
+                "time=" + time +
+                ", first=" + first +
+                ", second=" + second +
+                '}';
     }
 }
 
