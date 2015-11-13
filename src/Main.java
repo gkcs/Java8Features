@@ -28,16 +28,17 @@ public class Main {
 }
 
 class Solver {
-    public static final int MAX = 11;
-    private final int queue[] = new int[MAX];
+    public static final int MAX = 50001;
+    private final int queue[] = new int[MAX << 1];
     private final int time[] = new int[queue.length];
+    private final Offer[][] exchanges = new Offer[MAX][];
 
     public long solve(final int[] cards, final int[] t, final int[] a, final int[] b) {
         final int counts[] = new int[MAX];
         for (int card : cards) {
             counts[card]++;
         }
-        final Offer[][] exchanges = getOffers(counts.length, t.length, t, a, b);
+        getOffers(counts.length, t.length, t, a, b);
         long total = 0;
         for (int i = counts.length - 1; i > 0; i--) {
             total += i * counts[i];
@@ -46,39 +47,36 @@ class Solver {
                 total += i * counts[reachableCity];
                 counts[reachableCity] = 0;
             }
-            System.out.println("DESTINATION: " + i + " TOTAL: " + total);
-            System.out.println("COUNTS: " + Arrays.toString(counts));
         }
         return total;
     }
 
     private int[] getReachableCities(final int destination, final Offer[][] offers) {
-        final boolean[] visited = new boolean[MAX];
         int front = 0, rear = 1;
+        final boolean visited[] = new boolean[offers.length];
         queue[0] = destination;
-        time[0] = MAX;
+        time[destination] = MAX;
+        visited[destination] = true;
         while (front < rear) {
-            int current = queue[front];
-            visited[current] = true;
+            int current = queue[front++];
             for (int i = 0; i < offers[current].length && destination > offers[current][i].second; i++) {
-                if (!visited[offers[current][i].second] && time[front] >= offers[current][i].time) {
-                    queue[rear] = offers[current][i].second;
+                if ((time[current] >= offers[current][i].time && !visited[offers[current][i].second])) {
+                    queue[rear++] = offers[current][i].second;
                     visited[offers[current][i].second] = true;
-                    time[rear] = offers[current][i].time;
-                    rear++;
+                    time[offers[current][i].second] = offers[current][i].time;
+                } else if (time[offers[current][i].second] < offers[current][i].time && time[current] >= offers[current][i].time && visited[offers[current][i].second]) {
+                    queue[rear++] = offers[current][i].second;
+                    visited[offers[current][i].second] = true;
+                    time[offers[current][i].second] = offers[current][i].time;
                 }
             }
-            front++;
         }
         final int reachableCities[] = new int[rear];
         System.arraycopy(queue, 0, reachableCities, 0, reachableCities.length);
-        System.out.println("DESTINATION: " + destination);
-        System.out.println(Arrays.toString(reachableCities));
         return reachableCities;
     }
 
-    private Offer[][] getOffers(int n, int m, int[] t, int[] a, int[] b) {
-        final Offer[][] exchanges = new Offer[n][];
+    private void getOffers(int n, int m, int[] t, int[] a, int[] b) {
         final int offerCount[] = new int[n];
         final Offer[] offers = new Offer[m << 1];
         for (int i = 0; i < m; i++) {
@@ -87,6 +85,14 @@ class Solver {
             offerCount[a[i]]++;
             offerCount[b[i]]++;
         }
+//        for(int i=0;i<MAX;i++){
+//            exchanges[i] = new Offer[offerCount[i]];
+//            offerCount[i]=0;
+//        }
+//        for (Offer offer : offers) {
+//            exchanges[offer.first][offerCount[offer.first]++] = offer;
+//        }
+
         Arrays.parallelSort(offers);
         int start = 0;
         for (int i = 0; i < n; i++) {
@@ -94,7 +100,6 @@ class Solver {
             System.arraycopy(offers, start, exchanges[i], 0, exchanges[i].length);
             start = start + offerCount[i];
         }
-        return exchanges;
     }
 }
 
