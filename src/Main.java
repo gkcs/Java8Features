@@ -28,7 +28,7 @@ public class Main {
 }
 
 class Solver {
-    public static final int MAX = 50001;
+    public static final int MAX = 11;
     private final int queue[] = new int[MAX];
     private final int time[] = new int[queue.length];
 
@@ -39,30 +39,31 @@ class Solver {
         }
         final Offer[][] exchanges = getOffers(counts.length, t.length, t, a, b);
         long total = 0;
-        final boolean visited[] = new boolean[counts.length];
         for (int i = counts.length - 1; i > 0; i--) {
-            total += i * (long) counts[i];
+            total += i * counts[i];
             counts[i] = 0;
-            visited[i] = true;
-            for (int reachableCity : getReachableCities(i, visited, exchanges)) {
-                total += i * (long) counts[reachableCity];
-                visited[reachableCity] = true;
+            for (int reachableCity : getReachableCities(i, exchanges)) {
+                total += i * counts[reachableCity];
                 counts[reachableCity] = 0;
             }
+            System.out.println("DESTINATION: " + i + " TOTAL: " + total);
+            System.out.println("COUNTS: " + Arrays.toString(counts));
         }
         return total;
     }
 
-    private int[] getReachableCities(final int destination, final boolean[] visited, final Offer[][] offers) {
+    private int[] getReachableCities(final int destination, final Offer[][] offers) {
+        final boolean[] visited = new boolean[MAX];
         int front = 0, rear = 1;
         queue[0] = destination;
         time[0] = MAX;
         while (front < rear) {
             int current = queue[front];
             visited[current] = true;
-            for (int i = 0; i < offers[current].length; i++) {
+            for (int i = 0; i < offers[current].length && destination > offers[current][i].second; i++) {
                 if (!visited[offers[current][i].second] && time[front] >= offers[current][i].time) {
                     queue[rear] = offers[current][i].second;
+                    visited[offers[current][i].second] = true;
                     time[rear] = offers[current][i].time;
                     rear++;
                 }
@@ -71,10 +72,8 @@ class Solver {
         }
         final int reachableCities[] = new int[rear];
         System.arraycopy(queue, 0, reachableCities, 0, reachableCities.length);
-//        if (destination <= 5) {
-//            System.out.println("DESTINATION: " + destination);
-//            System.out.println(Arrays.toString(reachableCities));
-//        }
+        System.out.println("DESTINATION: " + destination);
+        System.out.println(Arrays.toString(reachableCities));
         return reachableCities;
     }
 
@@ -93,7 +92,7 @@ class Solver {
         for (int i = 0; i < n; i++) {
             exchanges[i] = new Offer[offerCount[i]];
             System.arraycopy(offers, start, exchanges[i], 0, exchanges[i].length);
-            start = start + exchanges[i].length;
+            start = start + offerCount[i];
         }
         return exchanges;
     }
@@ -114,10 +113,10 @@ class Offer implements Comparable<Offer> {
     public int compareTo(Offer other) {
         if (this.first != other.first) {
             return this.first - other.first;
-        } else if (this.time != other.time) {
-            return this.time - other.time;
-        } else {
+        } else if (this.second != other.second) {
             return this.second - other.second;
+        } else {
+            return other.time - this.time;
         }
     }
 
@@ -219,3 +218,5 @@ class InputReader {
 
 
 }
+
+
