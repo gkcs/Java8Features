@@ -38,23 +38,24 @@ class Solver {
         return pathCount;
     }
 
-    private int findLongestPath(int n) {
-        int longestPath[] = new int[0];
+    private int findLongestPath(final int n) {
+        int longestPath[] = new int[]{0};
         for (int i = 1; i <= n; i++) {
             if (!used[i]) {
-                final int path[] = getLongestPathFromRoot(i);
-                if (path.length > longestPath.length) {
+                final int path[] = getLongestPathFrom(i);
+                if (path[0] > longestPath[0]) {
                     longestPath = path;
                 }
             }
         }
-        for (int card : longestPath) {
-            used[card] = true;
+        for (int i = 1; i < longestPath[0]; i++) {
+            used[longestPath[i]] = true;
         }
         return longestPath.length;
     }
 
-    private int[] getLongestPathFromRoot(int i) {
+    private int[] getLongestPathFrom(final int root) {
+
         return new int[0];
     }
 
