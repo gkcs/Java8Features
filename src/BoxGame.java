@@ -13,6 +13,7 @@ public class BoxGame {
         int[][] field = new int[5][5];
         boolean moves[][][] = new boolean[5][5][4];
         HashSet<Point> hashSet = new HashSet<>();
+        int first = 0, second = 0;
         for (int i = 0; i < 60; i++) {
             Board board = new Board(field, order);
             if (!board.findAnyAlmostCompleteSquare() && board.move == null) {
@@ -32,6 +33,13 @@ public class BoxGame {
             System.out.println("MOVE NUMBER: " + i);
             System.out.println(board.move);
             field[board.move.x][board.move.y] |= (1 << board.move.side);
+            if (field[board.move.x][board.move.y] == 15) {
+                if (i % 2 == 0) {
+                    first = first + 1;
+                } else {
+                    second = second + 1;
+                }
+            }
             if (board.move.side == 0) {
                 if (board.move.x > 0) {
                     field[board.move.x - 1][board.move.y] |= 4;
@@ -51,5 +59,7 @@ public class BoxGame {
             }
             System.out.println(board);
         }
+        System.out.println("FIRST: " + first);
+        System.out.println("SECOND: " + second);
     }
 }

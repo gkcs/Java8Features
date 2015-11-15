@@ -116,11 +116,10 @@ public class Solution {
         }
         System.out.println(board.move);
     }
-
-
 }
 
 class Board {
+    public static final int five = 5;
     private final Random random = new Random();
     private final int[][] board;
     private final Point candidates[] = new Point[4];
@@ -157,12 +156,13 @@ class Board {
     public boolean findAnyAlmostCompleteSquare() {
         boolean played = false;
         for (int index = 0; index < order.length && !played; index++) {
-            int i = order[index] / 5, j = order[index] % 5;
+            final int i = order[index] / five, j = order[index] % five;
             if (counts[i][j] == 3) {
-                played = true;
+                int bits = board[i][j] ^ 15;
                 for (int k = 0; k < 4; k++) {
-                    if ((board[i][j] & (1 << k)) == 0) {
+                    if ((bits & (1 << k)) != 0) {
                         move = new Point(i, j, 0, k);
+                        played = true;
                         break;
                     }
                 }
@@ -174,27 +174,27 @@ class Board {
     public boolean findLeastCompletedSquare() {
         boolean played = false;
         for (int index = 0; index < order.length && !played; index++) {
-            int x = order[index];
-            int i = x / 5, j = x % 5;
+            final int i = order[index] / five, j = order[index] % five;
             if (counts[i][j] == 0 || counts[i][j] == 1) {
-                final int top = i > 0 ? counts[i - 1][j] : 0, bottom = i < board.length - 1 ? counts[i + 1][j] : 0;
-                final int left = j > 0 ? counts[i][j - 1] : 0, right = j < board.length - 1 ? counts[i][j + 1] : 0;
+                int bits = board[i][j] ^ 15;
+                final int top = i > 0 ? counts[i - 1][j] : 0, bottom = i < five - 1 ? counts[i + 1][j] : 0;
+                final int left = j > 0 ? counts[i][j - 1] : 0, right = j < five - 1 ? counts[i][j + 1] : 0;
                 int ppl = 0;
-                if ((board[i][j] & 1) == 0 && top < 2) {
+                if ((bits & 1) != 0 && top < 2) {
                     candidates[ppl++] = new Point(i, j, 0, 0);
                 }
-                if ((board[i][j] & 2) == 0 && right < 2) {
+                if ((bits & 2) != 0 && right < 2) {
                     candidates[ppl++] = new Point(i, j, 0, 1);
                 }
-                if ((board[i][j] & 4) == 0 && bottom < 2) {
+                if ((bits & 4) != 0 && bottom < 2) {
                     candidates[ppl++] = new Point(i, j, 0, 2);
                 }
-                if ((board[i][j] & 8) == 0 && left < 2) {
+                if ((bits & 8) != 0 && left < 2) {
                     candidates[ppl++] = new Point(i, j, 0, 3);
                 }
                 if (ppl > 0) {
-                    played = true;
                     move = candidates[random.nextInt(ppl)];
+                    played = true;
                     break;
                 }
             }
@@ -206,14 +206,15 @@ class Board {
         int size = 0;
         final Point point[] = new Point[25];
         for (int x : order) {
-            int i = x / 5, j = x % 5;
+            int i = x / five, j = x % five;
             if (!visited[i][j] && counts[i][j] < 4) {
                 point[size++] = new Point(i, j, BFS(i, j), 0);
             }
         }
         Arrays.sort(point, 0, size);
+        int bits = board[point[0].x][point[0].y] ^ 15;
         for (int k = 0; k < 4; k++) {
-            if ((board[point[0].x][point[0].y] & (1 << k)) == 0) {
+            if ((bits & (1 << k)) != 0) {
                 move = new Point(point[0].x, point[0].y, 0, k);
                 break;
             }
@@ -223,24 +224,25 @@ class Board {
     private int BFS(int i, int j) {
         final int q[] = new int[25];
         int front = 0, rear = 1;
-        q[0] = i * board.length + j;
+        q[0] = i * five + j;
         visited[i][j] = true;
         while (front < rear) {
-            int row = q[front] / board.length, col = q[front] % board.length;
-            if (row > 0 && counts[row - 1][col] == 2 && !visited[row - 1][col] && (board[row][col] & 1) == 0) {
-                q[rear++] = (row - 1) * board.length + col;
+            final int row = q[front] / five, col = q[front] % five;
+            int bits = board[row][col] ^ 15;
+            if (row > 0 && counts[row - 1][col] == 2 && !visited[row - 1][col] && (bits & 1) != 0) {
+                q[rear++] = (row - 1) * five + col;
                 visited[row - 1][col] = true;
             }
-            if (row < board.length - 1 && counts[row + 1][col] == 2 && !visited[row + 1][col] && (board[row][col] & 4) == 0) {
-                q[rear++] = (row + 1) * board.length + col;
+            if (row < five - 1 && counts[row + 1][col] == 2 && !visited[row + 1][col] && (bits & 4) != 0) {
+                q[rear++] = (row + 1) * five + col;
                 visited[row + 1][col] = true;
             }
-            if (col > 0 && counts[row][col - 1] == 2 && !visited[row][col - 1] && (board[row][col] & 8) == 0) {
-                q[rear++] = row * board.length + col - 1;
+            if (col > 0 && counts[row][col - 1] == 2 && !visited[row][col - 1] && (bits & 8) != 0) {
+                q[rear++] = row * five + col - 1;
                 visited[row][col - 1] = true;
             }
-            if (col < board.length - 1 && counts[row][col + 1] == 2 && !visited[row][col + 1] && (board[row][col] & 2) == 0) {
-                q[rear++] = row * board.length + col + 1;
+            if (col < five - 1 && counts[row][col + 1] == 2 && !visited[row][col + 1] && (bits & 2) != 0) {
+                q[rear++] = row * five + col + 1;
                 visited[row][col + 1] = true;
             }
             front++;
@@ -251,19 +253,6 @@ class Board {
 
 class Point implements Comparable<Point> {
     final int x, y, area, side;
-
-    @Override
-    public int hashCode() {
-        return x + y + area + side;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj != null && obj instanceof Point) {
-            Point point = (Point) obj;
-            return x == point.x && y == point.y && side == point.side;
-        } else return false;
-    }
 
     public Point(int x, int y, int area, int side) {
         this.x = x;
