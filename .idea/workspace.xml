@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f402781-6da9-457a-99c5-8716facadc4c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TopologicalSort.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/BruteForceSolver.class" afterPath="$PROJECT_DIR$/target/classes/BruteForceSolver.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="$PROJECT_DIR$/target/classes/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Solver.class" afterPath="$PROJECT_DIR$/target/classes/Solver.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BruteForceSolver.java" afterPath="$PROJECT_DIR$/src/BruteForceSolver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Solution.java" afterPath="$PROJECT_DIR$/src/Solution.java" />
     </list>
     <ignored path="Java8Features.iws" />
@@ -65,11 +59,11 @@
       <file leaf-file-name="Solution.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Solution.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6816976">
-              <caret line="195" column="34" selection-start-line="195" selection-start-column="34" selection-end-line="195" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.3633952">
+              <caret line="223" column="46" selection-start-line="223" selection-start-column="46" selection-end-line="223" selection-end-column="46" />
               <folding>
-                <element signature="e#7564#7565#0" expanded="true" />
-                <element signature="e#7609#7610#0" expanded="true" />
+                <element signature="e#7580#7581#0" expanded="true" />
+                <element signature="e#7625#7626#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1048,7 +1042,13 @@
       <option name="project" value="LOCAL" />
       <updated>1447475485380</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="*BOT challenge">
+      <created>1447597652882</created>
+      <option name="number" value="00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1447597652883</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1173,7 +1173,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="*renamed queue in taskmanager" />
     <MESSAGE value="*renamed input number&#10;" />
     <MESSAGE value="*method refactored" />
     <MESSAGE value="*Ant Colony Optimization" />
@@ -1198,7 +1197,8 @@
     <MESSAGE value="*updated4" />
     <MESSAGE value="*RECRECOV" />
     <MESSAGE value="*update" />
-    <option name="LAST_COMMIT_MESSAGE" value="*update" />
+    <MESSAGE value="*BOT challenge" />
+    <option name="LAST_COMMIT_MESSAGE" value="*BOT challenge" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1683,11 +1683,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Solution.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6816976">
-          <caret line="195" column="34" selection-start-line="195" selection-start-column="34" selection-end-line="195" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.3633952">
+          <caret line="223" column="46" selection-start-line="223" selection-start-column="46" selection-end-line="223" selection-end-column="46" />
           <folding>
-            <element signature="e#7564#7565#0" expanded="true" />
-            <element signature="e#7609#7610#0" expanded="true" />
+            <element signature="e#7580#7581#0" expanded="true" />
+            <element signature="e#7625#7626#0" expanded="true" />
           </folding>
         </state>
       </provider>

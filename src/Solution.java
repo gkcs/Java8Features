@@ -219,19 +219,19 @@ class Board {
             int row = q[front] / board.length, col = q[front] % board.length;
             if (row > 0 && counts[row - 1][col] == 2) {
                 q[rear++] = (row - 1) * board.length + col;
-                visited[i - 1][j] = true;
+                visited[row - 1][col] = true;
             }
             if (row < board.length - 1 && counts[row + 1][col] == 2) {
                 q[rear++] = (row + 1) * board.length + col;
-                visited[i + 1][j] = true;
+                visited[row + 1][col] = true;
             }
             if (col > 0 && counts[row][col - 1] == 2) {
                 q[rear++] = row * board.length + col - 1;
-                visited[i][j - 1] = true;
+                visited[row][col - 1] = true;
             }
             if (col < board.length - 1 && counts[row][col + 1] == 2) {
                 q[rear++] = row * board.length + col + 1;
-                visited[i][j + 1] = true;
+                visited[row][col + 1] = true;
             }
         }
         return rear;
