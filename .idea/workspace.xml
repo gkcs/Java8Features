@@ -59,8 +59,8 @@
       <file leaf-file-name="Solution.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Solution.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4111406">
-              <caret line="109" column="9" selection-start-line="109" selection-start-column="9" selection-end-line="109" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.530504">
+              <caret line="112" column="62" selection-start-line="112" selection-start-column="62" selection-end-line="112" selection-end-column="62" />
               <folding>
                 <element signature="e#2414#2423#0" expanded="true" />
                 <element signature="e#3096#3097#0" expanded="true" />
@@ -1059,7 +1059,13 @@
       <option name="project" value="LOCAL" />
       <updated>1447598046466</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="*bug fixes and performance improvements">
+      <created>1447601377773</created>
+      <option name="number" value="00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1447601377773</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1184,7 +1190,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="*method refactored" />
     <MESSAGE value="*Ant Colony Optimization" />
     <MESSAGE value="*Max path setting added" />
     <MESSAGE value="*pheromone updation added" />
@@ -1209,7 +1214,8 @@
     <MESSAGE value="*update" />
     <MESSAGE value="*BOT challenge" />
     <MESSAGE value="*fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="*fix" />
+    <MESSAGE value="*bug fixes and performance improvements" />
+    <option name="LAST_COMMIT_MESSAGE" value="*bug fixes and performance improvements" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1694,8 +1700,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Solution.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4111406">
-          <caret line="109" column="9" selection-start-line="109" selection-start-column="9" selection-end-line="109" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.530504">
+          <caret line="112" column="62" selection-start-line="112" selection-start-column="62" selection-end-line="112" selection-end-column="62" />
           <folding>
             <element signature="e#2414#2423#0" expanded="true" />
             <element signature="e#3096#3097#0" expanded="true" />
