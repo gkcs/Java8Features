@@ -93,25 +93,28 @@ class InputReaders {
 
 public class Solution {
 
+    public static final int FIVE = 5;
+
     public static void main(String[] args) throws IOException {
         InputReaders br = new InputReaders(System.in);
-        final int field[][] = new int[5][5];
-        List<Integer> order = new ArrayList<>();
+        final int field[][] = new int[FIVE][FIVE];
+        List<Integer> order = new ArrayList<Integer>();
         for (int i = 0; i < 25; i++) {
             order.add(i);
         }
         Collections.shuffle(order);
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
+        for (int i = 0; i < FIVE; i++) {
+            for (int j = 0; j < FIVE; j++) {
                 field[i][j] = br.readInt();
             }
         }
         Board board = new Board(field, order);
-        if (!board.findAnyAlmostCompleteSquare()) {
-            if (!board.findLeastCompletedSquare()) {
+        if (!board.findAnyAlmostCompleteSquare() && board.move != null) {
+            if (!board.findLeastCompletedSquare() && board.move != null) {
                 board.findRandomSquare();
             }
         }
+        System.out.println(board.move);
     }
 
 
@@ -119,13 +122,23 @@ public class Solution {
 
 class Board {
     private final int[][] board;
-    private final List<Integer> order;
+
+    @Override
+    public String toString() {
+        return Arrays.deepToString(board);
+    }
+
+    private final int[] order;
     private final int[][] counts;
-    final boolean visited[][];
+    private final boolean visited[][];
+    public Point move;
 
     public Board(int[][] board, List<Integer> order) {
         this.board = board;
-        this.order = order;
+        this.order = new int[order.size()];
+        for (int i = 0; i < this.order.length; i++) {
+            this.order[i] = order.get(i);
+        }
         counts = new int[board.length][board.length];
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
@@ -143,15 +156,15 @@ class Board {
 
     public boolean findAnyAlmostCompleteSquare() {
         boolean played = false;
-        for (int index = 0; index < order.size() && !played; index++) {
-            int x = order.get(index);
+        for (int index = 0; index < order.length && !played; index++) {
+            int x = order[index];
             int i = x / 5, j = x % 5;
             if (counts[i][j] == 3) {
                 played = true;
-                board[i][j] ^= 15;
+                int current = board[i][j] ^ 15;
                 for (int k = 0; k < 4; k++) {
-                    if ((board[i][j] & (1 << k)) != 0) {
-                        System.out.println(i + " " + j + " " + k);
+                    if ((current & (1 << k)) != 0) {
+                        move = new Point(i, j, 0, k);
                         break;
                     }
                 }
@@ -162,24 +175,24 @@ class Board {
 
     public boolean findLeastCompletedSquare() {
         boolean played = false;
-        for (int index = 0; index < order.size() && !played; index++) {
-            int x = order.get(index);
+        for (int index = 0; index < order.length && !played; index++) {
+            int x = order[index];
             int i = x / 5, j = x % 5;
             if (counts[i][j] == 0 || counts[i][j] == 1) {
-                board[i][j] ^= 15;
+                int current = board[i][j] ^ 15;
                 int top = i > 0 ? counts[i - 1][j] : 0, bottom = i < board.length - 1 ? counts[i + 1][j] : 0;
                 int left = j > 0 ? counts[i][j - 1] : 0, right = j < board.length - 1 ? counts[i][j + 1] : 0;
-                if ((board[i][j] & 1) != 0 && top < 2) {
-                    System.out.println(i + " " + j + " " + 0);
+                if ((current & 1) != 0 && top < 2) {
+                    move = new Point(i, j, 0, 0);
                     played = true;
-                } else if ((board[i][j] & 2) != 0 && right < 2) {
-                    System.out.println(i + " " + j + " " + 1);
+                } else if ((current & 2) != 0 && right < 2) {
+                    move = new Point(i, j, 0, 1);
                     played = true;
-                } else if ((board[i][j] & 4) != 0 && bottom < 2) {
-                    System.out.println(i + " " + j + " " + 2);
+                } else if ((current & 4) != 0 && bottom < 2) {
+                    move = new Point(i, j, 0, 2);
                     played = true;
-                } else if ((board[i][j] & 8) != 0 && left < 2) {
-                    System.out.println(i + " " + j + " " + 3);
+                } else if ((current & 8) != 0 && left < 2) {
+                    move = new Point(i, j, 0, 3);
                     played = true;
                 }
             }
@@ -187,27 +200,23 @@ class Board {
         return played;
     }
 
-    public boolean findRandomSquare() {
-        boolean played = false;
+    public void findRandomSquare() {
         int size = 0;
         final Point point[] = new Point[25];
-        for (int index = 0; index < order.size() && !played; index++) {
-            int x = order.get(index);
+        for (int x : order) {
             int i = x / 5, j = x % 5;
             if (!visited[i][j] && counts[i][j] < 4) {
-                played = true;
-                board[i][j] ^= 15;
-                point[size++] = new Point(i, j, BFS(i, j));
+                point[size++] = new Point(i, j, BFS(i, j), 0);
             }
         }
         Arrays.sort(point, 0, size);
         for (int k = 0; k < 4; k++) {
-            if ((board[point[0].x][point[0].y] & (1 << k)) != 0) {
-                System.out.println(point[0].x + " " + point[0].y + " " + k);
+            int current = board[point[0].x][point[0].y] ^ 15;
+            if ((current & (1 << k)) != 0) {
+                move = new Point(point[0].x, point[0].y, 0, k);
                 break;
             }
         }
-        return played;
     }
 
     private int BFS(int i, int j) {
@@ -217,34 +226,41 @@ class Board {
         visited[i][j] = true;
         while (front < rear) {
             int row = q[front] / board.length, col = q[front] % board.length;
-            if (row > 0 && counts[row - 1][col] == 2) {
+            if (row > 0 && counts[row - 1][col] == 2 && !visited[row - 1][col]) {
                 q[rear++] = (row - 1) * board.length + col;
                 visited[row - 1][col] = true;
             }
-            if (row < board.length - 1 && counts[row + 1][col] == 2) {
+            if (row < board.length - 1 && counts[row + 1][col] == 2 && !visited[row + 1][col]) {
                 q[rear++] = (row + 1) * board.length + col;
                 visited[row + 1][col] = true;
             }
-            if (col > 0 && counts[row][col - 1] == 2) {
+            if (col > 0 && counts[row][col - 1] == 2 && !visited[row][col - 1]) {
                 q[rear++] = row * board.length + col - 1;
                 visited[row][col - 1] = true;
             }
-            if (col < board.length - 1 && counts[row][col + 1] == 2) {
+            if (col < board.length - 1 && counts[row][col + 1] == 2 && !visited[row][col + 1]) {
                 q[rear++] = row * board.length + col + 1;
                 visited[row][col + 1] = true;
             }
+            front++;
         }
         return rear;
     }
 }
 
 class Point implements Comparable<Point> {
-    final int x, y, area;
+    final int x, y, area, side;
 
-    public Point(int x, int y, int area) {
+    public Point(int x, int y, int area, int side) {
         this.x = x;
         this.y = y;
         this.area = area;
+        this.side = side;
+    }
+
+    @Override
+    public String toString() {
+        return x + " " + y + " " + side;
     }
 
     @Override
