@@ -121,6 +121,7 @@ public class Solution {
 }
 
 class Board {
+    public static final Random RANDOM = new Random();
     private final int[][] board;
 
     @Override
@@ -182,18 +183,26 @@ class Board {
                 int current = board[i][j] ^ 15;
                 int top = i > 0 ? counts[i - 1][j] : 0, bottom = i < board.length - 1 ? counts[i + 1][j] : 0;
                 int left = j > 0 ? counts[i][j - 1] : 0, right = j < board.length - 1 ? counts[i][j + 1] : 0;
+                Point candidates[] = new Point[4];
+                int ppl = 0;
                 if ((current & 1) != 0 && top < 2) {
-                    move = new Point(i, j, 0, 0);
+                    candidates[ppl++] = new Point(i, j, 0, 0);
                     played = true;
-                } else if ((current & 2) != 0 && right < 2) {
-                    move = new Point(i, j, 0, 1);
+                }
+                if ((current & 2) != 0 && right < 2) {
+                    candidates[ppl++] = new Point(i, j, 0, 1);
                     played = true;
-                } else if ((current & 4) != 0 && bottom < 2) {
-                    move = new Point(i, j, 0, 2);
+                }
+                if ((current & 4) != 0 && bottom < 2) {
+                    candidates[ppl++] = new Point(i, j, 0, 2);
                     played = true;
-                } else if ((current & 8) != 0 && left < 2) {
-                    move = new Point(i, j, 0, 3);
+                }
+                if ((current & 8) != 0 && left < 2) {
+                    candidates[ppl++] = new Point(i, j, 0, 3);
                     played = true;
+                }
+                if (ppl > 0) {
+                    move = candidates[RANDOM.nextInt(ppl)];
                 }
             }
         }
@@ -204,7 +213,7 @@ class Board {
         int size = 0;
         final Point point[] = new Point[25];
         for (int x : order) {
-            int i = x / 5, j = x % 5;
+            int i = x / board.length, j = x % board.length;
             if (!visited[i][j] && counts[i][j] < 4) {
                 point[size++] = new Point(i, j, BFS(i, j), 0);
             }
@@ -226,19 +235,19 @@ class Board {
         visited[i][j] = true;
         while (front < rear) {
             int row = q[front] / board.length, col = q[front] % board.length;
-            if (row > 0 && counts[row - 1][col] == 2 && !visited[row - 1][col]) {
+            if (row > 0 && counts[row - 1][col] == 2 && !visited[row - 1][col] && (board[row][col] & 1) == 0) {
                 q[rear++] = (row - 1) * board.length + col;
                 visited[row - 1][col] = true;
             }
-            if (row < board.length - 1 && counts[row + 1][col] == 2 && !visited[row + 1][col]) {
+            if (row < board.length - 1 && counts[row + 1][col] == 2 && !visited[row + 1][col] && (board[row][col] & 4) == 0) {
                 q[rear++] = (row + 1) * board.length + col;
                 visited[row + 1][col] = true;
             }
-            if (col > 0 && counts[row][col - 1] == 2 && !visited[row][col - 1]) {
+            if (col > 0 && counts[row][col - 1] == 2 && !visited[row][col - 1] && (board[row][col] & 8) == 0) {
                 q[rear++] = row * board.length + col - 1;
                 visited[row][col - 1] = true;
             }
-            if (col < board.length - 1 && counts[row][col + 1] == 2 && !visited[row][col + 1]) {
+            if (col < board.length - 1 && counts[row][col + 1] == 2 && !visited[row][col + 1] && (board[row][col] & 2) == 0) {
                 q[rear++] = row * board.length + col + 1;
                 visited[row][col + 1] = true;
             }
