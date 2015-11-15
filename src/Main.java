@@ -31,11 +31,26 @@ class Solver {
         for (int i = 0; i < a.length; i++) {
             adj[a[i]][b[i]] = true;
         }
+        removeTransitivity(n);
         while (total < n) {
             total += findLongestPath(n);
             pathCount++;
         }
         return pathCount;
+    }
+
+    private void removeTransitivity(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i != j) {
+                    for (int k = 0; k < n; k++) {
+                        if (k != i && k != j && adj[i][j] && adj[j][k] && adj[i][k]) {
+                            adj[i][k] = false;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private int findLongestPath(final int n) {
