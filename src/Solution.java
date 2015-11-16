@@ -109,8 +109,8 @@ public class Solution {
             }
         }
         final Board board = new Board(field, order);
-        if (!board.findAnyAlmostCompleteSquare()) {
-            if (!board.findLeastCompletedSquare()) {
+        if (!board.findAnyAlmostCompleteSquare() || board.move == null) {
+            if (!board.findLeastCompletedSquare() || board.move == null) {
                 board.findRandomSquare();
             }
         }
