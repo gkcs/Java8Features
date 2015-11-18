@@ -181,16 +181,20 @@ class Board {
                 final int left = j > 0 ? counts[i][j - 1] : 0, right = j < five - 1 ? counts[i][j + 1] : 0;
                 int ppl = 0;
                 if ((bits & 1) != 0 && top < 2) {
-                    candidates[ppl++] = new Point(i, j, 0, 0);
+                    candidates[ppl] = new Point(i, j, 0, 0);
+                    ppl++;
                 }
                 if ((bits & 2) != 0 && right < 2) {
-                    candidates[ppl++] = new Point(i, j, 0, 1);
+                    candidates[ppl] = new Point(i, j, 0, 1);
+                    ppl++;
                 }
                 if ((bits & 4) != 0 && bottom < 2) {
-                    candidates[ppl++] = new Point(i, j, 0, 2);
+                    candidates[ppl] = new Point(i, j, 0, 2);
+                    ppl++;
                 }
                 if ((bits & 8) != 0 && left < 2) {
-                    candidates[ppl++] = new Point(i, j, 0, 3);
+                    candidates[ppl] = new Point(i, j, 0, 3);
+                    ppl++;
                 }
                 if (ppl > 0) {
                     move = candidates[random.nextInt(ppl)];
