@@ -1,67 +1,74 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DotsAndDashes {
 
     public static void main(String[] args) throws IOException {
         final InputReaders br = new InputReaders(System.in);
+        final Strategy strategy = new Strategy();
         final int field[][] = new int[5][5];
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 field[i][j] = br.readInt();
             }
         }
-    }
-}
-
-class Strategy {
-    private final int counts[] = new int[25];
-    private final int[] board = new int[25];
-
-    public Strategy(final int[][] board) {
+        final byte board[] = new byte[25];
+        final int counts[] = new int[25];
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
+                int current = i * 5 + j;
                 for (int k = 0; k < 4; k++) {
-                    this.board[i * 5 + j] = board[i][j];
-                    if ((board[i][j] & (1 << k)) != 0) {
-                        counts[i * 5 + j]++;
+                    board[current] = (byte) field[i][j];
+                    if ((field[i][j] & (1 << k)) != 0) {
+                        counts[current]++;
                     }
                 }
             }
         }
+        final int sides[] = new int[5];
+        for (int i = 0; i < 25; i++) {
+            sides[counts[i]] |= 1 << i;
+        }
+        System.out.println(strategy.solve(board, sides));
     }
+}
 
-    public Edge solve() {
-        int captureBox = getCaptureBox();
-        if (captureBox < 0) {
-            for (int k = 0; k < 4; k++) {
+class Strategy {
+
+    private static final int five = 5;
+    private static final int four = 4;
+
+    public Edge solve(final byte[] board, final int[] sides) {
+        int captureBox = getCaptureBox(board, sides);
+        if (captureBox >= 0) {
+            for (int k = 0; k < four; k++) {
                 if ((board[captureBox] & (1 << k)) != 0) {
-                    return new Edge(captureBox / 5, captureBox % 5, k);
+                    return new Edge(captureBox / five, captureBox % five, k);
                 }
             }
         } else {
-
+            return null;
         }
+        return null;
     }
 
-    public int getCaptureBox() {
-        Chain[] allChains = findAllChains();
-        if (allChains.length > 1) {
-            return allChains[0].start;
-        } else if (allChains.length == 1) {
-            if (allChains[0].open) {
-                if (allChains[0].size != 2) {
-                    return allChains[0].start;
+    private int getCaptureBox(final byte[] board, final int sides[]) {
+        List<Chain> allChains = findAllChains(board, sides);
+        if (allChains.size() > 1) {
+            return allChains.get(0).start;
+        } else if (allChains.size() == 1) {
+            if (allChains.get(0).open) {
+                if (allChains.get(0).size != 2) {
+                    return allChains.get(0).start;
                 } else {
-
+                    return allChains.get(0).start;
                 }
             } else {
-                if (allChains[0].size != 4) {
-                    return allChains[0].start;
+                if (allChains.get(0).size != four) {
+                    return allChains.get(0).start;
                 } else {
-
+                    return allChains.get(0).start;
                 }
             }
         } else {
@@ -69,21 +76,51 @@ class Strategy {
         }
     }
 
-    public Chain[] findAllChains() {
+    private List<Chain> findAllChains(final byte[] board, final int sides[]) {
         int visited = 0;
         final List<Chain> chains = new ArrayList<>();
         for (int i = 0; i < 25; i++) {
             if ((visited & (1 << i)) != 0) {
-                if (counts[i] == 3) {
+                if ((sides[3] & (1 << i)) != 0) {
                     boolean open = false;
                     final int q[] = new int[25];
                     int front = 0, rear = 1;
-                    rear = checkNeighbours(i, q, rear);
+                    if ((board[i] & 8) == 0 && i % five != 0 && ((visited & (1 << (i - 1))) == 0)) {
+                        q[rear++] = i - 1;
+                        visited |= (1 << (i - 1));
+                    }
+                    if ((board[i] & 1) == 0 && i / five != 0 && ((visited & (1 << (i - five))) == 0)) {
+                        q[rear++] = i - five;
+                        visited |= (1 << (i - five));
+                    }
+                    if ((board[i] & four) == 0 && i / five != four && ((visited & (1 << (i + five))) == 0)) {
+                        q[rear++] = i + five;
+                        visited |= (1 << (i + five));
+                    }
+                    if ((board[i] & 2) == 0 && i % five != four && ((visited & (1 << (i + 1))) == 0)) {
+                        q[rear++] = i + 1;
+                        visited |= (1 << (i + 1));
+                    }
                     while (front < rear) {
                         int current = q[front++];
-                        if (counts[current] == 2) {
-                            rear = checkNeighbours(current, q, rear);
-                        } else if (counts[current] < 2) {
+                        if ((sides[2] & (1 << current)) != 0) {
+                            if ((board[current] & 8) == 0 && current % five != 0 && ((visited & (1 << (current - 1))) == 0)) {
+                                q[rear++] = current - 1;
+                                visited |= (1 << (current - 1));
+                            }
+                            if ((board[current] & 1) == 0 && current / five != 0 && ((visited & (1 << (current - five))) == 0)) {
+                                q[rear++] = current - five;
+                                visited |= (1 << (current - five));
+                            }
+                            if ((board[current] & four) == 0 && current / five != four && ((visited & (1 << (current + five))) == 0)) {
+                                q[rear++] = current + five;
+                                visited |= (1 << (current + five));
+                            }
+                            if ((board[current] & 2) == 0 && current % five != four && ((visited & (1 << (current + 1))) == 0)) {
+                                q[rear++] = current + 1;
+                                visited |= (1 << (current + 1));
+                            }
+                        } else if ((sides[0] & (1 << current)) != 0 || (sides[1] & (1 << current)) != 0) {
                             open = true;
                         }
                     }
@@ -91,29 +128,23 @@ class Strategy {
                 }
             }
         }
-        Chain[] chainArray = chains.toArray(new Chain[chains.size()]);
-        Arrays.sort(chainArray);
-        return chainArray;
+        chains.sort((first, second) -> {
+            if (first.open != second.open) {
+                if (first.open) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            } else {
+                return second.size - first.size;
+            }
+        });
+        return chains;
     }
 
-    private int checkNeighbours(int i, int[] q, int rear) {
-        if ((i & 8) == 0 && i % 5 != 0) {
-            q[rear++] = i - 1;
-        }
-        if ((i & 1) == 0 && i / 5 != 0) {
-            q[rear++] = i - 5;
-        }
-        if ((i & 4) == 0 && i / 5 != 4) {
-            q[rear++] = i + 5;
-        }
-        if ((i & 2) == 0 && i % 5 != 4) {
-            q[rear++] = i + 1;
-        }
-        return rear;
-    }
 }
 
-class Chain implements Comparable<Chain> {
+class Chain {
     protected final int start;
     protected final boolean open;
     protected final int size;
@@ -122,19 +153,6 @@ class Chain implements Comparable<Chain> {
         this.start = start;
         this.open = open;
         this.size = size;
-    }
-
-    @Override
-    public int compareTo(Chain other) {
-        if (this.open != other.open) {
-            if (this.open) {
-                return 1;
-            } else {
-                return -1;
-            }
-        } else {
-            return other.size - this.size;
-        }
     }
 }
 
