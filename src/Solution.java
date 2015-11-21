@@ -255,19 +255,12 @@ class Board {
     }
 }
 
-class Point implements Comparable<Point> {
-    final int x, y, area, side;
+class Point extends Edge implements Comparable<Point> {
+    final int area;
 
     public Point(int x, int y, int area, int side) {
-        this.x = x;
-        this.y = y;
+        super(x, y, side);
         this.area = area;
-        this.side = side;
-    }
-
-    @Override
-    public String toString() {
-        return x + " " + y + " " + side;
     }
 
     @Override
