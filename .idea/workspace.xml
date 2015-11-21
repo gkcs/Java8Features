@@ -7,6 +7,7 @@
     <list default="true" id="4f402781-6da9-457a-99c5-8716facadc4c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DotsAndDashes.java" afterPath="$PROJECT_DIR$/src/DotsAndDashes.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MainTest.java" afterPath="$PROJECT_DIR$/src/MainTest.java" />
     </list>
     <ignored path="Java8Features.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,21 +43,28 @@
       <file leaf-file-name="DotsAndDashes.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DotsAndDashes.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8485401">
-              <caret line="69" column="73" selection-start-line="69" selection-start-column="73" selection-end-line="69" selection-end-column="73" />
+            <state vertical-scroll-proportion="0.4532967">
+              <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
               <folding>
                 <element signature="class#DotsAndDashes#0" expanded="false" />
                 <element signature="method#main#0;class#DotsAndDashes#0" expanded="false" />
-                <element signature="method#Strategy#0;class#Strategy#0" expanded="false" />
-                <element signature="method#input#0;class#Strategy#0" expanded="false" />
-                <element signature="method#findAllDoubleEndedChains#0;class#Strategy#0" expanded="false" />
                 <element signature="method#findEndOfChain#0;class#Strategy#0" expanded="false" />
                 <element signature="method#findAllChains#0;class#Strategy#0" expanded="false" />
                 <element signature="class#Chain#0" expanded="false" />
                 <element signature="class#Edge#0" expanded="false" />
-                <element signature="e#13345#13346#0" expanded="true" />
-                <element signature="e#13392#13393#0" expanded="true" />
+                <element signature="e#13389#13390#0" expanded="true" />
+                <element signature="e#13436#13437#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Comparator.java" pinned="false" current-in-tab="false">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/src.zip!/java/util/Comparator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="149" column="8" selection-start-line="149" selection-start-column="8" selection-end-line="149" selection-end-column="8" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -78,7 +86,7 @@
         <entry file="file://$PROJECT_DIR$/src/MainTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+              <caret line="8" column="69" selection-start-line="8" selection-start-column="69" selection-end-line="8" selection-end-column="69" />
               <folding />
             </state>
           </provider>
@@ -157,8 +165,8 @@
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/BoxGame.java" />
         <option value="$PROJECT_DIR$/src/Solution.java" />
-        <option value="$PROJECT_DIR$/src/MainTest.java" />
         <option value="$PROJECT_DIR$/src/DotsAndDashes.java" />
+        <option value="$PROJECT_DIR$/src/MainTest.java" />
       </list>
     </option>
   </component>
@@ -347,7 +355,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../CompetitiveProgramming" />
     <property name="LayoutCode.rearrangeEntriesJava" value="true" />
     <property name="LayoutCode.rearrangeEntries" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="availableprocess&#9;PSI&#9;JAVA://java.lang.Runtime#availableProcessors&#10;arrays&#9;FILE&#9;jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/src.zip!/java/util/Arrays.java&#10;string&#9;FILE&#9;jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/src.zip!/java/lang/String.java&#10;threadpool&#9;FILE&#9;jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/src.zip!/com/sun/corba/se/spi/orbutil/threadpool/ThreadPool.java&#10;Exce&#9;PSI&#9;JAVA://java.lang.Exception&#10;Throw&#9;PSI&#9;JAVA://java.lang.Throwable" />
+    <property name="SearchEverywhereHistoryKey" value="compar&#9;FILE&#9;jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/src.zip!/java/util/Comparator.java&#10;availableprocess&#9;PSI&#9;JAVA://java.lang.Runtime#availableProcessors&#10;arrays&#9;FILE&#9;jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/src.zip!/java/util/Arrays.java&#10;string&#9;FILE&#9;jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/src.zip!/java/lang/String.java&#10;threadpool&#9;FILE&#9;jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/src.zip!/com/sun/corba/se/spi/orbutil/threadpool/ThreadPool.java&#10;Exce&#9;PSI&#9;JAVA://java.lang.Exception&#10;Throw&#9;PSI&#9;JAVA://java.lang.Throwable" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="100" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
@@ -793,12 +801,6 @@
       <option name="number" value="Default" />
       <updated>1421399857020</updated>
     </task>
-    <task id="LOCAL-00001" summary="*KMP Algorithm implemented">
-      <created>1442548414947</created>
-      <option name="number" value="00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1442548414947</updated>
-    </task>
     <task id="LOCAL-00002" summary="*Insertion sort added">
       <created>1442602842148</created>
       <option name="number" value="00002" />
@@ -1087,38 +1089,44 @@
       <option name="project" value="LOCAL" />
       <updated>1448085893456</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="*complete">
+      <created>1448087445697</created>
+      <option name="number" value="00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1448087445698</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="MainTest - 2015.11.21 at 00h 33m 57s.xml">
-      <configuration name="MainTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainTest - 2015.11.21 at 00h 34m 36s.xml">
-      <configuration name="MainTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainTest - 2015.11.21 at 00h 40m 49s.xml">
-      <configuration name="MainTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainTest - 2015.11.21 at 00h 41m 52s.xml">
-      <configuration name="MainTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainTest_test - 2015.11.21 at 00h 46m 19s.xml">
+    <history-entry file="MainTest_test - 2015.11.21 at 12h 04m 16s.xml">
       <configuration name="MainTest.test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MainTest_test - 2015.11.21 at 00h 48m 01s.xml">
+    <history-entry file="MainTest_test - 2015.11.21 at 12h 08m 13s.xml">
       <configuration name="MainTest.test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MainTest_test - 2015.11.21 at 00h 51m 03s.xml">
+    <history-entry file="MainTest_test - 2015.11.21 at 12h 08m 33s.xml">
       <configuration name="MainTest.test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MainTest_test - 2015.11.21 at 00h 51m 24s.xml">
+    <history-entry file="MainTest_test - 2015.11.21 at 12h 09m 07s.xml">
       <configuration name="MainTest.test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MainTest_test - 2015.11.21 at 00h 54m 15s.xml">
+    <history-entry file="MainTest_test - 2015.11.21 at 12h 09m 41s.xml">
       <configuration name="MainTest.test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MainTest_test - 2015.11.21 at 07h 59m 34s.xml">
+    <history-entry file="MainTest_test - 2015.11.21 at 12h 19m 10s.xml">
+      <configuration name="MainTest.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest_test - 2015.11.21 at 12h 22m 21s.xml">
+      <configuration name="MainTest.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest_test - 2015.11.21 at 12h 23m 29s.xml">
+      <configuration name="MainTest.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest_test - 2015.11.21 at 12h 25m 06s.xml">
+      <configuration name="MainTest.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest_test - 2015.11.21 at 12h 25m 33s.xml">
       <configuration name="MainTest.test" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -1161,7 +1169,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31944445" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31944445" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1212,7 +1220,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="*Correlation added" />
     <MESSAGE value="*Correlation coefficients found" />
     <MESSAGE value="*Offers problem" />
     <MESSAGE value="*Ingredients" />
@@ -1237,22 +1244,23 @@
     <MESSAGE value="*GameState Introduced" />
     <MESSAGE value="*board update implemented" />
     <MESSAGE value="*basic algo implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="*basic algo implemented" />
+    <MESSAGE value="*complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="*complete" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/DotsAndDashes.java</url>
-          <line>87</line>
+          <line>127</line>
           <properties />
-          <option name="timeStamp" value="101" />
+          <option name="timeStamp" value="103" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="102" />
+      <option name="time" value="104" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1573,14 +1581,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/src.zip!/java/util/Comparator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="149" column="8" selection-start-line="149" selection-start-column="8" selection-end-line="149" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/src.zip!/java/util/Arrays.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1619,14 +1619,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MainTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/src.zip!/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1638,22 +1630,35 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/src.zip!/java/util/Comparator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="149" column="8" selection-start-line="149" selection-start-column="8" selection-end-line="149" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MainTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="69" selection-start-line="8" selection-start-column="69" selection-end-line="8" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/DotsAndDashes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8485401">
-          <caret line="69" column="73" selection-start-line="69" selection-start-column="73" selection-end-line="69" selection-end-column="73" />
+        <state vertical-scroll-proportion="0.4532967">
+          <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
           <folding>
             <element signature="class#DotsAndDashes#0" expanded="false" />
             <element signature="method#main#0;class#DotsAndDashes#0" expanded="false" />
-            <element signature="method#Strategy#0;class#Strategy#0" expanded="false" />
-            <element signature="method#input#0;class#Strategy#0" expanded="false" />
-            <element signature="method#findAllDoubleEndedChains#0;class#Strategy#0" expanded="false" />
             <element signature="method#findEndOfChain#0;class#Strategy#0" expanded="false" />
             <element signature="method#findAllChains#0;class#Strategy#0" expanded="false" />
             <element signature="class#Chain#0" expanded="false" />
             <element signature="class#Edge#0" expanded="false" />
-            <element signature="e#13345#13346#0" expanded="true" />
-            <element signature="e#13392#13393#0" expanded="true" />
+            <element signature="e#13389#13390#0" expanded="true" />
+            <element signature="e#13436#13437#0" expanded="true" />
           </folding>
         </state>
       </provider>

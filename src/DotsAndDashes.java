@@ -55,15 +55,15 @@ class Strategy {
         int captureBox = getCaptureBox(board, counts, numberOfSides);
         if (((counts[3] & (1 << captureBox)) != 0) || ((counts[2] & (1 << captureBox)) != 0)) {
             for (int k = 0; k < 4; k++) {
-                if ((board[captureBox] & (1 << k)) != 0) {
+                if ((board[captureBox] & (1 << k)) == 0) {
                     return new Edge(captureBox / size, captureBox % size, k);
                 }
             }
         } else {
-            boolean left = ((captureBox % size) != 0) && (counts[captureBox - 1] < 2) && ((board[captureBox] & 8) == 0);
-            boolean right = ((captureBox % size) != boundary) && (counts[captureBox + 1] < 2) && ((board[captureBox] & 2) == 0);
-            boolean bottom = ((captureBox / size) != boundary) && (counts[captureBox + size] < 2) && ((board[captureBox] & 4) == 0);
-            boolean top = ((captureBox / size) != 0) && (counts[captureBox - size] < 2) && ((board[captureBox] & 1) == 0);
+            boolean left = (((captureBox % size) == 0) || (numberOfSides[captureBox - 1] < 2)) && ((board[captureBox] & 8) == 0);
+            boolean right = (((captureBox % size) == boundary) || (numberOfSides[captureBox + 1] < 2)) && ((board[captureBox] & 2) == 0);
+            boolean bottom = (((captureBox / size) == boundary) || (numberOfSides[captureBox + size] < 2)) && ((board[captureBox] & 4) == 0);
+            boolean top = (((captureBox / size) == 0) || (numberOfSides[captureBox - size] < 2)) && ((board[captureBox] & 1) == 0);
             if (left) {
                 return new Edge(captureBox / size, captureBox % size, 3);
             } else if (right) {
@@ -75,7 +75,7 @@ class Strategy {
             } else {
                 int move = anyPossibleMove(counts);
                 for (int k = 0; k < 4; k++) {
-                    if ((board[move] & (1 << k)) != 0) {
+                    if ((board[move] & (1 << k)) == 0) {
                         return new Edge(move / size, move % size, k);
                     }
                 }
@@ -199,10 +199,10 @@ class Strategy {
     private int findAnyEmptyBox(byte[] board, int[] counts) {
         for (int i = 0; i < boardSize; i++) {
             if ((counts[i] < 2) &&
-                    ((((i % size) != 0) && (counts[i - 1] < 2) && ((board[i] & 8) == 0))
-                            || (((i % size) != boundary) && (counts[i + 1] < 2) && ((board[i] & 2) == 0))
-                            || (((i / size) != boundary) && (counts[i + size] < 2) && ((board[i] & 4) == 0))
-                            || (((i / size) != 0) && (counts[i - size] < 2) && ((board[i] & 1) == 0)))) {
+                    (((((i % size) == 0) || (counts[i - 1] < 2)) && ((board[i] & 8) == 0))
+                            || ((((i % size) == boundary) || (counts[i + 1] < 2)) && ((board[i] & 2) == 0))
+                            || ((((i / size) == boundary) || (counts[i + size] < 2)) && ((board[i] & 4) == 0))
+                            || ((((i / size) == 0) || (counts[i - size] < 2)) && ((board[i] & 1) == 0)))) {
                 return i;
             }
         }
