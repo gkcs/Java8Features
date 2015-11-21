@@ -10,8 +10,9 @@ public class MainTest {
 
     @Test
     public void test() {
-        Strategy strategy=new Strategy();
-
+        final int board[][] = new int[][]{{13, 3, 8}, {3, 14, 11}, {0, 3, 10}};
+        final Strategy strategy = new Strategy(board.length);
+        System.out.println(strategy.input(board));
     }
 
     @Ignore
