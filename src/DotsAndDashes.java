@@ -60,8 +60,28 @@ class Strategy {
                 }
             }
         } else {
-            *
+            boolean left = ((captureBox % size) != 0) && (counts[captureBox - 1] < 2) && ((board[captureBox] & 8) == 0);
+            boolean right = ((captureBox % size) != boundary) && (counts[captureBox + 1] < 2) && ((board[captureBox] & 2) == 0);
+            boolean bottom = ((captureBox / size) != boundary) && (counts[captureBox + size] < 2) && ((board[captureBox] & 4) == 0);
+            boolean top = ((captureBox / size) != 0) && (counts[captureBox - size] < 2) && ((board[captureBox] & 1) == 0);
+            if (left) {
+                return new Edge(captureBox / size, captureBox % size, 3);
+            } else if (right) {
+                return new Edge(captureBox / size, captureBox % size, 1);
+            } else if (top) {
+                return new Edge(captureBox / size, captureBox % size, 0);
+            } else if (bottom) {
+                return new Edge(captureBox / size, captureBox % size, 2);
+            } else {
+                int move = anyPossibleMove(counts);
+                for (int k = 0; k < 4; k++) {
+                    if ((board[move] & (1 << k)) != 0) {
+                        return new Edge(move / size, move % size, k);
+                    }
+                }
+            }
         }
+        throw new IllegalStateException("Should have atleast one valid move");
     }
 
     private int getCaptureBox(final byte[] board, final int counts[], int[] numberOfSides) {
