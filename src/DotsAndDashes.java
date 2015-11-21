@@ -69,8 +69,9 @@ public class DotsAndDashes {
                 field[i][j] = br.readInt();
             }
         }
-        br.readInt();
-        System.out.println(new Strategy(5).input(field));
+        int player = br.readInt();
+        Edge result = new Strategy(5, player != 0).input(field);
+        System.out.println(result.x + " " + result.y + " " + result.side);
     }
 }
 
@@ -80,21 +81,32 @@ class Strategy {
     private final int boundary;
     private final int boardSize;
     private int visited = 0;
+    private final boolean randomize;
+    private final Random random = new Random();
 
-    Strategy(int size) {
+    private final List<Integer> order = new ArrayList<Integer>();
+
+    Strategy(int size, boolean randomize) {
         this.size = size;
+        this.randomize = randomize;
         boardSize = size * size;
         boundary = size - 1;
     }
 
     public Edge input(int field[][]) {
+        for (int i = 0; i < boardSize; i++) {
+            order.add(i);
+        }
+        if (randomize) {
+            Collections.shuffle(order);
+        }
         final byte board[] = new byte[boardSize];
         final int counts[] = new int[size * size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 int current = i * size + j;
+                board[current] = (byte) (field[i][j] & 15);
                 for (int k = 0; k < 4; k++) {
-                    board[current] = (byte) field[i][j];
                     if ((field[i][j] & (1 << k)) != 0) {
                         counts[current]++;
                     }
@@ -121,8 +133,8 @@ class Strategy {
                         return getEdge(allChains.get(0).start, allChains.get(0).side);
                     } else {
                         List<Chain> allDoubleEndedChains = findAllDoubleEndedChains(board, counts);
-                        if (allDoubleEndedChains.size() > 0 && (allDoubleEndedChains.size() & 1) != 0 && allDoubleEndedChains.get(0).size > 2) {
-                            return findEndOfChain(board, allChains.get(0).start);
+                        if (allDoubleEndedChains.size() > 0 && allDoubleEndedChains.get(0).size > 2) {
+                            return findEndOfChain(board, allChains.get(0));
                         } else {
                             return getEdge(allChains.get(0).start, allChains.get(0).side);
                         }
@@ -136,8 +148,8 @@ class Strategy {
                         return getEdge(allChains.get(0).start, allChains.get(0).side);
                     } else {
                         List<Chain> allDoubleEndedChains = findAllDoubleEndedChains(board, counts);
-                        if (allDoubleEndedChains.size() > 0 && (allDoubleEndedChains.size() & 1) != 0 && allDoubleEndedChains.get(0).size > 4) {
-                            return findEndOfChain(board, allChains.get(0).start);
+                        if (allDoubleEndedChains.size() > 0 && allDoubleEndedChains.get(0).size > 4) {
+                            return findEndOfChain(board, allChains.get(0));
                         } else {
                             return getEdge(allChains.get(0).start, allChains.get(0).side);
                         }
@@ -161,30 +173,26 @@ class Strategy {
 
     private List<Chain> findAllDoubleEndedChains(byte[] board, int[] counts) {
         final List<Chain> chains = new ArrayList<Chain>(5);
-        for (int i = 0; i < boardSize; i++) {
+        for (int index = 0; index < boardSize; index++) {
+            final int i = order.get(index);
             if ((visited & (1 << i)) == 0 && (counts[2] & (1 << i)) != 0) {
                 final int q[] = new int[boardSize];
-                int front = 0, rear = 0;
+                int front = 0, rear = 0, excess = 0;
                 visited |= (1 << i);
-                int side = 0;
                 if ((board[i] & 8) == 0 && i % size != 0 && (visited & (1 << (i - 1))) == 0) {
                     q[rear++] = i - 1;
-                    side = 3;
                     visited |= (1 << (i - 1));
                 }
                 if ((board[i] & 1) == 0 && i / size != 0 && (visited & (1 << (i - size))) == 0) {
                     q[rear++] = i - size;
-                    side = 0;
                     visited |= (1 << (i - size));
                 }
                 if ((board[i] & 4) == 0 && i / size != boundary && (visited & (1 << (i + size))) == 0) {
                     q[rear++] = i + size;
-                    side = 2;
                     visited |= (1 << (i + size));
                 }
                 if ((board[i] & 2) == 0 && i % size != boundary && (visited & (1 << (i + 1))) == 0) {
                     q[rear++] = i + 1;
-                    side = 1;
                     visited |= (1 << (i + 1));
                 }
                 while (front < rear) {
@@ -206,9 +214,11 @@ class Strategy {
                             q[rear++] = current + 1;
                             visited |= (1 << (current + 1));
                         }
+                    } else if ((counts[0] & (1 << current)) != 0 || (counts[1] & (1 << current)) != 0) {
+                        //excess++;
                     }
                 }
-                chains.add(new Chain(i, side, true, rear + 1));
+                chains.add(new Chain(i, findSide(i, board), true, rear + 1 - excess));
             }
         }
         Collections.sort(chains, new Comparator<Chain>() {
@@ -221,7 +231,7 @@ class Strategy {
                         return -1;
                     }
                 } else {
-                    return second.size - first.size;
+                    return first.size - second.size;
                 }
             }
         });
@@ -254,35 +264,58 @@ class Strategy {
     }
 
     private Edge findAnyEmptyBox(byte[] board, int[] counts) {
-        for (int i = 0; i < boardSize; i++) {
-            if ((counts[i] < 2)) {
-                boolean left = (((i % size) == 0) || (counts[i - 1] < 2)) && ((board[i] & 8) == 0);
-                boolean right = (((i % size) == boundary) || (counts[i + 1] < 2)) && ((board[i] & 2) == 0);
-                boolean down = (((i / size) == boundary) || (counts[i + size] < 2)) && ((board[i] & 4) == 0);
-                boolean top = (((i / size) == 0) || (counts[i - size] < 2)) && ((board[i] & 1) == 0);
+        for (int index = 0; index < boardSize; index++) {
+            final int position = order.get(index);
+            if ((counts[position] < 2)) {
+                boolean left = (((position % size) == 0) || (counts[position - 1] < 2)) && ((board[position] & 8) == 0);
+                boolean right = (((position % size) == boundary) || (counts[position + 1] < 2)) && ((board[position] & 2) == 0);
+                boolean down = (((position / size) == boundary) || (counts[position + size] < 2)) && ((board[position] & 4) == 0);
+                boolean top = (((position / size) == 0) || (counts[position - size] < 2)) && ((board[position] & 1) == 0);
+                final Edge[] candidates = new Edge[4];
+                int lines = 0;
                 if (top) {
-                    return getEdge(i, 0);
-                } else if (down) {
-                    return getEdge(i, 2);
-                } else if (right) {
-                    return getEdge(i, 1);
-                } else if (left) {
-                    return getEdge(i, 3);
+                    candidates[lines++] = getEdge(position, 0);
+                }
+                if (down) {
+                    candidates[lines++] = getEdge(position, 2);
+                }
+                if (right) {
+                    candidates[lines++] = getEdge(position, 1);
+                }
+                if (left) {
+                    candidates[lines++] = getEdge(position, 3);
+                }
+                if (lines > 0) {
+                    if (!randomize) {
+                        return candidates[0];
+                    } else {
+                        return candidates[random.nextInt(lines)];
+                    }
                 }
             }
         }
         return null;
     }
 
-    private Edge findEndOfChain(final byte board[], final int i) {
-        if ((board[i] & 8) == 0) {
-            return getEdge(i - 1, 3);
-        } else if ((board[i] & 1) == 0) {
-            return getEdge(i - size, 0);
-        } else if ((board[i] & 4) == 0) {
-            return getEdge(i + size, 2);
-        } else if ((board[i] & 2) == 0) {
-            return getEdge(i + 1, 1);
+    private Edge findEndOfChain(final byte board[], final Chain chain) {
+        int position;
+        if (chain.side == 0) {
+            position = chain.start - size;
+        } else if (chain.side == 1) {
+            position = chain.start + 1;
+        } else if (chain.side == 2) {
+            position = chain.start + size;
+        } else {
+            position = chain.start - 1;
+        }
+        if ((board[position] & 8) == 0) {
+            return getEdge(position, 3);
+        } else if ((board[position] & 1) == 0) {
+            return getEdge(position, 0);
+        } else if ((board[position] & 4) == 0) {
+            return getEdge(position, 2);
+        } else if ((board[position] & 2) == 0) {
+            return getEdge(position, 1);
         }
         throw new IllegalStateException("Should have an open side");
     }
@@ -294,27 +327,28 @@ class Strategy {
 
     private List<Chain> findAllChains(final byte[] board, final int counts[]) {
         final List<Chain> chains = new ArrayList<Chain>(5);
-        for (int i = 0; i < boardSize; i++) {
-            if ((visited & (1 << i)) == 0 && (counts[3] & (1 << i)) != 0) {
+        for (int index = 0; index < boardSize; index++) {
+            final int position = order.get(index);
+            if ((visited & (1 << position)) == 0 && (counts[3] & (1 << position)) != 0) {
                 boolean open = false;
                 final int q[] = new int[boardSize];
                 int front = 0, rear = 0, excess = 0;
-                visited |= (1 << i);
-                if ((board[i] & 8) == 0 && i % size != 0 && (visited & (1 << (i - 1))) == 0) {
-                    q[rear++] = i - 1;
-                    visited |= (1 << (i - 1));
+                visited |= (1 << position);
+                if ((board[position] & 8) == 0 && position % size != 0 && (visited & (1 << (position - 1))) == 0) {
+                    q[rear++] = position - 1;
+                    visited |= (1 << (position - 1));
                 }
-                if ((board[i] & 1) == 0 && i / size != 0 && (visited & (1 << (i - size))) == 0) {
-                    q[rear++] = i - size;
-                    visited |= (1 << (i - size));
+                if ((board[position] & 1) == 0 && position / size != 0 && (visited & (1 << (position - size))) == 0) {
+                    q[rear++] = position - size;
+                    visited |= (1 << (position - size));
                 }
-                if ((board[i] & 4) == 0 && i / size != boundary && (visited & (1 << (i + size))) == 0) {
-                    q[rear++] = i + size;
-                    visited |= (1 << (i + size));
+                if ((board[position] & 4) == 0 && position / size != boundary && (visited & (1 << (position + size))) == 0) {
+                    q[rear++] = position + size;
+                    visited |= (1 << (position + size));
                 }
-                if ((board[i] & 2) == 0 && i % size != boundary && (visited & (1 << (i + 1))) == 0) {
-                    q[rear++] = i + 1;
-                    visited |= (1 << (i + 1));
+                if ((board[position] & 2) == 0 && position % size != boundary && (visited & (1 << (position + 1))) == 0) {
+                    q[rear++] = position + 1;
+                    visited |= (1 << (position + 1));
                 }
                 while (front < rear) {
                     int current = q[front++];
@@ -348,7 +382,7 @@ class Strategy {
                         excess++;
                     }
                 }
-                chains.add(new Chain(i, findSide(i, board), open, rear + 1 - excess));
+                chains.add(new Chain(position, findSide(position, board), open, rear + 1 - excess));
             }
         }
         Collections.sort(chains, new Comparator<Chain>() {
@@ -391,10 +425,5 @@ class Edge {
         this.x = x;
         this.y = y;
         this.side = side;
-    }
-
-    @Override
-    public String toString() {
-        return x + " " + y + " " + side;
     }
 }

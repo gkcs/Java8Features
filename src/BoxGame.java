@@ -29,35 +29,38 @@ public class BoxGame {
                     }
                 }
                 move = board.move;
+                //move = new Strategy(5, false).input(field);
             } else {
-                move = new Strategy(5).input(field);
+                move = new Strategy(5, true).input(field);
             }
             updatedBoard(field, move);
             field[move.x][move.y] |= (1 << move.side);
+            int score = 0;
+            String player = turn ? A : B;
+            if (move.side == 0 && move.x != 0 && field[move.x - 1][move.y] == 15) {
+                score++;
+                strings[move.x - 1][move.y] = player;
+            } else if (move.side == 1 && move.y != 4 && field[move.x][move.y + 1] == 15) {
+                score++;
+                strings[move.x][move.y + 1] = player;
+            } else if (move.side == 2 && move.x != 4 && field[move.x + 1][move.y] == 15) {
+                score++;
+                strings[move.x + 1][move.y] = player;
+            } else if (move.side == 3 && move.y != 0 && field[move.x][move.y - 1] == 15) {
+                score++;
+                strings[move.x][move.y - 1] = player;
+            }
             if (field[move.x][move.y] == 15) {
-                int score = 1;
-                String player = turn ? A : B;
-                if (move.side == 0 && move.x != 0 && field[move.x - 1][move.y] == 15) {
-                    score++;
-                    strings[move.x - 1][move.y] = player;
-                } else if (move.side == 1 && move.y != 4 && field[move.x][move.y + 1] == 15) {
-                    score++;
-                    strings[move.x][move.y + 1] = player;
-                } else if (move.side == 2 && move.x != 4 && field[move.x + 1][move.y] == 15) {
-                    score++;
-                    strings[move.x + 1][move.y] = player;
-                } else if (move.side == 3 && move.y != 0 && field[move.x][move.y - 1] == 15) {
-                    score++;
-                    strings[move.x][move.y - 1] = player;
-                }
+                score++;
+                strings[move.x][move.y] = player;
+            }
+            if (score > 0) {
+                turn = !turn;
                 if (turn) {
                     first = first + score;
-                    strings[move.x][move.y] = player;
                 } else {
                     second = second + score;
-                    strings[move.x][move.y] = player;
                 }
-                turn = !turn;
             }
             printBoard(strings);
             printMove(move);
