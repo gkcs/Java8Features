@@ -22,6 +22,7 @@ class Strategy {
     private final int size;
     private final int boundary;
     private final int boardSize;
+    private int visited = 0;
 
     Strategy(int size) {
         this.size = size;
@@ -47,24 +48,23 @@ class Strategy {
         for (int i = 0; i < size * size; i++) {
             sides[counts[i]] |= 1 << i;
         }
-        return solve(board, sides);
+        return solve(board, sides, counts);
     }
 
-    private Edge solve(final byte[] board, final int[] counts) {
-        int captureBox = getCaptureBox(board, counts);
-        if (captureBox >= 0) {
-            for (int k = 0; k < boundary; k++) {
+    private Edge solve(final byte[] board, final int[] counts, int[] numberOfSides) {
+        int captureBox = getCaptureBox(board, counts, numberOfSides);
+        if (((counts[3] & (1 << captureBox)) != 0) || ((counts[2] & (1 << captureBox)) != 0)) {
+            for (int k = 0; k < 4; k++) {
                 if ((board[captureBox] & (1 << k)) != 0) {
                     return new Edge(captureBox / size, captureBox % size, k);
                 }
             }
         } else {
-            return null;
+            *
         }
-        return null;
     }
 
-    private int getCaptureBox(final byte[] board, final int counts[]) {
+    private int getCaptureBox(final byte[] board, final int counts[], int[] numberOfSides) {
         List<Chain> allChains = findAllChains(board, counts);
         if (allChains.size() > 1) {
             return allChains.get(0).start;
@@ -73,90 +73,180 @@ class Strategy {
                 if (allChains.get(0).size != 2) {
                     return allChains.get(0).start;
                 } else {
-                    return allChains.get(0).start;
+                    if (findAnyEmptyBox(board, numberOfSides) >= 0) {
+                        return allChains.get(0).start;
+                    } else {
+                        List<Chain> allDoubleEndedChains = findAllDoubleEndedChains(board, counts);
+                        if ((allDoubleEndedChains.size() & 1) != 0) {
+                            return findEndOfChain(board, allChains.get(0).start);
+                        } else {
+                            return allChains.get(0).start;
+                        }
+                    }
                 }
             } else {
                 if (allChains.get(0).size != 4) {
                     return allChains.get(0).start;
                 } else {
-                    return allChains.get(0).start;
+                    if (findAnyEmptyBox(board, numberOfSides) >= 0) {
+                        return allChains.get(0).start;
+                    } else {
+                        List<Chain> allDoubleEndedChains = findAllDoubleEndedChains(board, counts);
+                        if ((allDoubleEndedChains.size() & 1) != 0) {
+                            return findEndOfChain(board, allChains.get(0).start);
+                        } else {
+                            return allChains.get(0).start;
+                        }
+                    }
                 }
             }
         } else {
-            return -1;
+            int emptyBox = findAnyEmptyBox(board, numberOfSides);
+            if (emptyBox >= 0) {
+                return emptyBox;
+            } else {
+                List<Chain> allDoubleEndedChains = findAllDoubleEndedChains(board, counts);
+                if (allDoubleEndedChains.size() > 0) {
+                    return allDoubleEndedChains.get(0).start;
+                } else {
+                    return anyPossibleMove(counts);
+                }
+            }
         }
     }
 
-
-    private List<Chain> findAllChains(final GameState gameState) {
-        int visited = 0;
-        final int newBoard[] = new int[boardSize];
-        final int newCounts[] = new int[5];
-        final List<Chain> chains = new ArrayList<>();
-        System.arraycopy(gameState.board, 0, newBoard, 0, gameState.board.length);
-        System.arraycopy(gameState.counts, 0, newCounts, 0, gameState.counts.length);
+    private List<Chain> findAllDoubleEndedChains(byte[] board, int[] counts) {
+        final List<Chain> chains = new ArrayList<>(5);
         for (int i = 0; i < boardSize; i++) {
-            if ((visited & (1 << i)) == 0 && (gameState.counts[3] & (1 << i)) != 0) {
+            if ((visited & (1 << i)) == 0 && (counts[2] & (1 << i)) != 0) {
+                final int q[] = new int[boardSize];
+                int front = 0, rear = 0;
+                visited |= (1 << i);
+                if ((board[i] & 8) == 0 && i % size != 0 && (visited & (1 << (i - 1))) == 0) {
+                    q[rear++] = i - 1;
+                    visited |= (1 << (i - 1));
+                }
+                if ((board[i] & 1) == 0 && i / size != 0 && (visited & (1 << (i - size))) == 0) {
+                    q[rear++] = i - size;
+                    visited |= (1 << (i - size));
+                }
+                if ((board[i] & 4) == 0 && i / size != boundary && (visited & (1 << (i + size))) == 0) {
+                    q[rear++] = i + size;
+                    visited |= (1 << (i + size));
+                }
+                if ((board[i] & 2) == 0 && i % size != boundary && (visited & (1 << (i + 1))) == 0) {
+                    q[rear++] = i + 1;
+                    visited |= (1 << (i + 1));
+                }
+                while (front < rear) {
+                    int current = q[front++];
+                    if ((counts[2] & (1 << current)) != 0) {
+                        if ((board[current] & 8) == 0 && current % size != 0 && (visited & (1 << (current - 1))) == 0) {
+                            q[rear++] = current - 1;
+                            visited |= (1 << (current - 1));
+                        }
+                        if ((board[current] & 1) == 0 && current / size != 0 && (visited & (1 << (current - size))) == 0) {
+                            q[rear++] = current - size;
+                            visited |= (1 << (current - size));
+                        }
+                        if ((board[current] & 4) == 0 && current / size != boundary && (visited & (1 << (current + size))) == 0) {
+                            q[rear++] = current + size;
+                            visited |= (1 << (current + size));
+                        }
+                        if ((board[current] & 2) == 0 && current % size != boundary && (visited & (1 << (current + 1))) == 0) {
+                            q[rear++] = current + 1;
+                            visited |= (1 << (current + 1));
+                        }
+                    }
+                }
+                chains.add(new Chain(i, true, rear + 1));
+            }
+        }
+        chains.sort((first, second) -> first.size - second.size);
+        return chains;
+    }
+
+    private int anyPossibleMove(int[] counts) {
+        int i;
+        for (i = 0; i < boardSize; i++) {
+            if ((counts[4] & (1 << i)) == 0) {
+                break;
+            }
+        }
+        return i;
+    }
+
+    private int findAnyEmptyBox(byte[] board, int[] counts) {
+        for (int i = 0; i < boardSize; i++) {
+            if ((counts[i] < 2) &&
+                    ((((i % size) != 0) && (counts[i - 1] < 2) && ((board[i] & 8) == 0))
+                            || (((i % size) != boundary) && (counts[i + 1] < 2) && ((board[i] & 2) == 0))
+                            || (((i / size) != boundary) && (counts[i + size] < 2) && ((board[i] & 4) == 0))
+                            || (((i / size) != 0) && (counts[i - size] < 2) && ((board[i] & 1) == 0)))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int findEndOfChain(final byte board[], final int i) {
+        if ((board[i] & 8) == 0) {
+            return i - 1;
+        } else if ((board[i] & 1) == 0) {
+            return i - size;
+        } else if ((board[i] & 4) == 0) {
+            return i + size;
+        } else if ((board[i] & 2) == 0) {
+            return i + 1;
+        }
+        throw new IllegalStateException("Should have an open side");
+    }
+
+
+    private List<Chain> findAllChains(final byte[] board, final int counts[]) {
+        final List<Chain> chains = new ArrayList<>(5);
+        for (int i = 0; i < boardSize; i++) {
+            if ((visited & (1 << i)) == 0 && (counts[3] & (1 << i)) != 0) {
                 boolean open = false;
                 final int q[] = new int[boardSize];
                 int front = 0, rear = 0;
                 visited |= (1 << i);
-                if ((gameState.board[i] & 8) == 0 && i % size != 0 && (visited & (1 << (i - 1))) == 0) {
+                if ((board[i] & 8) == 0 && i % size != 0 && (visited & (1 << (i - 1))) == 0) {
                     q[rear++] = i - 1;
                     visited |= (1 << (i - 1));
-                    newBoard[i - 1] = newBoard[i - 1] | 2;
-                    int bits;
-                    for (bits = 0; bits < 3 && (newCounts[bits] & (1 << (i - 1))) == 0; bits++) ;
-                    newCounts[bits + 1] |= (1 << (i - 1));
-                    newCounts[bits] ^= (1 << (i - 1));
                 }
-                if ((gameState.board[i] & 1) == 0 && i / size != 0 && (visited & (1 << (i - size))) == 0) {
+                if ((board[i] & 1) == 0 && i / size != 0 && (visited & (1 << (i - size))) == 0) {
                     q[rear++] = i - size;
                     visited |= (1 << (i - size));
-                    int bits;
-                    for (bits = 0; bits < 3 && (newCounts[bits] & (1 << (i - size))) == 0; bits++) ;
-                    newCounts[bits + 1] |= (1 << (i - size));
-                    newCounts[bits] ^= (1 << (i - size));
                 }
-                if ((gameState.board[i] & 4) == 0 && i / size != boundary && (visited & (1 << (i + size))) == 0) {
+                if ((board[i] & 4) == 0 && i / size != boundary && (visited & (1 << (i + size))) == 0) {
                     q[rear++] = i + size;
                     visited |= (1 << (i + size));
-                    int bits;
-                    for (bits = 0; bits < 3 && (newCounts[bits] & (1 << (i + size))) == 0; bits++) ;
-                    newCounts[bits + 1] |= (1 << (i + size));
-                    newCounts[bits] ^= (1 << (i + size));
                 }
-                if ((gameState.board[i] & 2) == 0 && i % size != boundary && (visited & (1 << (i + 1))) == 0) {
+                if ((board[i] & 2) == 0 && i % size != boundary && (visited & (1 << (i + 1))) == 0) {
                     q[rear++] = i + 1;
                     visited |= (1 << (i + 1));
-                    int bits;
-                    for (bits = 0; bits < 3 && (newCounts[bits] & (1 << (i + 1))) == 0; bits++) ;
-                    newCounts[bits + 1] |= (1 << (i + 1));
-                    newCounts[bits] ^= (1 << (i + 1));
                 }
-                newBoard[i] = 15;
-                newCounts[4] |= (1 << i);
-                newCounts[3] ^= (1 << i);
                 while (front < rear) {
                     int current = q[front++];
-                    if ((gameState.counts[2] & (1 << current)) != 0) {
+                    if ((counts[2] & (1 << current)) != 0) {
                         int internal = 0;
-                        if ((gameState.board[current] & 8) == 0 && current % size != 0 && (visited & (1 << (current - 1))) == 0) {
+                        if ((board[current] & 8) == 0 && current % size != 0 && (visited & (1 << (current - 1))) == 0) {
                             q[rear++] = current - 1;
                             visited |= (1 << (current - 1));
                             internal++;
                         }
-                        if ((gameState.board[current] & 1) == 0 && current / size != 0 && (visited & (1 << (current - size))) == 0) {
+                        if ((board[current] & 1) == 0 && current / size != 0 && (visited & (1 << (current - size))) == 0) {
                             q[rear++] = current - size;
                             visited |= (1 << (current - size));
                             internal++;
                         }
-                        if ((gameState.board[current] & 4) == 0 && current / size != boundary && (visited & (1 << (current + size))) == 0) {
+                        if ((board[current] & 4) == 0 && current / size != boundary && (visited & (1 << (current + size))) == 0) {
                             q[rear++] = current + size;
                             visited |= (1 << (current + size));
                             internal++;
                         }
-                        if ((gameState.board[current] & 2) == 0 && current % size != boundary && (visited & (1 << (current + 1))) == 0) {
+                        if ((board[current] & 2) == 0 && current % size != boundary && (visited & (1 << (current + 1))) == 0) {
                             q[rear++] = current + 1;
                             visited |= (1 << (current + 1));
                             internal++;
@@ -164,12 +254,9 @@ class Strategy {
                         if (internal == 0) {
                             open = true;
                         }
-                    } else if ((gameState.counts[0] & (1 << current)) != 0 || (gameState.counts[1] & (1 << current)) != 0) {
+                    } else if ((counts[0] & (1 << current)) != 0 || (counts[1] & (1 << current)) != 0) {
                         open = true;
                     }
-                    newBoard[current] = 15;
-                    newCounts[4] |= (1 << current);
-                    newCounts[2] ^= (1 << current);
                 }
                 chains.add(new Chain(i, open, rear + 1));
             }
@@ -188,16 +275,6 @@ class Strategy {
         return chains;
     }
 
-}
-
-class Result {
-    final List<Chain> chains;
-    final GameState gameState;
-
-    Result(List<Chain> chains, GameState gameState) {
-        this.chains = chains;
-        this.gameState = gameState;
-    }
 }
 
 class Chain {
@@ -224,19 +301,5 @@ class Edge {
     @Override
     public String toString() {
         return x + " " + y + " " + side;
-    }
-}
-
-final class GameState {
-    final int board[];
-    final int counts[];
-    final int a;
-    final int b;
-
-    GameState(int[] board, int[] counts, int a, int b) {
-        this.board = board;
-        this.counts = counts;
-        this.a = a;
-        this.b = b;
     }
 }
