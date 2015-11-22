@@ -62,17 +62,26 @@ class InputTaker {
 public class DotsAndDashes {
 
     public static void main(String[] args) throws IOException {
-        final InputTaker br = new InputTaker(System.in);
-        final int field[][] = new int[5][5];
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                field[i][j] = br.readInt();
+        try {
+            final InputTaker br = new InputTaker(System.in);
+            final int field[][] = new int[5][5];
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 5; j++) {
+                    field[i][j] = br.readInt();
+                }
             }
+            int player = br.readInt();
+            Edge result = new Strategy(5, player != 0).input(field);
+            if (result != null) {
+                System.out.println(result.x + " " + result.y + " " + result.side);
+            } else {
+                System.out.println("0 0 0");
+            }
+        } catch (Exception e) {
+            System.out.println("1 1 1");
         }
-        int player = br.readInt();
-        Edge result = new Strategy(5, player != 0).input(field);
-        System.out.println(result.x + " " + result.y + " " + result.side);
     }
+
 }
 
 class Strategy {
@@ -82,15 +91,20 @@ class Strategy {
     private final int boardSize;
     private int visited = 0;
     private final boolean randomize;
-    private final Random random = new Random();
+    private static final Random random = new Random();
+    private final int[] numberOfSides, counts;
+    private final byte board[];
 
     private final List<Integer> order = new ArrayList<Integer>();
 
-    Strategy(int size, boolean randomize) {
+    protected Strategy(int size, boolean randomize) {
         this.size = size;
         this.randomize = randomize;
-        boardSize = size * size;
-        boundary = size - 1;
+        this.boardSize = size * size;
+        this.boundary = size - 1;
+        this.numberOfSides = new int[size * size];
+        this.counts = new int[5];
+        this.board = new byte[boardSize];
     }
 
     public Edge input(int field[][]) {
@@ -100,28 +114,25 @@ class Strategy {
         if (randomize) {
             Collections.shuffle(order);
         }
-        final byte board[] = new byte[boardSize];
-        final int counts[] = new int[size * size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 int current = i * size + j;
                 board[current] = (byte) (field[i][j] & 15);
                 for (int k = 0; k < 4; k++) {
                     if ((field[i][j] & (1 << k)) != 0) {
-                        counts[current]++;
+                        numberOfSides[current]++;
                     }
                 }
             }
         }
-        final int sides[] = new int[5];
         for (int i = 0; i < size * size; i++) {
-            sides[counts[i]] |= 1 << i;
+            counts[numberOfSides[i]] |= 1 << i;
         }
-        return getCaptureBox(board, sides, counts);
+        return getCaptureBox();
     }
 
-    private Edge getCaptureBox(final byte[] board, final int counts[], int[] numberOfSides) {
-        List<Chain> allChains = findAllChains(board, counts);
+    private Edge getCaptureBox() {
+        List<Chain> allChains = findAllChains();
         if (allChains.size() > 1) {
             return getEdge(allChains.get(0).start, allChains.get(0).side);
         } else if (allChains.size() == 1) {
@@ -129,12 +140,12 @@ class Strategy {
                 if (allChains.get(0).size != 2) {
                     return getEdge(allChains.get(0).start, allChains.get(0).side);
                 } else {
-                    if (findAnyEmptyBox(board, numberOfSides) != null) {
+                    if (findAnyEmptyBox() != null) {
                         return getEdge(allChains.get(0).start, allChains.get(0).side);
                     } else {
-                        List<Chain> allDoubleEndedChains = findAllDoubleEndedChains(board, counts);
+                        List<Chain> allDoubleEndedChains = findAllDoubleEndedChains();
                         if (allDoubleEndedChains.size() > 0 && allDoubleEndedChains.get(0).size > 2) {
-                            return findEndOfChain(board, allChains.get(0));
+                            return findEndOfChain(allChains.get(0));
                         } else {
                             return getEdge(allChains.get(0).start, allChains.get(0).side);
                         }
@@ -144,12 +155,12 @@ class Strategy {
                 if (allChains.get(0).size != 4) {
                     return getEdge(allChains.get(0).start, allChains.get(0).side);
                 } else {
-                    if (findAnyEmptyBox(board, numberOfSides) != null) {
+                    if (findAnyEmptyBox() != null) {
                         return getEdge(allChains.get(0).start, allChains.get(0).side);
                     } else {
-                        List<Chain> allDoubleEndedChains = findAllDoubleEndedChains(board, counts);
+                        List<Chain> allDoubleEndedChains = findAllDoubleEndedChains();
                         if (allDoubleEndedChains.size() > 0 && allDoubleEndedChains.get(0).size > 4) {
-                            return findEndOfChain(board, allChains.get(0));
+                            return findEndOfChain(allChains.get(0));
                         } else {
                             return getEdge(allChains.get(0).start, allChains.get(0).side);
                         }
@@ -157,21 +168,21 @@ class Strategy {
                 }
             }
         } else {
-            Edge emptyBox = findAnyEmptyBox(board, numberOfSides);
+            Edge emptyBox = findAnyEmptyBox();
             if (emptyBox != null) {
                 return emptyBox;
             } else {
-                List<Chain> allDoubleEndedChains = findAllDoubleEndedChains(board, counts);
+                List<Chain> allDoubleEndedChains = findAllDoubleEndedChains();
                 if (allDoubleEndedChains.size() > 0) {
                     return getEdge(allDoubleEndedChains.get(0).start, allDoubleEndedChains.get(0).side);
                 } else {
-                    return anyPossibleMove(counts, board);
+                    return anyPossibleMove();
                 }
             }
         }
     }
 
-    private List<Chain> findAllDoubleEndedChains(byte[] board, int[] counts) {
+    private List<Chain> findAllDoubleEndedChains() {
         final List<Chain> chains = new ArrayList<Chain>(5);
         for (int index = 0; index < boardSize; index++) {
             final int i = order.get(index);
@@ -215,10 +226,10 @@ class Strategy {
                             visited |= (1 << (current + 1));
                         }
                     } else if ((counts[0] & (1 << current)) != 0 || (counts[1] & (1 << current)) != 0) {
-                        //excess++;
+                        excess++;
                     }
                 }
-                chains.add(new Chain(i, findSide(i, board), true, rear + 1 - excess));
+                chains.add(new Chain(i, findSide(i), true, rear + 1 - excess));
             }
         }
         Collections.sort(chains, new Comparator<Chain>() {
@@ -238,17 +249,17 @@ class Strategy {
         return chains;
     }
 
-    private Edge anyPossibleMove(int[] counts, byte[] board) {
+    private Edge anyPossibleMove() {
         int i;
         for (i = 0; i < boardSize; i++) {
             if ((counts[4] & (1 << i)) == 0) {
                 break;
             }
         }
-        return getEdge(i, findSide(i, board));
+        return getEdge(i, findSide(i));
     }
 
-    private int findSide(final int position, final byte board[]) {
+    private int findSide(final int position) {
         int bit = -1;
         for (int k = 0; k < 4; k++) {
             if ((board[position] & (1 << k)) == 0) {
@@ -263,14 +274,14 @@ class Strategy {
         }
     }
 
-    private Edge findAnyEmptyBox(byte[] board, int[] counts) {
+    private Edge findAnyEmptyBox() {
         for (int index = 0; index < boardSize; index++) {
             final int position = order.get(index);
-            if ((counts[position] < 2)) {
-                boolean left = (((position % size) == 0) || (counts[position - 1] < 2)) && ((board[position] & 8) == 0);
-                boolean right = (((position % size) == boundary) || (counts[position + 1] < 2)) && ((board[position] & 2) == 0);
-                boolean down = (((position / size) == boundary) || (counts[position + size] < 2)) && ((board[position] & 4) == 0);
-                boolean top = (((position / size) == 0) || (counts[position - size] < 2)) && ((board[position] & 1) == 0);
+            if ((numberOfSides[position] < 2)) {
+                boolean left = (((position % size) == 0) || (numberOfSides[position - 1] < 2)) && ((board[position] & 8) == 0);
+                boolean right = (((position % size) == boundary) || (numberOfSides[position + 1] < 2)) && ((board[position] & 2) == 0);
+                boolean down = (((position / size) == boundary) || (numberOfSides[position + size] < 2)) && ((board[position] & 4) == 0);
+                boolean top = (((position / size) == 0) || (numberOfSides[position - size] < 2)) && ((board[position] & 1) == 0);
                 final Edge[] candidates = new Edge[4];
                 int lines = 0;
                 if (top) {
@@ -297,7 +308,7 @@ class Strategy {
         return null;
     }
 
-    private Edge findEndOfChain(final byte board[], final Chain chain) {
+    private Edge findEndOfChain(final Chain chain) {
         int position;
         if (chain.side == 0) {
             position = chain.start - size;
@@ -325,7 +336,7 @@ class Strategy {
     }
 
 
-    private List<Chain> findAllChains(final byte[] board, final int counts[]) {
+    private List<Chain> findAllChains() {
         final List<Chain> chains = new ArrayList<Chain>(5);
         for (int index = 0; index < boardSize; index++) {
             final int position = order.get(index);
@@ -382,7 +393,7 @@ class Strategy {
                         excess++;
                     }
                 }
-                chains.add(new Chain(position, findSide(position, board), open, rear + 1 - excess));
+                chains.add(new Chain(position, findSide(position), open, rear + 1 - excess));
             }
         }
         Collections.sort(chains, new Comparator<Chain>() {

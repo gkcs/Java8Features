@@ -55,12 +55,12 @@ public class BoxGame {
                 strings[move.x][move.y] = player;
             }
             if (score > 0) {
-                turn = !turn;
                 if (turn) {
                     first = first + score;
                 } else {
                     second = second + score;
                 }
+                turn = !turn;
             }
             printBoard(strings);
             printMove(move);
