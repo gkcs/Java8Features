@@ -1,6 +1,11 @@
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Random;
+import java.util.Comparator;
 
 
 class InputTaker {
@@ -71,7 +76,7 @@ public class DotsAndDashes {
                 }
             }
             int player = br.readInt();
-            Edge result = new Strategy(5, player != 0).input(field);
+            Edge result = new Strategy(5, player == 0).input(field);
             if (result != null) {
                 System.out.println(result.x + " " + result.y + " " + result.side);
             } else {
@@ -319,13 +324,13 @@ class Strategy {
         } else {
             position = chain.start - 1;
         }
-        if ((board[position] & 8) == 0) {
+        if ((board[position] & 8) == 0 && chain.side != 1) {
             return getEdge(position, 3);
-        } else if ((board[position] & 1) == 0) {
+        } else if ((board[position] & 1) == 0 && chain.side != 2) {
             return getEdge(position, 0);
-        } else if ((board[position] & 4) == 0) {
+        } else if ((board[position] & 4) == 0 && chain.side != 0) {
             return getEdge(position, 2);
-        } else if ((board[position] & 2) == 0) {
+        } else if ((board[position] & 2) == 0 && chain.side != 3) {
             return getEdge(position, 1);
         }
         throw new IllegalStateException("Should have an open side");

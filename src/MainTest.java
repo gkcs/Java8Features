@@ -74,6 +74,14 @@ public class MainTest {
     }
 
     @Test
+    public void test11() {
+        final int board[][] = new int[][]{{3, 15, 15, 15, 15}, {12, 5, 3, 15, 15}, {9, 5, 6, 15, 15}, {12, 3, 15, 15, 15}, {15, 12, 3, 13, 3}};
+        final Strategy strategy = new Strategy(board.length, randomize);
+        Edge edge = strategy.input(board);
+        System.out.println(edge.x + " " + edge.y + " " + edge.side);
+    }
+
+    @Test
     public void testStuck() {
         final int board[][] = new int[][]{{15, 9, 5, 6, 15}, {15, 12, 5, 5, 3}, {9, 5, 5, 5, 6}, {12, 5, 5, 5, 3}, {15, 15, 9, 7, 12}};
         final Strategy strategy = new Strategy(board.length, randomize);

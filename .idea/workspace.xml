@@ -8,6 +8,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BoxGame.java" afterPath="$PROJECT_DIR$/src/BoxGame.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DotsAndDashes.java" afterPath="$PROJECT_DIR$/src/DotsAndDashes.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MainTest.java" afterPath="$PROJECT_DIR$/src/MainTest.java" />
     </list>
     <ignored path="Java8Features.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,9 +44,12 @@
       <file leaf-file-name="DotsAndDashes.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DotsAndDashes.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.69736844">
-              <caret line="149" column="34" selection-start-line="149" selection-start-column="34" selection-end-line="149" selection-end-column="34" />
-              <folding />
+            <state vertical-scroll-proportion="0.58900523">
+              <caret line="327" column="40" selection-start-line="327" selection-start-column="40" selection-end-line="327" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2642#2651#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -54,7 +58,7 @@
         <entry file="file://$PROJECT_DIR$/src/BoxGame.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="62" column="29" selection-start-line="62" selection-start-column="29" selection-end-line="62" selection-end-column="29" />
+              <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -68,8 +72,13 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="92" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
               <folding>
-                <element signature="e#8238#8239#0" expanded="true" />
-                <element signature="e#8283#8284#0" expanded="true" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#269#270#0" expanded="false" />
+                <element signature="e#305#306#0" expanded="false" />
+                <element signature="e#1251#1252#0" expanded="false" />
+                <element signature="e#1332#1333#0" expanded="false" />
+                <element signature="e#3251#3252#0" expanded="false" />
+                <element signature="e#3300#3301#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -79,7 +88,7 @@
         <entry file="file://$PROJECT_DIR$/src/MainTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="71" column="70" selection-start-line="71" selection-start-column="70" selection-end-line="71" selection-end-column="70" />
+              <caret line="70" column="13" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -145,8 +154,8 @@
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/Solution.java" />
         <option value="$PROJECT_DIR$/src/MainTest.java" />
-        <option value="$PROJECT_DIR$/src/DotsAndDashes.java" />
         <option value="$PROJECT_DIR$/src/BoxGame.java" />
+        <option value="$PROJECT_DIR$/src/DotsAndDashes.java" />
       </list>
     </option>
   </component>
@@ -357,6 +366,10 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="ToolWindowRun.ShowToolbar" value="false" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="java8features" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -388,27 +401,6 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="Java8Features" />
       <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="MainTest.test7" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="Java8Features" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="MainTest" />
-      <option name="METHOD_NAME" value="test7" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
       <method />
     </configuration>
     <configuration default="false" name="MainTest.test8" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
@@ -461,6 +453,27 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="MainTest" />
       <option name="METHOD_NAME" value="test10" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="MainTest.test11" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="Java8Features" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MainTest" />
+      <option name="METHOD_NAME" value="test11" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -767,18 +780,18 @@
       <item index="0" class="java.lang.String" itemvalue="Application.MainTest" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.MainTest.test1" />
       <item index="2" class="java.lang.String" itemvalue="Application.BoxGame" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.MainTest.test7" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.MainTest.test8" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.MainTest.test9" />
-      <item index="6" class="java.lang.String" itemvalue="JUnit.MainTest.test10" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.MainTest.test8" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.MainTest.test9" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.MainTest.test10" />
+      <item index="6" class="java.lang.String" itemvalue="JUnit.MainTest.test11" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.BoxGame" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.MainTest.test10" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.MainTest.test9" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.MainTest.test8" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.MainTest.test7" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.MainTest.test11" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.MainTest.test10" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.MainTest.test9" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.MainTest.test8" />
       </list>
     </recent_temporary>
   </component>
@@ -792,12 +805,6 @@
       <created>1421399857020</created>
       <option name="number" value="Default" />
       <updated>1421399857020</updated>
-    </task>
-    <task id="LOCAL-00005" summary="*Implemented DP">
-      <created>1442741859464</created>
-      <option name="number" value="00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1442741859464</updated>
     </task>
     <task id="LOCAL-00006" summary="ThreadManager Added">
       <created>1443167858534</created>
@@ -1087,25 +1094,16 @@
       <option name="project" value="LOCAL" />
       <updated>1448135964123</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="*parameter removal">
+      <created>1448165562766</created>
+      <option name="number" value="00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1448165562771</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="MainTest_test10 - 2015.11.21 at 23h 43m 42s.xml">
-      <configuration name="MainTest.test10" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainTest_test10 - 2015.11.21 at 23h 43m 45s.xml">
-      <configuration name="MainTest.test10" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainTest_test10 - 2015.11.21 at 23h 44m 49s.xml">
-      <configuration name="MainTest.test10" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainTest_test10 - 2015.11.21 at 23h 44m 54s.xml">
-      <configuration name="MainTest.test10" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MainTest_test10 - 2015.11.21 at 23h 44m 59s.xml">
-      <configuration name="MainTest.test10" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="MainTest_test10 - 2015.11.21 at 23h 45m 02s.xml">
       <configuration name="MainTest.test10" configurationId="JUnit" />
     </history-entry>
@@ -1120,6 +1118,21 @@
     </history-entry>
     <history-entry file="MainTest_test10 - 2015.11.21 at 23h 45m 14s.xml">
       <configuration name="MainTest.test10" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest_test11 - 2015.11.22 at 09h 44m 51s.xml">
+      <configuration name="MainTest.test11" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest_test11 - 2015.11.22 at 09h 45m 25s.xml">
+      <configuration name="MainTest.test11" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest_test11 - 2015.11.22 at 09h 48m 21s.xml">
+      <configuration name="MainTest.test11" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest_test11 - 2015.11.22 at 09h 51m 32s.xml">
+      <configuration name="MainTest.test11" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MainTest_test11 - 2015.11.22 at 09h 54m 40s.xml">
+      <configuration name="MainTest.test11" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TodoView" selected-index="0">
@@ -1153,15 +1166,15 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3993232" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.484375" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29166666" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28819445" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3275862" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1736672" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.375" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4409722" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1212,7 +1225,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="*Ingredients" />
     <MESSAGE value="*simpleSum" />
     <MESSAGE value="*CHSTAMP" />
     <MESSAGE value="*updated2" />
@@ -1237,28 +1249,35 @@
     <MESSAGE value="*tested" />
     <MESSAGE value="*updated" />
     <MESSAGE value="*final" />
-    <option name="LAST_COMMIT_MESSAGE" value="*final" />
+    <MESSAGE value="*parameter removal" />
+    <option name="LAST_COMMIT_MESSAGE" value="*parameter removal" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/DotsAndDashes.java</url>
-          <line>134</line>
+          <line>139</line>
           <properties />
           <option name="timeStamp" value="113" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/DotsAndDashes.java</url>
-          <line>161</line>
+          <line>166</line>
           <properties />
           <option name="timeStamp" value="117" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/DotsAndDashes.java</url>
+          <line>317</line>
+          <properties />
+          <option name="timeStamp" value="119" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="119" />
+      <option name="time" value="120" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1573,6 +1592,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="149" column="11" selection-start-line="149" selection-start-column="11" selection-end-line="149" selection-end-column="11" />
+          <folding>
+            <element signature="e#6252#6253#0" expanded="true" />
+            <element signature="e#6320#6321#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1587,6 +1610,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="475" column="17" selection-start-line="475" selection-start-column="17" selection-end-line="475" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1594,6 +1618,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="174" column="13" selection-start-line="174" selection-start-column="13" selection-end-line="174" selection-end-column="13" />
+          <folding>
+            <element signature="e#7284#7285#0" expanded="true" />
+            <element signature="e#7312#7313#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1602,17 +1630,14 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="92" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
           <folding>
-            <element signature="e#8238#8239#0" expanded="true" />
-            <element signature="e#8283#8284#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#269#270#0" expanded="false" />
+            <element signature="e#305#306#0" expanded="false" />
+            <element signature="e#1251#1252#0" expanded="false" />
+            <element signature="e#1332#1333#0" expanded="false" />
+            <element signature="e#3251#3252#0" expanded="false" />
+            <element signature="e#3300#3301#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MainTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="71" column="70" selection-start-line="71" selection-start-column="70" selection-end-line="71" selection-end-column="70" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1621,16 +1646,24 @@
         <state vertical-scroll-proportion="0.027272727">
           <caret line="104" column="14" selection-start-line="104" selection-start-column="14" selection-end-line="104" selection-end-column="14" />
           <folding>
-            <element signature="e#3504#3505#0" expanded="true" />
-            <element signature="e#3562#3563#0" expanded="true" />
+            <element signature="e#3504#3505#0" expanded="false" />
+            <element signature="e#3562#3563#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MainTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="70" column="13" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BoxGame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="29" selection-start-line="62" selection-start-column="29" selection-end-line="62" selection-end-column="29" />
+          <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1639,9 +1672,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DotsAndDashes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.69736844">
-          <caret line="149" column="34" selection-start-line="149" selection-start-column="34" selection-end-line="149" selection-end-column="34" />
-          <folding />
+        <state vertical-scroll-proportion="0.58900523">
+          <caret line="327" column="40" selection-start-line="327" selection-start-column="40" selection-end-line="327" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2642#2651#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

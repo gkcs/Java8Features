@@ -22,16 +22,16 @@ public class BoxGame {
             System.out.println("TURN: " + (turn ? A : B));
             Edge move;
             if (turn) {
-                Board board = new Board(field, order);
-                if (!board.findAnyAlmostCompleteSquare() && board.move == null) {
-                    if (!board.findLeastCompletedSquare() && board.move == null) {
-                        board.findRandomSquare();
-                    }
-                }
-                move = board.move;
-                //move = new Strategy(5, false).input(field);
-            } else {
+//                Board board = new Board(field, order);
+//                if (!board.findAnyAlmostCompleteSquare() && board.move == null) {
+//                    if (!board.findLeastCompletedSquare() && board.move == null) {
+//                        board.findRandomSquare();
+//                    }
+//                }
+//                move = board.move;
                 move = new Strategy(5, true).input(field);
+            } else {
+                move = new Strategy(5, false).input(field);
             }
             updatedBoard(field, move);
             field[move.x][move.y] |= (1 << move.side);
