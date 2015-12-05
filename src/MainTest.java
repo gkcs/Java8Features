@@ -75,7 +75,7 @@ public class MainTest {
 
     @Test
     public void test11() {
-        final int board[][] = new int[][]{{3, 15, 15, 15, 15}, {12, 5, 3, 15, 15}, {9, 5, 6, 15, 15}, {12, 3, 15, 15, 15}, {15, 12, 3, 13, 3}};
+        final int board[][] = new int[][]{{15, 15, 15, 15, 15},{15, 15, 15, 15, 15},{15, 15, 15, 15, 15},{15, 15, 15, 15, 15},{15, 13, 3, 15, 15}};
         final Strategy strategy = new Strategy(board.length, randomize);
         Edge edge = strategy.input(board);
         System.out.println(edge.x + " " + edge.y + " " + edge.side);
@@ -86,5 +86,21 @@ public class MainTest {
         final int board[][] = new int[][]{{15, 9, 5, 6, 15}, {15, 12, 5, 5, 3}, {9, 5, 5, 5, 6}, {12, 5, 5, 5, 3}, {15, 15, 9, 7, 12}};
         final Strategy strategy = new Strategy(board.length, randomize);
         System.out.println(strategy.input(board));
+    }
+
+    @Test
+    public void test12() {
+        final int board[][] = new int[][]{{5, 5, 5, 3, 15}, {9, 5, 5, 4, 15}, {6, 15, 15, 15, 11}, {15, 15, 15, 15, 12}, {7, 15, 15, 15, 15}};
+        final Strategy strategy = new Strategy(board.length, randomize);
+        Edge edge = strategy.input(board);
+        System.out.println(edge.x + " " + edge.y + " " + edge.side);
+    }
+
+    @Test
+    public void test13() {
+        final int board[][] = new int[][]{{15, 9, 3, 10, 15}, {9, 6, 12, 6, 11}, {12, 3, 9, 1, 6}, {5, 6, 10, 10, 15}, {15, 15, 12, 6, 15}};
+        final Strategy strategy = new Strategy(board.length, randomize);
+        Edge edge = strategy.input(board);
+        System.out.println(edge.x + " " + edge.y + " " + edge.side);
     }
 }

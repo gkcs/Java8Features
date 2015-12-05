@@ -19,19 +19,45 @@ public class FastThread {
     public static void main(String args[]) throws IOException {
         ExecutorService executorService = Executors.newFixedThreadPool(20);
         for (int i = 0; i < 1; i++) {
-            executorService.submit(new HTTPClient("http://proxy-staging.handler.talk.to/voodoo.com/zeus/1.0/mcSessionInitiate/"));
+            executorService.submit(new HTTPClient("http://localhost:9377?date=2015-11-27&uuid=eba6d836-7784-4e8b-b222-6751251170f4"));
         }
     }
 }
 
 class HTTPClient implements Runnable {
     private final String url;
+    private final boolean useGET = true;
 
     HTTPClient(String url) {
         this.url = url;
     }
 
     public void run() {
+        if (!useGET) {
+            makePostRequest();
+        } else {
+            try {
+                makeGetRequest();
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    private void  makeGetRequest() throws IOException {
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        con.setRequestMethod("GET");
+        con.setConnectTimeout(0);
+        String response = null;
+        if (con.getResponseCode() == 200) {
+            response = getResponseAsString(con);
+        }
+        HttpResponse httpResponse = new HttpResponse(response, con.getResponseCode());
+        System.out.println(new Gson().toJson(httpResponse, HttpResponse.class));
+    }
+
+    private void makePostRequest() {
         try {
             HashMap<String, String> hashMap = new HashMap<>();
             hashMap.put("guid", "");

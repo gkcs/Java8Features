@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class Main {
@@ -9,71 +10,114 @@ public class Main {
         final StringBuilder stringBuilder = new StringBuilder();
         final Solver solver = new Solver();
         for (int tests = br.readInt(); tests > 0; tests--) {
-            final int n = br.readInt(), m = br.readInt();
-            final int[] a = new int[m], b = new int[m];
-            for (int i = 0; i < m; i++) {
+            final int n = br.readInt();
+            int[] a = new int[n], b = new int[n], c = new int[n];
+            for (int i = 0; i < n; i++) {
                 a[i] = br.readInt();
                 b[i] = br.readInt();
+                c[i] = br.readInt();
             }
-            stringBuilder.append(solver.solve(n, a, b)).append('\n');
+            stringBuilder.append(solver.solve(n, a, b, c)).append('\n');
         }
         System.out.println(stringBuilder);
     }
 }
 
 class Solver {
-    private final boolean used[] = new boolean[101];
-    private final boolean adj[][] = new boolean[101][101];
-
-    public int solve(final int n, final int[] a, final int[] b) {
-        int pathCount = 0;
-        int total = 0;
-        for (int i = 0; i < a.length; i++) {
-            adj[a[i]][b[i]] = true;
+    public int solve(int n, int[] a, int[] b, int[] c) {
+        Line[] lines = new Line[n];
+        for (int i = 0; i < lines.length; i++) {
+            final int common = gcd(a[i], b[i]);
+            final int coeff = gcd(common, c[i]);
+            lines[i] = new Line(a[i] / common, b[i] / common, c[i] / coeff, common / coeff);
         }
-        removeTransitivity(n);
-        while (total < n) {
-            total += findLongestPath(n);
-            pathCount++;
+        Arrays.sort(lines);
+        int largest = 1, current = 1;
+        for (int i = 1; i < n; i++) {
+            if (lines[i].hasSameSlope(lines[i - 1])) {
+                if (!lines[i].equals(lines[i - 1])) {
+                    current++;
+                }
+            } else {
+                if (largest < current) {
+                    largest = current;
+                }
+                current = 1;
+            }
         }
-        return pathCount;
+        if (largest < current) {
+            largest = current;
+        }
+        return largest;
     }
 
-    private void removeTransitivity(int n) {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i != j) {
-                    for (int k = 0; k < n; k++) {
-                        if (k != i && k != j && adj[i][j] && adj[j][k] && adj[i][k]) {
-                            adj[i][k] = false;
-                        }
+    private int gcd(int a, int b) {
+        if (a < b) {
+            final int temp = a;
+            a = b;
+            b = temp;
+        }
+        while (b > 0) {
+            final int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a == 0 ? 1 : a;
+    }
+}
+
+class Line implements Comparable<Line> {
+    final int x, y, num, div;
+
+    @Override
+    public String toString() {
+        return "Line{" +
+                "x=" + x +
+                ", y=" + y +
+                ", num=" + num +
+                ", div=" + div +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Line line = (Line) o;
+        return x == line.x && y == line.y && num == line.num && div == line.div;
+
+    }
+
+    Line(int x, int y, int num, int div) {
+        this.x = x;
+        this.y = y;
+
+        this.num = num;
+        this.div = div;
+    }
+
+    @Override
+    public int compareTo(Line other) {
+        if (x != other.x) {
+            return x - other.x;
+        } else {
+            if (y != other.y) {
+                return y - other.y;
+            } else {
+                if (num == other.num && div == other.div) {
+                    return 0;
+                } else {
+                    if (num / (double) div < other.num / (double) other.div) {
+                        return -1;
+                    } else {
+                        return +1;
                     }
                 }
             }
         }
     }
 
-    private int findLongestPath(final int n) {
-        int longestPath[] = new int[]{0};
-        for (int i = 1; i <= n; i++) {
-            if (!used[i]) {
-                final int path[] = getLongestPathFrom(i);
-                if (path[0] > longestPath[0]) {
-                    longestPath = path;
-                }
-            }
-        }
-        for (int i = 1; i < longestPath[0]; i++) {
-            used[longestPath[i]] = true;
-        }
-        return longestPath.length;
+    public boolean hasSameSlope(Line line) {
+        return x == line.x && y == line.y;
     }
-
-    private int[] getLongestPathFrom(final int root) {
-
-        return new int[0];
-    }
-
 }
 
 class InputReader {

@@ -1,23 +1,23 @@
 package work;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 
 public class FileMaker {
 
     public static void main(String args[]) throws IOException, ParseException {
-        final BufferedReader bufferedReader = new BufferedReader(new FileReader("/Users/gaurav.se/Documents/countries"));
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String s = bufferedReader.readLine(); s != null; s = bufferedReader.readLine()) {
+        //final BufferedReader bufferedReader = new BufferedReader(new FileReader("/Users/gaurav.se/Documents/happy.txt"));
+        final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        final StringBuilder stringBuilder = new StringBuilder();
+        for (String s = bufferedReader.readLine(); s != null && !"".equals(s); s = bufferedReader.readLine()) {
             if (s.length() > 0) {
-                String vals[] = s.split("\"");
-                stringBuilder.append("<option value=\"").append(vals[1]).append("\">").append(vals[3]).append("</option>").append('\n');
+                stringBuilder.append("\"").append(s.split(" ")[1]).append("\"").append(',');
             }
         }
-        bufferedReader.close();
         System.out.println(stringBuilder);
+        bufferedReader.close();
     }
 
     public static class Record {

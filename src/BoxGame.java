@@ -31,7 +31,7 @@ public class BoxGame {
 //                move = board.move;
                 move = new Strategy(5, true).input(field);
             } else {
-                move = new Strategy(5, false).input(field);
+                move = new Strategy(5, true).input(field);
             }
             updatedBoard(field, move);
             field[move.x][move.y] |= (1 << move.side);
