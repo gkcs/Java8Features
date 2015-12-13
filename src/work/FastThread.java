@@ -14,22 +14,29 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class FastThread {
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws IOException, InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(20);
-        for (int i = 0; i < 1; i++) {
-            executorService.submit(new HTTPClient("http://localhost:9377?date=2015-11-27&uuid=eba6d836-7784-4e8b-b222-6751251170f4"));
+        long currentTime = System.currentTimeMillis();
+        for (int i = 0; i < 500; i++) {
+            executorService.submit(new HTTPClient("http://localhost:9377?date=2015-11-27&uuid=eba6d836-7784-4e8b-b222-6751251170f4", i));
         }
+        executorService.awaitTermination(10000, TimeUnit.SECONDS);
+        System.out.println(System.currentTimeMillis() - currentTime);
     }
 }
 
 class HTTPClient implements Runnable {
     private final String url;
+    private final int index;
     private final boolean useGET = true;
+    private static long total;
 
-    HTTPClient(String url) {
+    HTTPClient(final String url, final int index) {
         this.url = url;
+        this.index = index;
     }
 
     public void run() {
@@ -44,7 +51,9 @@ class HTTPClient implements Runnable {
         }
     }
 
-    private void  makeGetRequest() throws IOException {
+    private void makeGetRequest() throws IOException {
+
+        long currentTime = System.currentTimeMillis();
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
@@ -54,7 +63,10 @@ class HTTPClient implements Runnable {
             response = getResponseAsString(con);
         }
         HttpResponse httpResponse = new HttpResponse(response, con.getResponseCode());
-        System.out.println(new Gson().toJson(httpResponse, HttpResponse.class));
+        System.out.println(new Gson().toJson(httpResponse, HttpResponse.class) + " " + index);
+        long x = System.currentTimeMillis() - currentTime;
+        total += x;
+        System.out.println(total);
     }
 
     private void makePostRequest() {

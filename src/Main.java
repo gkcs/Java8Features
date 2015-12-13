@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class Main {
@@ -10,119 +9,41 @@ public class Main {
         final StringBuilder stringBuilder = new StringBuilder();
         final Solver solver = new Solver();
         for (int tests = br.readInt(); tests > 0; tests--) {
-            final int n = br.readInt();
-            int[] a = new int[n], b = new int[n], c = new int[n];
-            for (int i = 0; i < n; i++) {
-                a[i] = br.readInt();
-                b[i] = br.readInt();
-                c[i] = br.readInt();
+            final String pixels = br.readString();
+            int photo = 0;
+            for (int i = 0; i < pixels.length(); i++) {
+                if (pixels.charAt(i) == 'w') {
+                    photo |= 1 << i;
+                }
             }
-            stringBuilder.append(solver.solve(n, a, b, c)).append('\n');
+            final int n = br.readInt();
+            final int[] a = new int[n];
+            for (int i = 0; i < n; i++) {
+                final String filter = br.readString();
+                for (int j = 0; j < filter.length(); j++) {
+                    if (filter.charAt(j) == '+') {
+                        a[i] |= 1 << j;
+                    }
+                }
+            }
+            stringBuilder.append(solver.solve(n, a, photo)).append('\n');
         }
         System.out.println(stringBuilder);
     }
 }
 
 class Solver {
-    public int solve(int n, int[] a, int[] b, int[] c) {
-        Line[] lines = new Line[n];
-        for (int i = 0; i < lines.length; i++) {
-            final int common = gcd(a[i], b[i]);
-            final int coeff = gcd(common, c[i]);
-            lines[i] = new Line(a[i] / common, b[i] / common, c[i] / coeff, common / coeff);
+    public int solve(final int n, final int[] a, final int photo) {
+        final int occurences[] = new int[1024];
+        for (int filter : a) {
+            occurences[filter]++;
         }
-        Arrays.sort(lines);
-        int largest = 1, current = 1;
-        for (int i = 1; i < n; i++) {
-            if (lines[i].hasSameSlope(lines[i - 1])) {
-                if (!lines[i].equals(lines[i - 1])) {
-                    current++;
-                }
-            } else {
-                if (largest < current) {
-                    largest = current;
-                }
-                current = 1;
-            }
-        }
-        if (largest < current) {
-            largest = current;
-        }
-        return largest;
-    }
-
-    private int gcd(int a, int b) {
-        if (a < b) {
-            final int temp = a;
-            a = b;
-            b = temp;
-        }
-        while (b > 0) {
-            final int temp = b;
-            b = a % b;
-            a = temp;
-        }
-        return a == 0 ? 1 : a;
-    }
-}
-
-class Line implements Comparable<Line> {
-    final int x, y, num, div;
-
-    @Override
-    public String toString() {
-        return "Line{" +
-                "x=" + x +
-                ", y=" + y +
-                ", num=" + num +
-                ", div=" + div +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        Line line = (Line) o;
-        return x == line.x && y == line.y && num == line.num && div == line.div;
-
-    }
-
-    Line(int x, int y, int num, int div) {
-        this.x = x;
-        this.y = y;
-
-        this.num = num;
-        this.div = div;
-    }
-
-    @Override
-    public int compareTo(Line other) {
-        if (x != other.x) {
-            return x - other.x;
-        } else {
-            if (y != other.y) {
-                return y - other.y;
-            } else {
-                if (num == other.num && div == other.div) {
-                    return 0;
-                } else {
-                    if (num / (double) div < other.num / (double) other.div) {
-                        return -1;
-                    } else {
-                        return +1;
-                    }
-                }
-            }
-        }
-    }
-
-    public boolean hasSameSlope(Line line) {
-        return x == line.x && y == line.y;
     }
 }
 
 class InputReader {
-    private InputStream stream;
-    private byte[] buf = new byte[1024];
+    private final InputStream stream;
+    private final byte[] buf = new byte[1024];
 
     private int curChar;
 
