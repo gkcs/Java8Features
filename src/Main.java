@@ -26,17 +26,63 @@ public class Main {
                     }
                 }
             }
-            stringBuilder.append(solver.solve(n, a, photo)).append('\n');
+            stringBuilder.append(solver.solve(a, photo)).append('\n');
         }
         System.out.println(stringBuilder);
     }
 }
 
 class Solver {
-    public int solve(final int n, final int[] a, final int photo) {
+    private static final int mod = 1000000007;
+
+    public void printArray(int a[]) {
+//        printArray(new int[]{photo});
+//        printArray(a);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append('[');
+        for (final int number : a) {
+            stringBuilder.append(String.format("%10s", Long.toBinaryString(number)).replace(' ', '0')).append(',').append(' ');
+        }
+        stringBuilder.append(']');
+        System.out.println(stringBuilder);
+    }
+
+    public long solve(final int[] a, final int photo) {
         final int occurences[] = new int[1024];
-        for (int filter : a) {
+        for (final int filter : a) {
             occurences[filter]++;
+        }
+        final long subsets[] = new long[1024];
+        for (int i = 0; i < occurences.length; i++) {
+            long power = powMod(occurences[i] - 1);
+            for (int j = 0; j < i; j++) {
+                subsets[i ^ j] = (subsets[i ^ j] * power) % mod;
+                subsets[j] = (subsets[j] * (power - 1)) % mod;
+            }
+            subsets[i] = (subsets[i] + power) % mod;
+            subsets[0] = (subsets[0] + power) % mod;
+        }
+        return subsets[photo];
+    }
+
+    public long powMod(int exp) {
+        if (exp <= 0) {
+            return 1;
+        } else if (exp < 60) {
+            return 1L << exp;
+        } else {
+            final long powers[] = new long[25];
+            long result = 1;
+            powers[0] = 2;
+            for (int i = 1; i < 25; i++) {
+                powers[i] = (powers[i - 1] * powers[i - 1]) % mod;
+            }
+            for (int i = 0; i < 25; i++) {
+                if ((exp & (1 << i)) != 0) {
+                    result = (result * powers[i]) % mod;
+                }
+            }
+            return result;
         }
     }
 }
