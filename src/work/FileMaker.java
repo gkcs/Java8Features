@@ -13,7 +13,8 @@ public class FileMaker {
         final StringBuilder stringBuilder = new StringBuilder();
         for (String s = bufferedReader.readLine(); s != null && !"".equals(s); s = bufferedReader.readLine()) {
             if (s.length() > 0) {
-                stringBuilder.append("\"").append(s.split(" ")[1]).append("\"").append(',');
+                //stringBuilder.append("\"").append(s.split(" ")[1]).append("\"").append(',');
+                stringBuilder.append("(").append('\"').append(s).append('\"').append(',').append('\"').append("admin").append('\"').append(')').append(',');
             }
         }
         System.out.println(stringBuilder);
