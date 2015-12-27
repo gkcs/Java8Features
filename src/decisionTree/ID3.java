@@ -277,16 +277,25 @@ class DecisionTree {
                 }
             }
         }
+        if (minimumEntropy == Integer.MAX_VALUE) {
+            for (String s[] : elements) {
+                System.out.println(Arrays.toString(s));
+            }
+        }
         System.out.println(minimumEntropy + " " + minimumEntropyAttribute + " " + elements.size());
         return minimumEntropyAttribute;
     }
 
     public int classify(final String[] line, final Node node) {
         if (node.branchingAttribute == 0) {
+            double random = Math.random();
+            double sum = Arrays.stream(node.candidates).sum();
             int i = 0;
             for (; i < node.candidates.length; i++) {
-                if (node.candidates[i] > 0) {
+                if (random <= node.candidates[i] / sum) {
                     break;
+                } else {
+                    random -= node.candidates[i] / sum;
                 }
             }
             return i;
@@ -296,14 +305,7 @@ class DecisionTree {
                     return classify(line, node.links[i]);
                 }
             }
-            int max = 0, maxIndex = 1;
-            for (int i = 1; i < node.candidates.length; i++) {
-                if (node.candidates[i] > max) {
-                    max = node.candidates[i];
-                   * maxIndex = i;
-                }
-            }
-            return maxIndex;
+            return classify(line, node.links[0]);
         }
     }
 

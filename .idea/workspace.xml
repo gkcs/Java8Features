@@ -5,20 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f402781-6da9-457a-99c5-8716facadc4c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/decisionTree/CsvConvertor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/decisionTree/DecisionTreeTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/decisionTree/ID3.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/work/StringGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/BruteForceSolver.class" afterPath="$PROJECT_DIR$/target/classes/BruteForceSolver.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="$PROJECT_DIR$/target/classes/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Solver.class" afterPath="$PROJECT_DIR$/target/classes/Solver.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/work/FileMaker$Record.class" afterPath="$PROJECT_DIR$/target/classes/work/FileMaker$Record.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/work/FileMaker.class" afterPath="$PROJECT_DIR$/target/classes/work/FileMaker.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/decisionTree/Titanic.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/support_vector_machine/QuadraticOptimization.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/support_vector_machine/SVM.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BruteForceSolver.java" afterPath="$PROJECT_DIR$/src/BruteForceSolver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MainTest.java" afterPath="$PROJECT_DIR$/src/MainTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/work/FileMaker.java" afterPath="$PROJECT_DIR$/src/work/FileMaker.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/decisionTree/ID3.java" afterPath="$PROJECT_DIR$/src/decisionTree/ID3.java" />
     </list>
     <ignored path="Java8Features.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -51,28 +42,57 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ID3.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/decisionTree/ID3.java">
+      <file leaf-file-name="Titanic.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/decisionTree/Titanic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.747191">
-              <caret line="302" column="19" selection-start-line="302" selection-start-column="19" selection-end-line="302" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="99" column="98" selection-start-line="99" selection-start-column="98" selection-end-line="99" selection-end-column="98" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#inspectData#0;class#DecisionTreeAlgorithm#0" expanded="false" />
-                <element signature="method#findDistinctValuesInData#0;class#DecisionTreeAlgorithm#0" expanded="false" />
-                <element signature="method#solve#0;class#DecisionTreeAlgorithm#0" expanded="false" />
-                <element signature="method#showPositions#0;class#DecisionTreeAlgorithm#0" expanded="false" />
-                <element signature="method#sortAndPrint#0;class#DecisionTreeAlgorithm#0" expanded="false" />
-                <element signature="method#preprocessing#0;class#DecisionTreeAlgorithm#0" expanded="false" />
-                <element signature="e#8209#8210#0" expanded="true" />
-                <element signature="e#8236#8237#0" expanded="true" />
-                <element signature="method#DecisionTree#0;class#DecisionTree#0" expanded="false" />
-                <element signature="method#getFilteredElements#0;class#DecisionTree#0" expanded="false" />
-                <element signature="method#getMappedElements#0;class#DecisionTree#0" expanded="false" />
-                <element signature="method#findAttributeWithMinimumEntropy#0;class#DecisionTree#0" expanded="false" />
-                <element signature="e#14009#14010#0" expanded="true" />
-                <element signature="e#14037#14038#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ID3.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/decisionTree/ID3.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="127.888885">
+              <caret line="47" column="58" selection-start-line="47" selection-start-column="58" selection-end-line="47" selection-end-column="58" />
+              <folding>
+                <element signature="class#ID3#0" expanded="false" />
+                <element signature="method#main#0;class#ID3#0" expanded="false" />
+                <element signature="e#1368#1414#0" expanded="false" />
+                <element signature="method#getFilteredElements#0;class#DecisionTree#0" expanded="false" />
+                <element signature="method#getDistinctAttributeValues#0;class#DecisionTree#0" expanded="false" />
+                <element signature="method#toString#0;class#DecisionTree#0" expanded="false" />
+                <element signature="class#Node#0" expanded="false" />
+                <element signature="method#toString#0;class#Node#0" expanded="false" />
+                <element signature="method#getAsBits#0;class#Node#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QuadraticOptimization.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/support_vector_machine/QuadraticOptimization.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.26881722">
+              <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+              <folding>
+                <element signature="e#1913#1914#0" expanded="true" />
+                <element signature="e#1940#1941#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SVM.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/support_vector_machine/SVM.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -109,8 +129,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/SlowThread.java" />
-        <option value="$PROJECT_DIR$/src/XMLToDB.java" />
         <option value="$PROJECT_DIR$/src/Other.java" />
         <option value="$PROJECT_DIR$/src/TestGen.java" />
         <option value="$PROJECT_DIR$/src/CallAnalyzer.java" />
@@ -158,7 +176,10 @@
         <option value="$PROJECT_DIR$/src/decisionTree/CsvConvertor.java" />
         <option value="$PROJECT_DIR$/src/decisionTree/Line.java" />
         <option value="$PROJECT_DIR$/src/decisionTree/DecisionTreeTest.java" />
+        <option value="$PROJECT_DIR$/src/decisionTree/Titanic.java" />
         <option value="$PROJECT_DIR$/src/decisionTree/ID3.java" />
+        <option value="$PROJECT_DIR$/src/support_vector_machine/SVM.java" />
+        <option value="$PROJECT_DIR$/src/support_vector_machine/QuadraticOptimization.java" />
       </list>
     </option>
   </component>
@@ -306,47 +327,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="support_vector_machine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Java8Features" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Java8Features" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="ml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Java8Features" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Java8Features" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="decisionTree" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ID3.java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Java8Features" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Java8Features" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="decisionTree" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -455,26 +454,6 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="CsvConvertor" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="decisionTree.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="decisionTree.CsvConvertor" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="Java8Features" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="false" name="DecisionTreeTest.findValues" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -525,6 +504,26 @@
       </option>
       <envs />
       <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="Titanic" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="decisionTree.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="decisionTree.Titanic" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="Java8Features" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -821,17 +820,17 @@
       <item index="1" class="java.lang.String" itemvalue="JUnit.MainTest.test1" />
       <item index="2" class="java.lang.String" itemvalue="Application.ID3" />
       <item index="3" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.test" />
-      <item index="4" class="java.lang.String" itemvalue="Application.CsvConvertor" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.findValues" />
-      <item index="6" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.verify" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.findValues" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.verify" />
+      <item index="6" class="java.lang.String" itemvalue="Application.Titanic" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.ID3" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.verify" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.findValues" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.test" />
-        <item index="4" class="java.lang.String" itemvalue="Application.CsvConvertor" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Titanic" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.verify" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.findValues" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.test" />
       </list>
     </recent_temporary>
   </component>
@@ -845,12 +844,6 @@
       <created>1421399857020</created>
       <option name="number" value="Default" />
       <updated>1421399857020</updated>
-    </task>
-    <task id="LOCAL-00010" summary="*renamed add method">
-      <created>1443240196403</created>
-      <option name="number" value="00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1443240196403</updated>
     </task>
     <task id="LOCAL-00011" summary="*renamed queue in taskmanager">
       <created>1443241301780</created>
@@ -1140,7 +1133,13 @@
       <option name="project" value="LOCAL" />
       <updated>1449998417363</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="*ID3 complete">
+      <created>1451042495531</created>
+      <option name="number" value="00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1451042495538</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1201,12 +1200,12 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32931036" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3637931" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3628472" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3993232" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.484375" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33333334" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4670139" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3275862" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22859451" sideWeight="0.4888889" order="0" side_tool="false" content_ui="combo" />
@@ -1265,7 +1264,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="*updated4" />
     <MESSAGE value="*RECRECOV" />
     <MESSAGE value="*update" />
     <MESSAGE value="*BOT challenge" />
@@ -1290,7 +1288,8 @@
     <MESSAGE value="lines" />
     <MESSAGE value="CHEFFILT" />
     <MESSAGE value="*algo written" />
-    <option name="LAST_COMMIT_MESSAGE" value="*algo written" />
+    <MESSAGE value="*ID3 complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="*ID3 complete" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1320,20 +1319,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/CompletableFutureExperiment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2972973">
-          <caret line="12" column="71" selection-start-line="12" selection-start-column="71" selection-end-line="12" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ml/NetworkAnalyzer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ml/LCMFinder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1394,13 +1379,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.026929982">
           <caret line="19" column="18" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/src.zip!/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2979" column="25" selection-start-line="2979" selection-start-column="25" selection-end-line="2979" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -1614,6 +1592,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.6787003">
           <caret line="66" column="6" selection-start-line="66" selection-start-column="6" selection-end-line="66" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1654,8 +1633,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="291" column="25" selection-start-line="291" selection-start-column="25" selection-end-line="291" selection-end-column="25" />
           <folding>
-            <element signature="e#11119#11120#0" expanded="true" />
-            <element signature="e#11200#11201#0" expanded="true" />
+            <element signature="e#11119#11120#0" expanded="false" />
+            <element signature="e#11200#11201#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1665,7 +1644,7 @@
         <state vertical-scroll-proportion="0.54275095">
           <caret line="23" column="38" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1680,26 +1659,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/decisionTree/ID3.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/src.zip!/java/lang/String.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.747191">
-          <caret line="302" column="19" selection-start-line="302" selection-start-column="19" selection-end-line="302" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3057" column="25" selection-start-line="3057" selection-start-column="25" selection-end-line="3057" selection-end-column="25" />
+          <folding>
+            <element signature="e#120530#120531#0" expanded="true" />
+            <element signature="e#120573#120574#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/decisionTree/Titanic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="99" column="98" selection-start-line="99" selection-start-column="98" selection-end-line="99" selection-end-column="98" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#inspectData#0;class#DecisionTreeAlgorithm#0" expanded="false" />
-            <element signature="method#findDistinctValuesInData#0;class#DecisionTreeAlgorithm#0" expanded="false" />
-            <element signature="method#solve#0;class#DecisionTreeAlgorithm#0" expanded="false" />
-            <element signature="method#showPositions#0;class#DecisionTreeAlgorithm#0" expanded="false" />
-            <element signature="method#sortAndPrint#0;class#DecisionTreeAlgorithm#0" expanded="false" />
-            <element signature="method#preprocessing#0;class#DecisionTreeAlgorithm#0" expanded="false" />
-            <element signature="e#8209#8210#0" expanded="true" />
-            <element signature="e#8236#8237#0" expanded="true" />
-            <element signature="method#DecisionTree#0;class#DecisionTree#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/decisionTree/ID3.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="127.888885">
+          <caret line="47" column="58" selection-start-line="47" selection-start-column="58" selection-end-line="47" selection-end-column="58" />
+          <folding>
+            <element signature="class#ID3#0" expanded="false" />
+            <element signature="method#main#0;class#ID3#0" expanded="false" />
+            <element signature="e#1368#1414#0" expanded="false" />
             <element signature="method#getFilteredElements#0;class#DecisionTree#0" expanded="false" />
-            <element signature="method#getMappedElements#0;class#DecisionTree#0" expanded="false" />
-            <element signature="method#findAttributeWithMinimumEntropy#0;class#DecisionTree#0" expanded="false" />
-            <element signature="e#14009#14010#0" expanded="true" />
-            <element signature="e#14037#14038#0" expanded="true" />
+            <element signature="method#getDistinctAttributeValues#0;class#DecisionTree#0" expanded="false" />
+            <element signature="method#toString#0;class#DecisionTree#0" expanded="false" />
+            <element signature="class#Node#0" expanded="false" />
+            <element signature="method#toString#0;class#Node#0" expanded="false" />
+            <element signature="method#getAsBits#0;class#Node#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/support_vector_machine/SVM.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/support_vector_machine/QuadraticOptimization.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.26881722">
+          <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+          <folding>
+            <element signature="e#1913#1914#0" expanded="true" />
+            <element signature="e#1940#1941#0" expanded="true" />
           </folding>
         </state>
       </provider>
