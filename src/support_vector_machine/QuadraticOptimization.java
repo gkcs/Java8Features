@@ -8,12 +8,12 @@ public class QuadraticOptimization {
         for (int i = 0; i < C.length; i++) {
             C[i] = 1;
         }
-        return solve(getD(x, y), y, C, 0, y.length, 1);
+        return solve(getD(x, y), y, C, new double[]{0}, y.length, 1);
     }
 
     //Y is a (m,n) matrix.
 
-    public double[] solve(double[][] D, final double y[][], double c[], int b, int n, int m) {
+    public double[] solve(final double[][] D, final double y[][], final double c[], final double b[], final int n, final int m) {
         final double MATRIX[][] = new double[n + m][(n + m) << 1];
         for (int i = 0; i < n; i++) {
             System.arraycopy(D[i], 0, MATRIX[i], 0, D.length);
@@ -34,10 +34,15 @@ public class QuadraticOptimization {
                 MATRIX[n + i][MATRIX.length - 1 - j] = 1;
             }
         }
-        final double RESULT[] = new double[(D.length + 1) << 1];
+        final double RESULT[] = new double[(n + m) << 1];
         System.arraycopy(c, 0, RESULT, 0, c.length);
-        RESULT[RESULT.length - 1] = b;
-        return simplex.solve(MATRIX, RESULT);
+        System.arraycopy(b, 0, RESULT, n, b.length);
+        final int productConstraints[][] = new int[n][3];
+        for (int i = 0; i < n; i++) {
+            productConstraints[i][0] = i;
+            productConstraints[i][1] = n + m + i;
+        }
+        return simplex.solve(MATRIX, RESULT, productConstraints);
     }
 
     private double[][] getD(final double[] x, final double[][] y) {
@@ -56,7 +61,7 @@ public class QuadraticOptimization {
 
 class Simplex {
 
-    public double[] solve(double[][] matrix, double[] result) {
+    public double[] solve(final double[][] matrix, final double[] result, final int productConstraints[][]) {
         return null;
     }
 }

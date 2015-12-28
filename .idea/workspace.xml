@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f402781-6da9-457a-99c5-8716facadc4c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/decisionTree/Titanic.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/support_vector_machine/QuadraticOptimization.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/support_vector_machine/SVM.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/decisionTree/ID3.java" afterPath="$PROJECT_DIR$/src/decisionTree/ID3.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/support_vector_machine/QuadraticOptimization.java" afterPath="$PROJECT_DIR$/src/support_vector_machine/QuadraticOptimization.java" />
     </list>
     <ignored path="Java8Features.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -77,12 +74,9 @@
       <file leaf-file-name="QuadraticOptimization.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/support_vector_machine/QuadraticOptimization.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26881722">
-              <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
-              <folding>
-                <element signature="e#1913#1914#0" expanded="true" />
-                <element signature="e#1940#1941#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.56989247">
+              <caret line="64" column="20" selection-start-line="64" selection-start-column="20" selection-end-line="64" selection-end-column="20" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -845,12 +839,6 @@
       <option name="number" value="Default" />
       <updated>1421399857020</updated>
     </task>
-    <task id="LOCAL-00011" summary="*renamed queue in taskmanager">
-      <created>1443241301780</created>
-      <option name="number" value="00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1443241301780</updated>
-    </task>
     <task id="LOCAL-00012" summary="*renamed input number&#10;">
       <created>1443242685064</created>
       <option name="number" value="00012" />
@@ -1139,7 +1127,13 @@
       <option name="project" value="LOCAL" />
       <updated>1451042495538</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="simple structure added">
+      <created>1451228409491</created>
+      <option name="number" value="00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1451228409492</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1264,7 +1258,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="*RECRECOV" />
     <MESSAGE value="*update" />
     <MESSAGE value="*BOT challenge" />
     <MESSAGE value="*fix" />
@@ -1289,7 +1282,8 @@
     <MESSAGE value="CHEFFILT" />
     <MESSAGE value="*algo written" />
     <MESSAGE value="*ID3 complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="*ID3 complete" />
+    <MESSAGE value="simple structure added" />
+    <option name="LAST_COMMIT_MESSAGE" value="simple structure added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1708,12 +1702,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/support_vector_machine/QuadraticOptimization.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26881722">
-          <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
-          <folding>
-            <element signature="e#1913#1914#0" expanded="true" />
-            <element signature="e#1940#1941#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.56989247">
+          <caret line="64" column="20" selection-start-line="64" selection-start-column="20" selection-end-line="64" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
