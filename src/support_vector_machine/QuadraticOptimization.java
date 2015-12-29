@@ -5,12 +5,32 @@ import java.util.Arrays;
 public class QuadraticOptimization {
     private Simplex simplex = new Simplex();
 
-    public double[][] solve(final double x[], final double y[][]) {
+    public double[][] solve(final double x[][], final double y[][]) {
         final double[] C = new double[x.length];
         for (int i = 0; i < C.length; i++) {
-            C[i] = 1;
+            C[i] = -1;
         }
         return solve(getD(x, y), y, C, new double[]{0}, y.length, 1);
+    }
+
+    public int[] classify(final double u[][], final double x[][], final double y[], final double classifier[]) {
+        final int result[] = new int[u.length];
+        double[] w = new double[x[0].length];
+        for (int i = 0; i < w.length; i++) {
+            for (double[] row : x) {
+                w[i] += row[i];
+            }
+            w[i] *= classifier[i] * y[i];
+        }
+        double b = 1;
+        for (int i = 0; i < u.length; i++) {
+            if (dotProduct(u[i], w) + b > 0) {
+                result[i] = 1;
+            } else {
+                result[i] = -1;
+            }
+        }
+        return result;
     }
 
     //Y is a (m,n) matrix.
@@ -19,7 +39,8 @@ public class QuadraticOptimization {
         final double MATRIX[][] = new double[n + m][(n + m) << 1];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                MATRIX[i][j] = -D[i][j] * 2;
+                //todo:find if this is correct
+                MATRIX[i][j] = D[i][j];
             }
         }
         for (int i = 0; i < n; i++) {
@@ -35,10 +56,10 @@ public class QuadraticOptimization {
         }
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < m; j++) {
-                MATRIX[n + i][MATRIX.length - 1 - j] = 1;
+                MATRIX[n + i][MATRIX[0].length - 1 - j] = 1;
             }
         }
-        final double RESULT[] = new double[(n + m) << 1];
+        final double RESULT[] = new double[n + m];
         System.arraycopy(c, 0, RESULT, 0, c.length);
         System.arraycopy(b, 0, RESULT, n, b.length);
         final int productConstraints[][] = new int[n][3];
@@ -46,20 +67,30 @@ public class QuadraticOptimization {
             productConstraints[i][0] = i;
             productConstraints[i][1] = n + m + i;
         }
-        return simplex.solve(MATRIX, RESULT, productConstraints, new double[n + m], true);
+        System.out.println("D:");
+        System.out.println(Arrays.deepToString(D));
+        System.out.println("MATRIX:");
+        System.out.println(Arrays.deepToString(MATRIX));
+        return simplex.solve(MATRIX, RESULT, productConstraints, new double[(n + m) << 1], true);
     }
 
-    private double[][] getD(final double[] x, final double[][] y) {
+    private double[][] getD(final double[][] x, final double[][] y) {
         final double D[][] = new double[x.length][x.length];
         for (int i = 0; i < x.length; i++) {
             for (int j = 0; j < i; j++) {
-                D[j][i] = D[i][j] = (x[i] * x[j] * y[0][i] * y[0][j]) / 2;
+                D[j][i] = D[i][j] = (dotProduct(x[i], x[j]) * y[i][0] * y[j][0]) / 2;
             }
-        }
-        for (int i = 0; i < x.length; i++) {
-            D[i][i] = x[i] * x[i] * y[0][i] * y[0][i];
+            D[i][i] = dotProduct(x[i], x[i]) * y[i][0] * y[i][0];
         }
         return D;
+    }
+
+    private double dotProduct(double[] x, double[] y) {
+        double result = 0;
+        for (int i = 0; i < x.length; i++) {
+            result += x[i] * y[i];
+        }
+        return result;
     }
 }
 
@@ -89,6 +120,7 @@ class Simplex {
         //now find Cj-Zj
         System.out.println("COEFFICIENTS:");
         System.out.println(Arrays.toString(coefficients));
+        printArrays(rhs, basis, basisVariable, result, theta);
         while (true) {
             for (int i = 0; i < coefficients.length; i++) {
                 result[i] = coefficients[i];
