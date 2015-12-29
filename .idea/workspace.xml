@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f402781-6da9-457a-99c5-8716facadc4c" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/support_vector_machine/SimplexTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/support_vector_machine/QuadraticOptimization.java" afterPath="$PROJECT_DIR$/src/support_vector_machine/QuadraticOptimization.java" />
     </list>
@@ -74,9 +75,21 @@
       <file leaf-file-name="QuadraticOptimization.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/support_vector_machine/QuadraticOptimization.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.16847827">
-              <caret line="98" column="46" selection-start-line="98" selection-start-column="46" selection-end-line="98" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.6048951">
+              <caret line="79" column="58" selection-start-line="79" selection-start-column="58" selection-end-line="79" selection-end-column="58" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SimplexTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/support_vector_machine/SimplexTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="34" column="57" selection-start-line="34" selection-start-column="57" selection-end-line="34" selection-end-column="57" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -123,7 +136,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Other.java" />
         <option value="$PROJECT_DIR$/src/TestGen.java" />
         <option value="$PROJECT_DIR$/src/CallAnalyzer.java" />
         <option value="$PROJECT_DIR$/src/TestClass.java" />
@@ -173,6 +185,7 @@
         <option value="$PROJECT_DIR$/src/decisionTree/Titanic.java" />
         <option value="$PROJECT_DIR$/src/decisionTree/ID3.java" />
         <option value="$PROJECT_DIR$/src/support_vector_machine/SVM.java" />
+        <option value="$PROJECT_DIR$/src/support_vector_machine/SimplexTest.java" />
         <option value="$PROJECT_DIR$/src/support_vector_machine/QuadraticOptimization.java" />
       </list>
     </option>
@@ -339,6 +352,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="support_vector_machine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="QuadraticOptimization.java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Java8Features" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Java8Features" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="ml" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -401,39 +436,19 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ID3">
-    <configuration default="false" name="ID3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.SimplexTest.test3">
+    <configuration default="false" name="SimplexTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="decisionTree.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="decisionTree.ID3" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="Java8Features" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="DecisionTreeTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="decisionTree.*" />
+          <option name="PATTERN" value="support_vector_machine.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <module name="Java8Features" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="decisionTree" />
-      <option name="MAIN_CLASS_NAME" value="decisionTree.DecisionTreeTest" />
+      <option name="PACKAGE_NAME" value="support_vector_machine" />
+      <option name="MAIN_CLASS_NAME" value="support_vector_machine.SimplexTest" />
       <option name="METHOD_NAME" value="test" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -448,19 +463,45 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="DecisionTreeTest.findValues" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="SimplexTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="decisionTree.*" />
+          <option name="PATTERN" value="support_vector_machine.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <module name="Java8Features" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="decisionTree" />
-      <option name="MAIN_CLASS_NAME" value="decisionTree.DecisionTreeTest" />
-      <option name="METHOD_NAME" value="findValues" />
+      <option name="PACKAGE_NAME" value="support_vector_machine" />
+      <option name="MAIN_CLASS_NAME" value="support_vector_machine.SimplexTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="SimplexTest.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="support_vector_machine.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="Java8Features" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="support_vector_machine" />
+      <option name="MAIN_CLASS_NAME" value="support_vector_machine.SimplexTest" />
+      <option name="METHOD_NAME" value="test1" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -474,19 +515,19 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="DecisionTreeTest.verify" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="SimplexTest.test2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="decisionTree.*" />
+          <option name="PATTERN" value="support_vector_machine.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <module name="Java8Features" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="decisionTree" />
-      <option name="MAIN_CLASS_NAME" value="decisionTree.DecisionTreeTest" />
-      <option name="METHOD_NAME" value="verify" />
+      <option name="PACKAGE_NAME" value="support_vector_machine" />
+      <option name="MAIN_CLASS_NAME" value="support_vector_machine.SimplexTest" />
+      <option name="METHOD_NAME" value="test2" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -500,24 +541,30 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="Titanic" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="SimplexTest.test3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="decisionTree.*" />
+          <option name="PATTERN" value="support_vector_machine.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="decisionTree.Titanic" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <module name="Java8Features" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="PACKAGE_NAME" value="support_vector_machine" />
+      <option name="MAIN_CLASS_NAME" value="support_vector_machine.SimplexTest" />
+      <option name="METHOD_NAME" value="test3" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="Java8Features" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
       <envs />
+      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -812,19 +859,19 @@
     <list size="7">
       <item index="0" class="java.lang.String" itemvalue="Application.MainTest" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.MainTest.test1" />
-      <item index="2" class="java.lang.String" itemvalue="Application.ID3" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.test" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.findValues" />
-      <item index="5" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.verify" />
-      <item index="6" class="java.lang.String" itemvalue="Application.Titanic" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.SimplexTest.test" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.SimplexTest" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.SimplexTest.test1" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.SimplexTest.test2" />
+      <item index="6" class="java.lang.String" itemvalue="JUnit.SimplexTest.test3" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.ID3" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Titanic" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.verify" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.findValues" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.DecisionTreeTest.test" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.SimplexTest.test3" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.SimplexTest.test2" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.SimplexTest.test1" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.SimplexTest" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.SimplexTest.test" />
       </list>
     </recent_temporary>
   </component>
@@ -838,12 +885,6 @@
       <created>1421399857020</created>
       <option name="number" value="Default" />
       <updated>1421399857020</updated>
-    </task>
-    <task id="LOCAL-00013" summary="*method refactored">
-      <created>1443246612637</created>
-      <option name="number" value="00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1443246612637</updated>
     </task>
     <task id="LOCAL-00014" summary="*Ant Colony Optimization">
       <created>1444588005628</created>
@@ -1133,39 +1174,45 @@
       <option name="project" value="LOCAL" />
       <updated>1451274054502</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="*algo for simplex implemented">
+      <created>1451325001511</created>
+      <option name="number" value="00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1451325001511</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="DecisionTreeTest_findValues - 2015.12.25 at 12h 02m 41s.xml">
-      <configuration name="DecisionTreeTest.findValues" configurationId="JUnit" />
+    <history-entry file="SimplexTest_test2 - 2015.12.29 at 09h 52m 52s.xml">
+      <configuration name="SimplexTest.test2" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="DecisionTreeTest_test - 2015.12.24 at 21h 43m 13s.xml">
-      <configuration name="DecisionTreeTest.test" configurationId="JUnit" />
+    <history-entry file="SimplexTest_test2 - 2015.12.29 at 09h 53m 21s.xml">
+      <configuration name="SimplexTest.test2" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="DecisionTreeTest_test - 2015.12.24 at 21h 45m 41s.xml">
-      <configuration name="DecisionTreeTest.test" configurationId="JUnit" />
+    <history-entry file="SimplexTest_test2 - 2015.12.29 at 09h 54m 36s.xml">
+      <configuration name="SimplexTest.test2" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="DecisionTreeTest_test - 2015.12.25 at 11h 18m 29s.xml">
-      <configuration name="DecisionTreeTest.test" configurationId="JUnit" />
+    <history-entry file="SimplexTest_test2 - 2015.12.29 at 09h 55m 33s.xml">
+      <configuration name="SimplexTest.test2" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="DecisionTreeTest_verify - 2015.12.25 at 12h 34m 56s.xml">
-      <configuration name="DecisionTreeTest.verify" configurationId="JUnit" />
+    <history-entry file="SimplexTest_test2 - 2015.12.29 at 09h 55m 51s.xml">
+      <configuration name="SimplexTest.test2" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="DecisionTreeTest_verify - 2015.12.25 at 12h 40m 30s.xml">
-      <configuration name="DecisionTreeTest.verify" configurationId="JUnit" />
+    <history-entry file="SimplexTest_test2 - 2015.12.29 at 09h 59m 20s.xml">
+      <configuration name="SimplexTest.test2" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="DecisionTreeTest_verify - 2015.12.25 at 12h 40m 49s.xml">
-      <configuration name="DecisionTreeTest.verify" configurationId="JUnit" />
+    <history-entry file="SimplexTest_test2 - 2015.12.29 at 09h 59m 36s.xml">
+      <configuration name="SimplexTest.test2" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="DecisionTreeTest_verify - 2015.12.25 at 12h 41m 30s.xml">
-      <configuration name="DecisionTreeTest.verify" configurationId="JUnit" />
+    <history-entry file="SimplexTest_test3 - 2015.12.29 at 10h 08m 31s.xml">
+      <configuration name="SimplexTest.test3" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="DecisionTreeTest_verify - 2015.12.25 at 12h 41m 57s.xml">
-      <configuration name="DecisionTreeTest.verify" configurationId="JUnit" />
+    <history-entry file="SimplexTest_test3 - 2015.12.29 at 10h 10m 27s.xml">
+      <configuration name="SimplexTest.test3" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="DecisionTreeTest_verify - 2015.12.25 at 12h 43m 48s.xml">
-      <configuration name="DecisionTreeTest.verify" configurationId="JUnit" />
+    <history-entry file="SimplexTest_test3 - 2015.12.29 at 10h 11m 21s.xml">
+      <configuration name="SimplexTest.test3" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TodoView" selected-index="0">
@@ -1194,15 +1241,15 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32931036" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3628472" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36206895" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3993232" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.484375" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49630997" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4586207" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3275862" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22859451" sideWeight="0.4888889" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1736672" sideWeight="0.4888889" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1258,7 +1305,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="*BOT challenge" />
     <MESSAGE value="*fix" />
     <MESSAGE value="*bug fixes and performance improvements" />
     <MESSAGE value="*lol" />
@@ -1283,7 +1329,8 @@
     <MESSAGE value="*ID3 complete" />
     <MESSAGE value="simple structure added" />
     <MESSAGE value="*Quadratic optimization structure complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="*Quadratic optimization structure complete" />
+    <MESSAGE value="*algo for simplex implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="*algo for simplex implemented" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1313,20 +1360,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/ml/LCMFinder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="68" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ml/FileFormatter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="97" column="110" selection-start-line="97" selection-start-column="63" selection-end-line="97" selection-end-column="110" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ml/MLTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1700,10 +1733,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/src.zip!/java/lang/Integer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.25">
+          <caret line="56" column="38" selection-start-line="56" selection-start-column="38" selection-end-line="56" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/support_vector_machine/SimplexTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="57" selection-start-line="34" selection-start-column="57" selection-end-line="34" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/support_vector_machine/QuadraticOptimization.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.16847827">
-          <caret line="98" column="46" selection-start-line="98" selection-start-column="46" selection-end-line="98" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.6048951">
+          <caret line="79" column="58" selection-start-line="79" selection-start-column="58" selection-end-line="79" selection-end-column="58" />
           <folding />
         </state>
       </provider>
