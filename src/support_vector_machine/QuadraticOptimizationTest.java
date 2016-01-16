@@ -45,7 +45,7 @@ public class QuadraticOptimizationTest {
 
     @Test
     public void test3() {
-        System.out.println(Arrays.toString(quadraticOptimization.classify(new double[][]{{0, 0}},
+        System.out.println(Arrays.toString(quadraticOptimization.classify(new double[][]{{2, 2}},
                 new double[][]{{1, 0}, {1, 2}},
                 new double[]{1, -1}, new double[]{1, 1})));
     }

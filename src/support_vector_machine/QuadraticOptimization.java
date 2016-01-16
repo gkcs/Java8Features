@@ -8,7 +8,7 @@ public class QuadraticOptimization {
     public double[][] solve(final double x[][], final double y[][]) {
         final double[] C = new double[x.length];
         for (int i = 0; i < C.length; i++) {
-            C[i] = -1;
+            C[i] = 1;
         }
         return solve(getD(x, y), y, C, new double[]{0}, y.length, 1);
     }
@@ -38,10 +38,8 @@ public class QuadraticOptimization {
     public double[][] solve(final double[][] D, final double y[][], final double c[], final double b[], final int n, final int m) {
         final double MATRIX[][] = new double[n + m][(n + m) << 1];
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                //todo:find if this is correct
-                MATRIX[i][j] = D[i][j];
-            }
+            //todo:find if this is correct
+            System.arraycopy(D[i], 0, MATRIX[i], 0, n);
         }
         for (int i = 0; i < n; i++) {
             System.arraycopy(y[i], 0, MATRIX[i], n, m);
