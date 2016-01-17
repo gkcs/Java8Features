@@ -1,21 +1,25 @@
 package hackerEarth;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class RatingBasedPredictor {
     //// TODO: 17/01/16 Set skill level based on profile details
     private final double skill = 0;
+    public static final double alpha = 0.033;
     private final double weightExponent = 2;
-    private final double theta = 0.602;
+    private final double theta = 0.6;
     public final double maxIterationsForOptimization = 50;
-    private final double lambda = 0.77;
+    private final double lambda = 0.7;
 
     public double probabiltyOfSolving(final double firstPlayerRating, final double secondPlayerRating) {
-        return 1 / (1 + Math.expm1(secondPlayerRating - firstPlayerRating - skill));
+        if (secondPlayerRating - firstPlayerRating > 20) {
+            return 0;
+        } else if (secondPlayerRating - firstPlayerRating < -20) {
+            return 1;
+        }
+        return 1 / (1 + Math.pow(2.718, secondPlayerRating - firstPlayerRating - skill));
     }
 
     public double weightOfProblem(final double currentTimestamp, final double factor, final double firstGameTimeStamp, final double lastGameTimeStamp) {
@@ -24,8 +28,8 @@ public class RatingBasedPredictor {
     }
 
     public double getLearningRate(final int currentIteration) {
-        return Math.pow((0.1 * maxIterationsForOptimization)
-                / (currentIteration + 0.1 * maxIterationsForOptimization), theta);
+        return Math.pow((alpha * maxIterationsForOptimization)
+                / (currentIteration + alpha * maxIterationsForOptimization), theta);
     }
 
     public double getLoss(final double weights[],
@@ -50,14 +54,34 @@ public class RatingBasedPredictor {
                                  final int neighbors,
                                  final double rating,
                                  final double neighborRating) {
-        double delta = -getLearningRate(currentIteration)
+//        if (Double.isNaN(currentIteration) || Double.isInfinite(currentIteration)) {
+//            throw new RuntimeException();
+//        }
+//        if (Double.isNaN(weight) || Double.isInfinite(weight)) {
+//            throw new RuntimeException();
+//        }
+//        if (Double.isNaN(prediction) || Double.isInfinite(prediction)) {
+//            throw new RuntimeException();
+//        }
+//        if (Double.isNaN(outcome) || Double.isInfinite(outcome)) {
+//            throw new RuntimeException();
+//        }
+//        if (Double.isNaN(neighbors) || Double.isInfinite(neighbors)) {
+//            throw new RuntimeException();
+//        }
+//        if (Double.isNaN(rating) || Double.isInfinite(rating)) {
+//            throw new RuntimeException();
+//        }
+//        if (Double.isNaN(neighborRating) || Double.isInfinite(neighborRating)) {
+//            throw new RuntimeException();
+//        }
+        //        if (Double.isNaN(delta)) {
+//            throw new RuntimeException();
+//        }
+        return -getLearningRate(currentIteration)
                 * (weight * (prediction - outcome) * prediction
                 * (1 - prediction) +
                 (lambda / neighbors) * (rating - neighborRating));
-        if (delta != 0) {
-            System.out.println(delta);
-        }
-        return delta;
     }
 
 }
@@ -73,7 +97,10 @@ class Predictor {
         bufferedReader.readLine();
         String s = bufferedReader.readLine();
         while (s != null && !s.equals("")) {
-            csv.add(s.split(","));
+            String[] split = s.split(",");
+            split[0] = "U" + split[0];
+            split[1] = "P" + split[1];
+            csv.add(split);
             s = bufferedReader.readLine();
         }
         final double weights[] = getWeights(csv);
@@ -86,36 +113,44 @@ class Predictor {
         for (int i = 0; i < neighbors.length; i++) {
             neighborhood[i] = neighbors[i].length;
         }
-        initialRatings.entrySet().stream()
+        initialRatings.entrySet()
+                .stream()
                 .filter(initialRating -> players.containsKey(initialRating.getKey()))
                 .forEach(initialRating -> ratings[players.get(initialRating.getKey())] = initialRating.getValue());
         final Submission submissions[] = getSubmissions(csv);
+        final double ratingsWithMinimumLoss[] = new double[ratings.length];
+        double minimumLoss = Integer.MAX_VALUE;
         for (int k = 0; k < ratingBasedPredictor.maxIterationsForOptimization; k++) {
             System.out.println("ITERATION: " + k);
             final double[] neighborRating = getNeighborRatings(weights, ratings, neighbors);
-            final double predictions[] = getPredictions(submissions, ratings, players);
+            final double[] predictions = getPredictions(submissions, ratings, players);
             for (int i = 0; i < submissions.length; i++) {
-                ratings[players.get(submissions[i].userId)] +=
+                Integer userID = players.get(submissions[i].userId);
+                Integer problemID = players.get(submissions[i].problemId);
+                ratings[userID] +=
                         ratingBasedPredictor.getRatingDelta(k,
                                 weights[i],
                                 predictions[i],
                                 outcomes[i],
-                                neighborhood[players.get(submissions[i].userId)],
-                                ratings[players.get(submissions[i].userId)],
-                                neighborRating[players.get(submissions[i].userId)]);
-                ratings[players.get(submissions[i].problemId)] += ratingBasedPredictor.getRatingDelta(k,
+                                neighborhood[userID],
+                                ratings[userID],
+                                neighborRating[userID]);
+                ratings[problemID] += ratingBasedPredictor.getRatingDelta(k,
                         -weights[i],
                         predictions[i],
                         outcomes[i],
-                        neighborhood[players.get(submissions[i].problemId)],
-                        ratings[players.get(submissions[i].problemId)],
-                        neighborRating[players.get(submissions[i].problemId)]);
+                        neighborhood[problemID],
+                        ratings[problemID],
+                        neighborRating[problemID]);
             }
-            System.out.println(ratingBasedPredictor.getLoss(weights, outcomes, predictions, ratings, neighborRating));
+            double loss = ratingBasedPredictor.getLoss(weights, outcomes, predictions, ratings, neighborRating);
+            System.out.println(loss);
+            if (loss < minimumLoss) {
+                minimumLoss = loss;
+                System.arraycopy(ratings, 0, ratingsWithMinimumLoss, 0, ratings.length);
+            }
         }
         final double[] predictions = getPredictions(submissions, ratings, players);
-        System.out.println(Arrays.toString(predictions));
-        System.out.println(Arrays.toString(ratings));
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("user_id")
                 .append(',')
@@ -132,22 +167,28 @@ class Predictor {
                     .append(predictions[i])
                     .append('\n');
         }
-        //System.out.println(stringBuilder.toString());
+        PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File("/Users/gaurav.se/Documents/will_bill_solve_it/ratings.csv")));
+        printWriter.println("RESULTS: ");
+        printWriter.println(stringBuilder.toString());
+        printWriter.println("STATS: ");
+        printWriter.println(Arrays.stream(ratings).summaryStatistics());
+        printWriter.println("RATINGS: ");
+        printWriter.println(Arrays.toString(ratings));
+        printWriter.println("PREDICTIONS: ");
+        printWriter.println(Arrays.toString(predictions));
+        printWriter.println("RATINGS WITH MINIMUM LOSS: ");
+        printWriter.println(Arrays.toString(ratingsWithMinimumLoss));
     }
 
     private static double[] getNeighborRatings(final double[] weights, final double[] ratings, final int[][][] neighbors) {
         final double neighborRating[] = new double[neighbors.length];
         for (int i = 0; i < neighbors.length; i++) {
             double neighborTotalWeight = 0;
-            System.out.println(neighbors[i].length);
             for (int j = 0; j < neighbors[i].length; j++) {
                 neighborRating[i] += weights[neighbors[i][j][1]] * ratings[neighbors[i][j][0]];
                 neighborTotalWeight += weights[neighbors[i][j][1]];
             }
             neighborRating[i] /= neighborTotalWeight;
-            if (neighborRating[i] != 0) {
-                throw new RuntimeException("HEHEHEH");
-            }
         }
         return neighborRating;
     }
@@ -187,8 +228,6 @@ class Predictor {
         final HashMap<String, Integer> players = new HashMap<>();
         int count = 0;
         for (String a[] : csv) {
-            a[0] = "U" + a[0];
-            a[1] = "P" + a[1];
             if (!players.containsKey(a[0])) {
                 players.put(a[0], count++);
             }
@@ -249,7 +288,7 @@ class Predictor {
         String s = bufferedReader.readLine();
         while (s != null && !s.equals("")) {
             String[] split = s.split(",");
-            initialRatings.put(split[0], getCorrespondingRating(split[1]));
+            initialRatings.put("P" + split[0], getCorrespondingRating(split[1]));
             s = bufferedReader.readLine();
         }
         return initialRatings;
@@ -258,17 +297,17 @@ class Predictor {
     private static Integer getCorrespondingRating(String s) {
         switch (s) {
             case "E-M":
-                return 300;
+                return 2;
             case "E":
-                return 0;
+                return 1;
             case "M":
-                return 600;
+                return 3;
             case "M-H":
-                return 900;
+                return 4;
             case "H":
-                return 1200;
+                return 5;
             default:
-                return -300;
+                return 0;
         }
     }
 }

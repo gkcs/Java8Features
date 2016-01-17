@@ -82,7 +82,7 @@ class Submission {
 
     public final String userId, problemId;
 
-    Submission(String userId, String problemId) {
+    public Submission(String userId, String problemId) {
         this.userId = userId;
         this.problemId = problemId;
     }
