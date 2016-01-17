@@ -5,15 +5,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class RatingBasedPredictor {
-    //// TODO: 17/01/16 Set skill level based on profile details
-    private final double skill = 0;
     public static final double alpha = 0.033;
     private final double weightExponent = 2;
     private final double theta = 0.6;
     public final double maxIterationsForOptimization = 50;
     private final double lambda = 0.7;
 
-    public double probabiltyOfSolving(final double firstPlayerRating, final double secondPlayerRating) {
+    public double probabiltyOfSolving(final double firstPlayerRating, final double secondPlayerRating, final double skill) {
         if (secondPlayerRating - firstPlayerRating > 20) {
             return 0;
         } else if (secondPlayerRating - firstPlayerRating < -20) {
@@ -103,6 +101,7 @@ class Predictor {
             csv.add(split);
             s = bufferedReader.readLine();
         }
+        System.out.println(csv.size());
         final double weights[] = getWeights(csv);
         final double outcomes[] = getOutcomes(csv);
         final double ratings[] = new double[getRatingSize(csv)];
@@ -151,6 +150,7 @@ class Predictor {
             }
         }
         final double[] predictions = getPredictions(submissions, ratings, players);
+        final double[] error = new double[predictions.length];
         final StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("user_id")
                 .append(',')
@@ -159,25 +159,54 @@ class Predictor {
                 .append("solved_status")
                 .append('\n');
         for (int i = 0; i < predictions.length; i++) {
-            predictions[i] = predictions[i] >= 0.6 ? 1 : 0;
+            error[i] = mod(outcomes[i] - predictions[i]);
             stringBuilder.append(submissions[i].userId)
                     .append(',')
                     .append(submissions[i].problemId)
                     .append(',')
-                    .append(predictions[i])
+                    .append(predictions[i] >= 0.6 ? 1 : 0)
                     .append('\n');
         }
-        PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File("/Users/gaurav.se/Documents/will_bill_solve_it/ratings.csv")));
+        printRatings(players, ratings);
+    }
+
+    private static void printRatings(HashMap<String, Integer> players, double[] ratingsWithMinimumLoss) throws FileNotFoundException {
+        final PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File("/Users/gaurav.se/Documents/will_bill_solve_it/player_ratings_with_min_value.csv")));
+        for (final Map.Entry<String, Integer> entry : players.entrySet()) {
+            printWriter.println(entry.getKey() + "," + ratingsWithMinimumLoss[entry.getValue()]);
+            printWriter.flush();
+        }
+        printWriter.println("AVERAGE" + ',' + Arrays.stream(ratingsWithMinimumLoss).average().getAsDouble());
+        printWriter.close();
+    }
+
+    private static void printWithStatistics(double[] ratings, double[] ratingsWithMinimumLoss, double[] predictions, double[] error, StringBuilder stringBuilder) throws FileNotFoundException {
+        final PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File("/Users/gaurav.se/Documents/will_bill_solve_it/ratings_with_min_value.csv")));
         printWriter.println("RESULTS: ");
         printWriter.println(stringBuilder.toString());
+        printWriter.flush();
         printWriter.println("STATS: ");
         printWriter.println(Arrays.stream(ratings).summaryStatistics());
+        printWriter.flush();
         printWriter.println("RATINGS: ");
         printWriter.println(Arrays.toString(ratings));
+        printWriter.flush();
         printWriter.println("PREDICTIONS: ");
         printWriter.println(Arrays.toString(predictions));
+        printWriter.flush();
         printWriter.println("RATINGS WITH MINIMUM LOSS: ");
         printWriter.println(Arrays.toString(ratingsWithMinimumLoss));
+        printWriter.flush();
+        printWriter.println("ERROR: ");
+        printWriter.println(Arrays.toString(error));
+        printWriter.flush();
+        printWriter.println("ERROR STATS: ");
+        printWriter.println(Arrays.stream(error).summaryStatistics());
+        printWriter.flush();
+    }
+
+    private static double mod(double v) {
+        return v < 0 ? -v : v;
     }
 
     private static double[] getNeighborRatings(final double[] weights, final double[] ratings, final int[][][] neighbors) {
@@ -276,7 +305,8 @@ class Predictor {
                                           final HashMap<String, Integer> playerMap) {
         double predictions[] = new double[submissions.length];
         for (int i = 0; i < submissions.length; i++) {
-            predictions[i] = ratingBasedPredictor.probabiltyOfSolving(ratings[playerMap.get(submissions[i].userId)], ratings[playerMap.get(submissions[i].problemId)]);
+            //// TODO: 17/01/16 Set skill level based on profile details
+            predictions[i] = ratingBasedPredictor.probabiltyOfSolving(ratings[playerMap.get(submissions[i].userId)], ratings[playerMap.get(submissions[i].problemId)], 0);
         }
         return predictions;
     }
@@ -297,17 +327,17 @@ class Predictor {
     private static Integer getCorrespondingRating(String s) {
         switch (s) {
             case "E-M":
-                return 2;
+                return 12;
             case "E":
-                return 1;
+                return 11;
             case "M":
-                return 3;
+                return 13;
             case "M-H":
-                return 4;
+                return 14;
             case "H":
-                return 5;
+                return 15;
             default:
-                return 0;
+                return 10;
         }
     }
 }

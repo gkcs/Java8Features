@@ -38,7 +38,7 @@ public class ContestSolving {
 
     public static void main(String args[]) throws IOException {
         HashSet<String> trainingUsers = findUsers(FOLDER + "train/problems.csv");
-        HashSet<String> testUsers = findUsers(FOLDER + "test/problems.csv");
+        HashSet<String> testUsers = findUsers(FOLDER + "train/submissions.csv");
         System.out.println("TRAINING : " + trainingUsers.size() + " TEST : " + testUsers.size());
         System.out.println(trainingUsers.stream().filter(testUsers::contains).collect(Collectors.toList()).size());
         System.out.println(trainingUsers.stream().collect(Collectors.toList()));
@@ -51,7 +51,7 @@ public class ContestSolving {
         while (line != null && !line.equals("")) {
 //            Submission submission = new Submission(line.split(",")[0], line.split(",")[1]);
 //            System.out.println(submission);
-            data.add(line.split(",")[1]);
+            data.add(line.split(",")[0]);
             line = lines.readLine();
         }
         lines.close();
