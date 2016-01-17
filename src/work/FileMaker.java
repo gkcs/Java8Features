@@ -11,12 +11,15 @@ public class FileMaker {
         //final BufferedReader bufferedReader = new BufferedReader(new FileReader("/Users/gaurav.se/Documents/happy.txt"));
         final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         final StringBuilder stringBuilder = new StringBuilder();
+        int p = 0;
         for (String s = bufferedReader.readLine(); s != null && !"".equals(s); s = bufferedReader.readLine()) {
             if (s.length() > 0) {
-                //stringBuilder.append("\"").append(s.split(" ")[1]).append("\"").append(',');
-                stringBuilder.append("(").append('\"').append(s).append('\"').append(',').append('\"').append("admin").append('\"').append(')').append(',');
+                stringBuilder.append(s.split(" ")[1]).append("\\|");
+                //stringBuilder.append(s.split(" ")[s.split(" ").length - 2]).append(',');
             }
+            p++;
         }
+        System.out.println(p);
         System.out.println(stringBuilder);
         bufferedReader.close();
     }
