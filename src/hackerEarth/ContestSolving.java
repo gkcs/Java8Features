@@ -37,10 +37,11 @@ public class ContestSolving {
     //COMMON PROBLEMS: 757
 
     public static void main(String args[]) throws IOException {
-        HashSet<String> trainingUsers = findUsers(FOLDER + "train/users.csv");
-        HashSet<String> testUsers = findUsers(FOLDER + "test/users.csv");
+        HashSet<String> trainingUsers = findUsers(FOLDER + "train/problems.csv");
+        HashSet<String> testUsers = findUsers(FOLDER + "test/problems.csv");
         System.out.println("TRAINING : " + trainingUsers.size() + " TEST : " + testUsers.size());
         System.out.println(trainingUsers.stream().filter(testUsers::contains).collect(Collectors.toList()).size());
+        System.out.println(trainingUsers.stream().collect(Collectors.toList()));
     }
 
     public static HashSet<String> findUsers(String pathname) throws IOException {
@@ -50,7 +51,7 @@ public class ContestSolving {
         while (line != null && !line.equals("")) {
 //            Submission submission = new Submission(line.split(",")[0], line.split(",")[1]);
 //            System.out.println(submission);
-            data.add(line.split(",")[0]);
+            data.add(line.split(",")[1]);
             line = lines.readLine();
         }
         lines.close();
