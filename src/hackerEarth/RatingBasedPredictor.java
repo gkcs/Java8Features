@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class RatingBasedPredictor {
     public static final double alpha = 0.033;
     private final double weightExponent = 2;
-    private final double theta = 0.6;
+    private final double theta = 0.602;
     public final double maxIterationsForOptimization = 50;
     private final double lambda = 0.7;
 
@@ -164,7 +164,7 @@ class Predictor {
                     .append(',')
                     .append(submissions[i].problemId)
                     .append(',')
-                    .append(predictions[i] >= 0.6 ? 1 : 0)
+                    .append(predictions[i] >= 0.75 ? 1 : 0)
                     .append('\n');
         }
         printRatings(players, ratings);
@@ -295,7 +295,7 @@ class Predictor {
         int length = csv.size();
         double outcomes[] = new double[length];
         for (int i = 0; i < length; i++) {
-            outcomes[i] = csv.get(i)[2].equals("SO") ? (csv.get(i)[3].equals("AC") ? 1 : 0.2) : 0;
+            outcomes[i] = csv.get(i)[2].equals("SO") ? (csv.get(i)[3].equals("AC") ? 1 : 0.5) : 0;
         }
         return outcomes;
     }

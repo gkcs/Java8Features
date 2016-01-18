@@ -52,8 +52,9 @@ public class FormulaBasedScorePredictor {
         final BufferedReader test = new BufferedReader(new FileReader("/Users/gaurav.se/Documents/will_bill_solve_it/test/test.csv"));
         test.readLine();
         s = test.readLine();
-        int count = 0, count1 = 0;
+        int count = 0, count1 = 0, line = 0;
         final StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Id,solved_status\n");
         while (s != null && !s.equals("")) {
             String[] split = s.split(",");
             String user = "U" + split[1];
@@ -65,13 +66,18 @@ public class FormulaBasedScorePredictor {
             if (!notFoundProblem || !notFoundUser) {
                 count++;
             }
-            double probabiltyOfSolving = ratingBasedPredictor.probabiltyOfSolving(firstPlayerRating, secondPlayerRating,0);
-            stringBuilder.append(split[0]).append(',').append(probabiltyOfSolving > 0.6 ? 1 : 0).append('\n');
+            double probabiltyOfSolving = ratingBasedPredictor.probabiltyOfSolving(firstPlayerRating, secondPlayerRating, 0);
+            stringBuilder.append(split[0]).append(',').append(probabiltyOfSolving >= 0.75 ? 1 : 0).append('\n');
             s = test.readLine();
+            line++;
         }
         System.out.println(count + " " + count1);
         PrintWriter printWriter = new PrintWriter("/Users/gaurav.se/Documents/will_bill_solve_it/test_results.csv");
         printWriter.print(stringBuilder.toString());
         printWriter.close();
+    }
+
+    private static double getRating(int line, Double firstPlayerRating) {
+        return (Math.pow((1d + line) / (1d + 35619), 1 / 3.5) * firstPlayerRating - 10) + 10;
     }
 }
