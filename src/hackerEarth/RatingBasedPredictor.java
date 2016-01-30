@@ -4,12 +4,13 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+//lowering lambda to 0.5 helped
 public class RatingBasedPredictor {
-    public static final double alpha = 0.033;
+    public static final double alpha = 0.1;
     private final double weightExponent = 2;
-    private final double theta = 0.602;
-    public final double maxIterationsForOptimization = 50;
-    private final double lambda = 0.7;
+    private final double theta = 0.62;
+    public final double maxIterationsForOptimization = 100;
+    private final double lambda = 0.1;
 
     public double probabiltyOfSolving(final double firstPlayerRating, final double secondPlayerRating, final double skill) {
         if (secondPlayerRating - firstPlayerRating > 20) {
@@ -86,19 +87,32 @@ public class RatingBasedPredictor {
 
 class Predictor {
 
-    private static final double timeSpan = 100;
+    private static final double timeSpan = 50;
     private static final RatingBasedPredictor ratingBasedPredictor = new RatingBasedPredictor();
+    private static final double userGrowth = 1;
+    private static final double problemGrowth = 1;
 
     public static void main(String args[]) throws IOException {
         final List<String[]> csv = new ArrayList<>();
         final BufferedReader bufferedReader = new BufferedReader(new FileReader("/Users/gaurav.se/Documents/will_bill_solve_it/train/submissions.csv"));
         bufferedReader.readLine();
         String s = bufferedReader.readLine();
+        HashMap<Submission, Boolean> lines = new HashMap<>();
         while (s != null && !s.equals("")) {
             String[] split = s.split(",");
             split[0] = "U" + split[0];
             split[1] = "P" + split[1];
-            csv.add(split);
+            Submission submission = new Submission(split[0], split[1]);
+            if (lines.containsKey(submission)) {
+                if (s.contains("SO") && s.contains("AC")) {
+                    if (!lines.get(submission)) {
+                        csv.add(split);
+                    }
+                }
+            } else {
+                csv.add(split);
+            }
+            lines.put(submission, s.contains("SO") && s.contains("AC"));
             s = bufferedReader.readLine();
         }
         System.out.println(csv.size());
@@ -127,20 +141,20 @@ class Predictor {
                 Integer userID = players.get(submissions[i].userId);
                 Integer problemID = players.get(submissions[i].problemId);
                 ratings[userID] +=
-                        ratingBasedPredictor.getRatingDelta(k,
+                        userGrowth * ratingBasedPredictor.getRatingDelta(k,
                                 weights[i],
                                 predictions[i],
                                 outcomes[i],
                                 neighborhood[userID],
                                 ratings[userID],
-                                neighborRating[userID]);
-                ratings[problemID] += ratingBasedPredictor.getRatingDelta(k,
+                                neighborRating[userID]) * getExperience(i, neighbors[userID][0][1]) * getForm(i, neighbors[userID][0][1]);
+                ratings[problemID] += problemGrowth * ratingBasedPredictor.getRatingDelta(k,
                         -weights[i],
                         predictions[i],
                         outcomes[i],
                         neighborhood[problemID],
                         ratings[problemID],
-                        neighborRating[problemID]);
+                        neighborRating[problemID]);//* getNewness(i, neighbors[problemID][0][1]);
             }
             double loss = ratingBasedPredictor.getLoss(weights, outcomes, predictions, ratings, neighborRating);
             System.out.println(loss);
@@ -164,14 +178,27 @@ class Predictor {
                     .append(',')
                     .append(submissions[i].problemId)
                     .append(',')
-                    .append(predictions[i] >= 0.75 ? 1 : 0)
+                    .append(predictions[i] >= 0.5 ? 1 : 0)
                     .append('\n');
         }
-        printRatings(players, ratings);
+        printRatings(players, ratingsWithMinimumLoss, "_with_min_value");
+        printRatings(players, ratings, "");
     }
 
-    private static void printRatings(HashMap<String, Integer> players, double[] ratingsWithMinimumLoss) throws FileNotFoundException {
-        final PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File("/Users/gaurav.se/Documents/will_bill_solve_it/player_ratings_with_min_value.csv")));
+    private static double getForm(int i, int i1) {
+        return 1;
+    }
+
+    private static double getExperience(int current, Integer first) {
+        return 1;
+    }
+
+    private static double getNewness(int current, double first) {
+        return Math.pow(2, 1 / (current - first + 1));
+    }
+
+    private static void printRatings(HashMap<String, Integer> players, double[] ratingsWithMinimumLoss, String fileExtension) throws FileNotFoundException {
+        final PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File("/Users/gaurav.se/Documents/will_bill_solve_it/player_ratings" + fileExtension + ".csv")));
         for (final Map.Entry<String, Integer> entry : players.entrySet()) {
             printWriter.println(entry.getKey() + "," + ratingsWithMinimumLoss[entry.getValue()]);
             printWriter.flush();
@@ -222,6 +249,8 @@ class Predictor {
         return neighborRating;
     }
 
+    //reducing the number of neighbors gave a shot up score
+
     private static int[][][] getNeighbors(final HashMap<String, Integer> players, final List<String[]> csv) {
         final HashMap<Integer, List<Integer>> neighbors = new HashMap<>();
         final HashMap<Integer, List<Integer>> neighborDates = new HashMap<>();
@@ -240,14 +269,25 @@ class Predictor {
             neighbors.get(players.get(line[1])).add(players.get(line[0]));
             neighborDates.get(players.get(line[1])).add(i);
         }
+        final boolean isProblem[] = new boolean[neighbors.size()];
+        players.entrySet()
+                .stream()
+                .filter(entry -> entry.getKey().contains("P"))
+                .forEach(entry -> isProblem[entry.getValue()] = true);
         final int neighborhood[][][] = new int[neighbors.size()][][];
         for (int i = 0; i < neighborhood.length; i++) {
-            neighborhood[i] = new int[neighbors.get(i).size()][2];
+            int start = 0, end = neighbors.get(i).size();
+            if (isProblem[i]) {
+                //end = (int) Math.ceil(end * 0.9);
+            } else {
+                //start = (int) Math.floor(end * 0.1);
+            }
+            neighborhood[i] = new int[end - start][2];
             final Integer[] nn = neighbors.get(i).toArray(new Integer[neighborhood[i].length]);
             final Integer[] dd = neighborDates.get(i).toArray(new Integer[neighborhood[i].length]);
             for (int j = 0; j < neighborhood[i].length; j++) {
-                neighborhood[i][j][0] = nn[j];
-                neighborhood[i][j][1] = dd[j];
+                neighborhood[i][j][0] = nn[j + start];
+                neighborhood[i][j][1] = dd[j + start];
             }
         }
         return neighborhood;
@@ -295,7 +335,7 @@ class Predictor {
         int length = csv.size();
         double outcomes[] = new double[length];
         for (int i = 0; i < length; i++) {
-            outcomes[i] = csv.get(i)[2].equals("SO") ? (csv.get(i)[3].equals("AC") ? 1 : 0.5) : 0;
+            outcomes[i] = csv.get(i)[2].equals("SO") ? (csv.get(i)[3].equals("AC") ? 1 : 0) : 0;
         }
         return outcomes;
     }

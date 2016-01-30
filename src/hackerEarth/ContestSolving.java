@@ -3,22 +3,21 @@ package hackerEarth;
 import java.io.*;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.stream.Collectors;
 
 public class ContestSolving {
     private static final String FOLDER = "/Users/gaurav.se/Documents/will_bill_solve_it/";
-    private static final String PATH = FOLDER + "train/";
+    private static final String PATH = FOLDER + "test/";
 
     public static void formatFile() throws IOException {
         final HashMap<String, String> userData = getData(PATH + "users.csv");
         final HashMap<String, String> problemData = getData(PATH + "problems.csv");
-        final BufferedReader submissions = new BufferedReader(new FileReader(new File(PATH + "submissions.csv")));
+        final BufferedReader submissions = new BufferedReader(new FileReader(new File(PATH + "test.csv")));
         String submission = submissions.readLine();
         final StringBuilder stringBuilder = new StringBuilder();
         while (submission != null) {
             String split[] = submission.split(",");
-            stringBuilder.append(userData.get(split[0])).append(',').append(problemData.get(split[1])).append(',');
-            for (int i = 2; i < split.length; i++) {
+            stringBuilder.append(split[0]).append(',').append(userData.get(split[1])).append(',').append(problemData.get(split[2])).append(',');
+            for (int i = 3; i < split.length; i++) {
                 stringBuilder.append(split[i]).append(',');
             }
             stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length()).append('\n');
@@ -37,11 +36,12 @@ public class ContestSolving {
     //COMMON PROBLEMS: 757
 
     public static void main(String args[]) throws IOException {
-        HashSet<String> trainingUsers = findUsers(FOLDER + "train/problems.csv");
-        HashSet<String> testUsers = findUsers(FOLDER + "train/submissions.csv");
-        System.out.println("TRAINING : " + trainingUsers.size() + " TEST : " + testUsers.size());
-        System.out.println(trainingUsers.stream().filter(testUsers::contains).collect(Collectors.toList()).size());
-        System.out.println(trainingUsers.stream().collect(Collectors.toList()));
+//        HashSet<String> trainingUsers = findUsers(FOLDER + "train/problems.csv");
+//        HashSet<String> testUsers = findUsers(FOLDER + "train/submissions.csv");
+//        System.out.println("TRAINING : " + trainingUsers.size() + " TEST : " + testUsers.size());
+//        System.out.println(trainingUsers.stream().filter(testUsers::contains).collect(Collectors.toList()).size());
+//        System.out.println(trainingUsers.stream().collect(Collectors.toList()));
+        formatFile();
     }
 
     public static HashSet<String> findUsers(String pathname) throws IOException {
@@ -63,7 +63,7 @@ public class ContestSolving {
         final BufferedReader lines = new BufferedReader(new FileReader(new File(pathname)));
         String line = lines.readLine();
         while (line != null && !line.equals("")) {
-            data.put(line.split(",")[0], line.split(",")[1]);
+            data.put(line.split(",")[0], line);
             line = lines.readLine();
         }
         lines.close();

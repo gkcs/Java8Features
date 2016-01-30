@@ -1,9 +1,11 @@
 package work;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
+import java.util.HashSet;
 
 public class FileMaker {
 
@@ -12,12 +14,41 @@ public class FileMaker {
         final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         final StringBuilder stringBuilder = new StringBuilder();
         int p = 0;
+        final HashSet<String> callIds = new HashSet<>();
+        {
+            final BufferedReader first = new BufferedReader(new FileReader("callIds-101.txt"));
+            String s1 = first.readLine();
+            while (s1 != null && !s1.equals("")) {
+                callIds.add(s1);
+                s1 = first.readLine();
+            }
+        }
+        {
+            final BufferedReader first = new BufferedReader(new FileReader("callIds-102.txt"));
+            String s1 = first.readLine();
+            while (s1 != null && !s1.equals("")) {
+                callIds.add(s1);
+                s1 = first.readLine();
+            }
+        }
+        {
+            final BufferedReader first = new BufferedReader(new FileReader("callIds-103.txt"));
+            String s1 = first.readLine();
+            while (s1 != null && !s1.equals("")) {
+                callIds.add(s1);
+                s1 = first.readLine();
+            }
+        }
         for (String s = bufferedReader.readLine(); s != null && !"".equals(s); s = bufferedReader.readLine()) {
             if (s.length() > 0) {
-                stringBuilder.append(s.split(" ")[1]).append("\\|");
+                String callId = s.split(" ")[1];
+                stringBuilder.append(callId).append("\\|");
+                if (callIds.contains(callId)) {
+                    System.out.println(callId);
+                    p++;
+                }
                 //stringBuilder.append(s.split(" ")[s.split(" ").length - 2]).append(',');
             }
-            p++;
         }
         System.out.println(p);
         System.out.println(stringBuilder);
